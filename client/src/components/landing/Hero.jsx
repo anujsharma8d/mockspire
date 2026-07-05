@@ -30,7 +30,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section className="relative overflow-hidden flex justify-center py-42 xl:py-0 lg:px-20 lg:block">
+        <section className="relative min-h-screen overflow-hidden">
             <img
                 src={herobg}
                 alt=""
@@ -59,7 +59,7 @@ const Hero = () => {
                 via-black/80
                 to-transparent"
             />
-            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="relative z-10 flex min-h-screen items-center justify-between gap-10 flex-col lg:flex-row  px-6 lg:px-20 py-42 lg:py-0">
 
                 <div className='relative z-10 flex flex-col gap-5 text-center lg:text-start'>
                     <h1 className='text-7xl md:text-8xl flex flex-col justify-center text-white uppercase font-bold font-science '>
@@ -96,7 +96,7 @@ const Hero = () => {
                         animate={{ y: 0, opacity: 1 }}
                         transition={{
                             delay: 6.5,
-                            dutation: 0.6
+                            duration: 0.6
                         }}
                         className="flex items-center gap-8 justify-center lg:justify-start"
                     >

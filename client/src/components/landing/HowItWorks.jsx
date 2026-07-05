@@ -2,9 +2,9 @@ import React from 'react'
 
 const HowItWorks = () => {
   return (
-    <div className='min-h-screen'>
+    <section className='min-h-screen'>
       How It Works
-    </div>
+    </section>
   )
 }
 
