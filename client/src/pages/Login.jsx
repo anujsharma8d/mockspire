@@ -1,18 +1,33 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link,useNavigate } from 'react-router-dom'
+import api from '../api/axios'
 
 const Login = () => {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
       e.preventDefault();
-      console.log(email)
-      console.log(password)
-      setEmail("");
-      setPassword("");
+      try{
+        const res = await api.post(`/api/auth/login`,
+          {
+            email,
+            password
+          }
+        );
+        alert(res.data.message)
+
+        setEmail("");
+        setPassword("");
+
+        navigate("/dashboard");
+
+
+      } catch(err){
+        alert(err.response?.data?.message || "Something went wrong");
+      }
     }
 
   return (
@@ -49,7 +64,7 @@ const Login = () => {
             />
           </div>
 
-          <button value='submit' className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition">
+          <button type='submit' className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-neutral-200 transition">
             Login
           </button>
         </form>

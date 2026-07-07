@@ -1,21 +1,36 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import api from '../api/axios'
 
 
 const Signup = () => {
 
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
-    console.log(name)
-    console.log(email)
-    console.log(password)
-    setName("");
-    setEmail("");
-    setPassword("");
+    try{
+      const res = await api.post("/api/auth/signup", 
+        {
+          name,
+          email,
+          password
+        }
+      );
+
+      alert(res.data.message);
+      setName("");
+      setEmail("");
+      setPassword("");
+
+      navigate("/login")
+
+    } catch(err){
+      alert(err.response?.data?.message || "Somthing went wrong")
+    }
   }
 
 
