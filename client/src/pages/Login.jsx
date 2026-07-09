@@ -17,6 +17,9 @@ const Login = () => {
             password
           }
         );
+
+        localStorage.setItem("token",res.data.token);
+
         alert(res.data.message)
 
         setEmail("");

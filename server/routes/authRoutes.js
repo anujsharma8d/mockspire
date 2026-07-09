@@ -1,6 +1,8 @@
 const router = require("express").Router();
-const User = require("./User")
+const User = require("../User")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const auth = require("../middleware/auth")
 
 router.post("/signup", async(req,res)=>{
     try{
@@ -57,12 +59,48 @@ router.post("/login", async(req,res)=>{
             });
         }
 
+        const token = jwt.sign(
+            {id:user._id},
+            process.env.JWT_SECRET,
+            {expiresIn: "7d"}
+        )
+
         res.status(200).json({
+            success:true,
+            token,
             message: "Login successful"
         })
     } catch(err){
         res.status(500).json({
             message: err.message
+        });
+    }
+})
+
+router.get("/dashboard", auth, async(req,res)=>{
+    try{
+        const user = await User.findById(req.user.id).select("-password");
+
+        res.status(200).json({
+            success: true,
+            user
+        })
+    }catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
+        });
+    }
+})
+router.get("/interview", auth, async(req,res)=>{
+    try{
+        res.status(200).json({
+            success: true,
+        })
+    }catch(err){
+        res.status(500).json({
+            success:false,
+            message:err.message
         });
     }
 })

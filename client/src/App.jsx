@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Interview from './pages/Interview'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
 
@@ -12,8 +13,16 @@ function App() {
     <>
       <Routes> 
         <Route path='/' element={<Home/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/interview' element={<Interview/>}/>
+        <Route path='/dashboard' element={
+          <ProtectedRoutes>
+          <Dashboard/>
+          </ProtectedRoutes>
+          }/>
+        <Route path='/interview' element={
+          <ProtectedRoutes>
+            <Interview/>
+          </ProtectedRoutes>
+          }/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
       </Routes>
