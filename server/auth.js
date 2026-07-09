@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("./User")
+const bcrypt = require("bcrypt")
 
 router.post("/signup", async(req,res)=>{
     try{
@@ -13,10 +14,14 @@ router.post("/signup", async(req,res)=>{
             });
         }
 
+        const saltRounds = 10;
+
+        const hashedPassword = await bcrypt.hash(password,saltRounds);
+
         const user = new User({
             name,
             email,
-            password
+            password:hashedPassword
         });
 
         await user.save();
@@ -44,7 +49,9 @@ router.post("/login", async(req,res)=>{
             });
         }
 
-        if(user.password !== password){
+        const isMatch = await bcrypt.compare(password,user.password);
+
+        if(!isMatch){
             return res.status(400).json({
                 message:"Incorrect Password"
             });
