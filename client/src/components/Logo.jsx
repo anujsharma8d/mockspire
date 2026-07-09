@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from "../assets/roundzero-logo.svg";
+import logo from "../assets/logo.svg";
 
 const Logo = () => {
   return (
@@ -7,9 +7,8 @@ const Logo = () => {
       <img
         src={logo}
         alt='RoundZero'
-        className='h-12 w-12'
+        className='w-5'
         />
-        <span className='font-science text-white'>ROUND ZERO</span>
     </div>
   )
 }
