@@ -6,6 +6,7 @@ import Interview from './pages/Interview'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ProtectedRoutes from './components/ProtectedRoutes'
+import Result from './pages/Result'
 
 function App() {
 
@@ -21,6 +22,11 @@ function App() {
         <Route path='/interview' element={
           <ProtectedRoutes>
             <Interview/>
+          </ProtectedRoutes>
+          }/>
+        <Route path='/results/:interviewId' element={
+          <ProtectedRoutes>
+            <Result/>
           </ProtectedRoutes>
           }/>
         <Route path='/login' element={<Login/>}/>

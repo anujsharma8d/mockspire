@@ -1,9 +1,12 @@
 import api from "./axios";
 
-const saveAnswer = (answers)=>{
+const saveAnswer = ({ interviewId, answers })=>{
     const token = localStorage.getItem("token");
 
-    return api.post("/api/answers",{answers},{
+    return api.post("/api/answers",{
+        interviewId,
+        answers
+    },{
         headers: { 
             Authorization: `Bearer ${token}`
           }});
