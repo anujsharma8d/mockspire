@@ -2,10 +2,11 @@ const Answer = require("../models/Answer")
 
 const saveAnswer = async(req,res)=>{
     try{
-        const {answers} = req.body
+        const {interviewId,answers} = req.body
 
         const answerDocs = answers.map((item)=>({
             user:req.user.id,
+            interviewId,
             questionId:item.questionId,
             answer:item.answer
         }))

@@ -6,6 +6,11 @@ const AnswerSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    interviewId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"InterviewSession",
+        required:true
+    },
     questionId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "InterviewQuestion",
