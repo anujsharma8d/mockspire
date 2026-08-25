@@ -1,8 +1,10 @@
 import React,{ useState, useEffect } from 'react'
 import api from '../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const Dashboard = () => {
+  const navigate = useNavigate()
   
   const [user, setUser] = useState(null);
 
@@ -34,7 +36,12 @@ const Dashboard = () => {
 
   return (
     <div>
-      Dashboard
+      <div>
+        Dashboard
+      </div>
+      <div>
+        <button className='border p-1' onClick={()=>navigate("/setup")}>Start Interview</button>
+      </div>
     </div>
   )
 }

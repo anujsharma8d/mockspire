@@ -1,6 +1,11 @@
 const mongoose = require("mongoose")
 
 const InterviewQuestionSchema = new mongoose.Schema({
+    interviewId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "InterviewSession",
+            required: true,
+    },
     category:{
         type: String,
         required: true,

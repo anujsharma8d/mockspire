@@ -1,13 +1,23 @@
 import api from "./axios";
 
-const getQuestions = () => {
+const getQuestions = (sessionId) => {
     const token = localStorage.getItem("token");
 
-    return api.get("/api/questions", {
+    return api.get(`/api/interview/${sessionId}/questions`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
 };
 
-export default getQuestions;
+const startInterview = (setup)=>{
+    const token = localStorage.getItem("token");
+
+    return api.post("/api/interview/start", setup, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+}
+
+export default {getQuestions,startInterview};

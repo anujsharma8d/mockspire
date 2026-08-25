@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json())
 
 app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/questions", interviewRoutes)
+app.use("/api/interview", interviewRoutes)
 app.use("/api/answers", answerRoutes)
 app.use("/api/results", resultRoutes)
 

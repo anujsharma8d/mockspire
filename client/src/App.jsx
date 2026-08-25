@@ -2,6 +2,7 @@ import './App.css'
 import { Route,Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
+import Setup from './pages/Setup'
 import Interview from './pages/Interview'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -19,7 +20,12 @@ function App() {
           <Dashboard/>
           </ProtectedRoutes>
           }/>
-        <Route path='/interview' element={
+        <Route path='/setup' element={
+          <ProtectedRoutes>
+          <Setup/>
+          </ProtectedRoutes>
+          }/>
+        <Route path='/interview/:sessionId' element={
           <ProtectedRoutes>
             <Interview/>
           </ProtectedRoutes>

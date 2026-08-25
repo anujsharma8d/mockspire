@@ -1,32 +1,34 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import getQuestions from '../api/interviewapi'
+import interviewApi from '../api/interviewapi'
 import saveAnswer from "../api/answerapi"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useParams } from 'react-router-dom'
 import { generateResult } from '../api/resultapi'
 
 
 const Interview = () => {
 
   const navigate = useNavigate();
+  const { sessionId } = useParams();
 
   const [questions, setQuestions] = useState([]);
   const [currIndex, setCurrIndex] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [answers, setAnswers] = useState({})
-  const [interviewId, setInterviewId] = useState("");
 
   useEffect(() => {
-    fetchQuestion();
-  }, [])
+    if(sessionId){
+      fetchQuestion();
+    }
+  }, [sessionId])
 
   const fetchQuestion = async () => {
 
     try {
-      const res = await getQuestions();
+      const res = await interviewApi.getQuestions(sessionId);
 
       setQuestions(res.data.questions)
-      setInterviewId(res.data.interviewId)
+
 
     } catch (err) {
       console.log(err);
@@ -71,19 +73,19 @@ const Interview = () => {
       )
 
       const res = await saveAnswer({
-        interviewId,
+        interviewId: sessionId,
         answers:formattedAnswers
       });
 
       await generateResult({
-        interviewId
+        interviewId: sessionId
       })
 
 
       alert(res.data.message)
       console.log(res.data.newAnswers)
 
-      navigate(`/results/${interviewId}`)
+      navigate(`/results/${sessionId}`)
 
     } catch(err){
       console.log(err)

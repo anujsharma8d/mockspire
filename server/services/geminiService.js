@@ -10,11 +10,10 @@ const generateInterviewFeedback = async (prompt) => {
         console.log("Sending request to Gemini...");
 
         const response = await ai.models.generateContent({
-            model: "gemini-flash-latest",
+            model: "gemini-3.6-flash",
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
-                temperature: 0.3
             }
         });
 
@@ -29,4 +28,26 @@ const generateInterviewFeedback = async (prompt) => {
     }
 };
 
-module.exports = {generateInterviewFeedback}
+const generateInterviewQuestions = async(prompt)=>{
+    try{
+        console.log("Calling gemini for interview questions...")
+
+        const response = await ai.models.generateContent({
+            model: "gemini-3.6-flash",
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+            }
+
+        })
+        console.log("Gemini questions response received");
+        console.log(response);
+        return JSON.parse(response.text);
+    } catch(err){
+        console.error("Gemini Question Error: ",err)
+        throw err
+    }
+} 
+
+
+module.exports = {generateInterviewFeedback,generateInterviewQuestions}
