@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import Result from './pages/Result'
+import RecentActivity from './pages/RecentActivityPage'
 
 function App() {
 
@@ -30,6 +31,11 @@ function App() {
             <Interview/>
           </ProtectedRoutes>
           }/>
+            <Route path='/recentactivity' element={
+              <ProtectedRoutes>
+                <RecentActivity/>
+              </ProtectedRoutes>
+              }/>
         <Route path='/results/:interviewId' element={
           <ProtectedRoutes>
             <Result/>

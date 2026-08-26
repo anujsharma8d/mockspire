@@ -80,7 +80,7 @@ const Sidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/analytics"
+          to="/recentactivity"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] text-[#00714d]"
@@ -91,7 +91,7 @@ const Sidebar = () => {
             {({isActive})=>
             <>
           <ChartNoAxesColumn size={22} fill={isActive?"currentColor":"none"} />
-          Analytics
+          Results
             </>
             }
         </NavLink>

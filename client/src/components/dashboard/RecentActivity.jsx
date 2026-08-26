@@ -1,37 +1,64 @@
 import {
-  BriefcaseBusiness,
-  Palette,
   Terminal,
   CheckCircle,
   Clock,
   ArrowRight,
+  Code,
+  Monitor,
+  Server,
+  Layers,
+  Brain,
 } from "lucide-react";
-
-const activities = [
-  {
-    icon: BriefcaseBusiness,
-    role: "Senior PM - TechCorp",
-    date: "Today, 10:00 AM",
-    score: "82/100",
-    status: "Completed",
-  },
-  {
-    icon: Palette,
-    role: "UX Designer - StudioX",
-    date: "Oct 24, 2023",
-    score: "75/100",
-    status: "Completed",
-  },
-  {
-    icon: Terminal,
-    role: "Frontend Eng - Startup",
-    date: "Oct 20, 2023",
-    score: "--",
-    status: "Draft",
-  },
-];
+import { useState,useEffect } from "react";
+import {getRecentResults} from "../../api/resultapi"
+import { useNavigate } from "react-router-dom";
 
 const RecentActivity = () => {
+
+    const navigate = useNavigate()
+
+const [recentResults, setRecentResults] = useState([])
+
+useEffect(() => {
+  fetchRecentResults()
+}, [])
+
+
+const fetchRecentResults = async()=>{
+    try{
+
+      const res = await getRecentResults();
+      
+      console.log(res)
+      setRecentResults(res.data.results)
+    } catch(err){
+      console.log(err)
+    }
+  }
+
+  const getIcon = (role) => {
+    switch (role) {
+      case "Software Engineer":
+        return Code;
+
+      case "Frontend Developer":
+        return Monitor;
+
+      case "Backend Developer":
+        return Server;
+
+      case "Full Stack Developer":
+        return Layers;
+
+      case "Data Scientist":
+        return Brain;
+
+      default:
+        return Terminal;
+    }
+  };
+
+
   return (
     <div className="overflow-hidden rounded-xl border border-[#c2c8c5] bg-white md:col-span-8">
 
@@ -42,7 +69,9 @@ const RecentActivity = () => {
           Recent Activity
         </h3>
 
-        <button className="flex items-center gap-1 font-semibold text-[#006c49]">
+        <button className="flex items-center gap-1 font-semibold text-[#006c49]"
+            onClick={()=>navigate("/recentactivity")}
+        >
           View All
           <ArrowRight size={16} />
         </button>
@@ -66,10 +95,9 @@ const RecentActivity = () => {
 
           <tbody>
 
-            {activities.map((item) => {
+            {recentResults.map((item) => {
 
-              const Icon = item.icon;
-
+                const Icon = getIcon(item.role);
               return (
                 <tr
                   key={item.role}
@@ -79,7 +107,7 @@ const RecentActivity = () => {
                   <td className="flex items-center gap-3 px-6 py-4 font-semibold">
 
                     <div className="flex h-8 w-8 items-center justify-center rounded bg-[#dce9ff]">
-                      <Icon size={18} />
+                        <Icon size={22}/>
                     </div>
 
                     {item.role}
@@ -87,7 +115,11 @@ const RecentActivity = () => {
                   </td>
 
                   <td className="px-6 py-4 text-[#424846]">
-                    {item.date}
+                    {new Date(item.date).toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                    })}
                   </td>
 
                   <td className="px-6 py-4 font-semibold">

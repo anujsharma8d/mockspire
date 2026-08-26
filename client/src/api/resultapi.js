@@ -25,4 +25,24 @@ const getResult = (interviewId)=>{
           }});
 }
 
-export {getResult,generateResult};
+const getRecentResults = () => {
+    const token = localStorage.getItem("token");
+
+    return api.get("/api/results/recent", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};
+
+const getInterviewStats = () => {
+    const token = localStorage.getItem("token");
+
+    return api.get("/api/results/stats", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};
+
+export {getResult,generateResult,getRecentResults,getInterviewStats};

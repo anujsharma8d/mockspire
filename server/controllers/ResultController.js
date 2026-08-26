@@ -2,6 +2,7 @@ const Result = require("../models/Result")
 const Answer = require("../models/Answer")
 const InterviewSession = require("../models/InterviewSession");
 const { generateInterviewFeedback } = require("../services/geminiService");
+const mongoose = require("mongoose")
 
 const generateResult = async (req, res) => {
     try {
@@ -136,4 +137,81 @@ const getResult = async (req, res) => {
     }
 }
 
-module.exports = { generateResult,getResult };
+const getRecentResults = async(req,res)=>{
+    try{
+
+        const sessions = await InterviewSession.find({
+            user:req.user.id
+        })
+        .sort({createdAt:-1})
+        .limit(5)
+
+        const results = await Result.find({
+            user:req.user.id
+        })
+
+        const recentResults = sessions.map((session)=>{
+            const result = results.find((result)=>result.interviewId.toString() === session._id.toString())
+            if(!result){
+                return null
+            }
+
+            return {
+                    _id: result._id,
+                    role: session.role,
+                    interviewType: session.interviewType,
+                    date: session.createdAt,
+                    duration: session.duration,
+                    score: result.overallScore,
+                    status: "Completed"
+            }
+        })
+        .filter(Boolean)
+        
+        res.status(200).json({
+            results:recentResults 
+        })
+    } catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            message: err.message
+        });
+    }
+}
+
+const getInterviewStats = async(req,res)=>{
+    try{
+        const stats = await Result.aggregate([
+            {
+                $match: {
+                    user: new mongoose.Types.ObjectId(req.user.id)
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalInterviews: { $sum: 1 },
+                    averageScore: { $avg: "$overallScore" }
+                }
+            }
+        ]);
+
+        const data = stats[0] || {
+            totalInterviews: 0,
+            averageScore: 0
+        };
+        res.status(200).json({
+            totalInterviews: data.totalInterviews,
+            averageScore: Math.round(data.averageScore),
+        })
+    }catch (err) {
+        console.error(err);
+
+        res.status(500).json({
+            message: err.message
+        });
+    }
+}
+
+module.exports = { generateResult,getResult,getRecentResults,getInterviewStats };

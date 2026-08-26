@@ -10,7 +10,7 @@ const generateInterviewFeedback = async (prompt) => {
         console.log("Sending request to Gemini...");
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.6-flash",
+            model: "gemini-3.1-flash-lite",
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
@@ -33,7 +33,7 @@ const generateInterviewQuestions = async(prompt)=>{
         console.log("Calling gemini for interview questions...")
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.6-flash",
+            model: "gemini-3.1-flash-lite",
             contents: prompt,
             config: {
                 responseMimeType: "application/json",

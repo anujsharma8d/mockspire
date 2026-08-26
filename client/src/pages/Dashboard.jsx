@@ -4,40 +4,56 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from "../components/Sidebar";
 import TopNavbar from "../components/TopNavbar";
 import QuickStart from "../components/dashboard/QuickStart";
-import ReadinessScore from "../components/dashboard/ReadinessScore";
+import AverageScore from "../components/dashboard/AverageScore";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import Insights from "../components/dashboard/Insights";
 import MobileBottomNav from '../components/MobileBottomNav';
+import { getInterviewStats } from '../api/resultapi';
 
 
 const Dashboard = () => {
   const navigate = useNavigate()
   
   const [user, setUser] = useState(null);
+  const [stats, setStats] = useState({
+    totalInterviews:0,
+    averageScore:0
+  });
 
   useEffect(() => {
-    
-    const fetchDashboard = async ()=>{
-
-      try{
-        const token = localStorage.getItem("token")
-        
-        const res = await api.get("/api/auth/dashboard",{
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        
-        setUser(res.data.user);
-        
-      } catch(err){
-        console.log(err.response?.data?.message);
-      }
-    }
 
     fetchDashboard();
-
+    fetchStats();
+    
   }, [])
+
+  const fetchDashboard = async ()=>{
+
+    try{
+      const token = localStorage.getItem("token")
+      
+      const res = await api.get("/api/auth/dashboard",{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      setUser(res.data.user);
+      
+    } catch(err){
+      console.log(err.response?.data?.message);
+    }
+  }
+
+  const fetchStats = async()=>{
+    try{
+      const res = await getInterviewStats()
+      setStats(res.data)
+    } catch(err){
+      console.log(err)
+    }
+
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#f8f9ff] font-[Inter] text-[#0b1c30]">
@@ -58,7 +74,7 @@ const Dashboard = () => {
             {/* Top */}
             <QuickStart />
 
-            <ReadinessScore />
+            <AverageScore averageScore={stats.averageScore}/>
 
             {/* Bottom */}
             <RecentActivity />
