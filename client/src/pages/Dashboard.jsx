@@ -7,6 +7,7 @@ import QuickStart from "../components/dashboard/QuickStart";
 import ReadinessScore from "../components/dashboard/ReadinessScore";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import Insights from "../components/dashboard/Insights";
+import MobileBottomNav from '../components/MobileBottomNav';
 
 
 const Dashboard = () => {
@@ -43,9 +44,10 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <Sidebar />
+      <MobileBottomNav />
 
       {/* Main */}
-      <main className="relative flex h-full flex-1 flex-col md:ml-64">
+      <main className="relative flex h-full flex-1 flex-col md:ml-64 pb-10 md:pb-0">
 
         <TopNavbar user={user}/>
 

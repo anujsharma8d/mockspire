@@ -1,6 +1,7 @@
 import { useState } from "react";
 import interviewApi from "../api/interviewapi";
 import { useNavigate } from "react-router-dom";
+import MobileBottomNav from "../components/MobileBottomNav";
 
 import {
   Tags,
@@ -134,8 +135,8 @@ const Setup = () => {
   return (
     <div className="flex min-h-screen bg-[#f8f9ff] text-[#0b1c30]">
 
-      {/* Sidebar */}
       <Sidebar />
+      <MobileBottomNav/>
 
       {/* Main */}
       <main className="flex min-h-screen flex-1 flex-col md:ml-64">
@@ -154,7 +155,7 @@ const Setup = () => {
         </div>
 
         {/* Content */}
-        <div className="mx-auto w-full max-w-[1120px] px-4 py-8 pb-32 md:px-16">
+        <div className="mx-auto w-full max-w-[1120px] px-4 py-8 pb-50 md:pb-32 md:px-16">
 
           {/* ================= INTERVIEW TYPE ================= */}
 
@@ -424,9 +425,9 @@ const Setup = () => {
 
         {/* ================= FOOTER ================= */}
 
-        <div className="fixed bottom-0 left-0 right-0 z-20 border-t border-[#c2c8c5] bg-[#f8f9ff]/95 px-4 py-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] backdrop-blur-md md:left-64 md:px-16">
+        <div className="fixed bottom-20 md:bottom-0 left-0 right-0 z-20 border-t border-[#c2c8c5] bg-[#f8f9ff]/95 px-4 py-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] backdrop-blur-md md:left-64 md:px-16">
 
-          <div className="mx-auto flex max-w-[1120px] flex-col items-center justify-between gap-4 md:flex-row">
+          <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-4 ">
 
             {/* Duration */}
 
@@ -463,7 +464,7 @@ const Setup = () => {
 
             <button
               onClick={startInterviewHandler}
-              className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#051916] px-8 py-3 font-semibold text-white shadow-md transition-all hover:bg-[#0b1c30] active:scale-95 md:w-auto"
+              className="flex items-center justify-center gap-3 rounded-lg bg-[#051916] px-12 py-3 font-semibold text-white shadow-md transition-all hover:bg-[#0b1c30] active:scale-95 md:w-auto"
             >
               Start Interview
 
