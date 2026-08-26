@@ -9,6 +9,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Logo from "./Logo"
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -18,8 +19,8 @@ const Sidebar = () => {
 
       {/* Logo */}
       <div className="mb-8 flex flex-col items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-[#c2c8c5] bg-[#dce9ff]">
-          <Bot size={32} className="text-[#006c49]" />
+        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-[#006c49] bg-[#dce9ff]">
+          <Logo size={32} />
         </div>
 
         <div className="text-center">

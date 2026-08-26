@@ -6,8 +6,8 @@ const Logo = () => {
     <div className='flex items-center font-bold'>
       <img
         src={logo}
-        alt='RoundZero'
-        className='w-5'
+        alt='Mockspire'
+        className='w-15'
         />
     </div>
   )
