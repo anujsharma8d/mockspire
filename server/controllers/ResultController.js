@@ -112,7 +112,23 @@ const getResult = async (req, res) => {
             });
         }
 
-        res.status(200).json(result);
+        const session = await InterviewSession.findOne({
+            _id: interviewId,
+            user: req.user.id
+        });
+
+        if (!session) {
+            return res.status(404).json({
+                message: "Interview session not found",
+            });
+        }
+
+        res.status(200).json({
+            ...result.toObject(),
+            duration: session.duration,
+            createdAt: session.createdAt
+        });
+
     } catch (err) {
         res.status(500).json({
             message: err.message,

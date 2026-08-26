@@ -93,14 +93,21 @@ const Interview = () => {
         })
       )
 
+      console.log("Sending duration:", formattedTime);
+
       const res = await saveAnswer({
         interviewId: sessionId,
-        answers:formattedAnswers
+        answers:formattedAnswers,
+        duration:formattedTime
       });
+
+      console.log("SAVE ANSWER SUCCESS:", res.data);
 
       await generateResult({
         interviewId: sessionId
       })
+
+
 
 
       alert(res.data.message)
@@ -109,7 +116,12 @@ const Interview = () => {
       navigate(`/results/${sessionId}`)
 
     } catch(err){
-      console.log(err)
+      console.log("ERROR STATUS:", err.response?.status);
+    console.log(
+  "ERROR DATA:",
+  JSON.stringify(err.response?.data, null, 2)
+);
+    console.log("ERROR:", err);
     }
   }
 
