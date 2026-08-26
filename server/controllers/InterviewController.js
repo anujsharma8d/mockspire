@@ -159,5 +159,26 @@ const getSessionQuestions = async(req,res)=>{
     }
 }
 
+const getInterview = async(req,res)=>{
+    try{
+        const interview = await InterviewSession.findById(req.params.sessionId)
+        if(!interview){
+            return res.status(404).json({
+                message:"Interview not found"
+            })
+        }
 
-module.exports = { getQuestions,startInterview,getSessionQuestions };
+        res.status(200).json({
+            interview
+        })
+    } catch(err){
+        console.error(err);
+
+        res.status(500).json({
+        message: "Failed to fetch interview",
+        });
+    }
+}
+
+
+module.exports = { getQuestions,startInterview,getSessionQuestions,getInterview };

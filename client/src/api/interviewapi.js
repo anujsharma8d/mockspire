@@ -20,4 +20,13 @@ const startInterview = (setup)=>{
     });
 }
 
-export default {getQuestions,startInterview};
+const getInterview = (sessionId)=>{
+    const token = localStorage.getItem("token");
+    return api.get(`/api/interview/${sessionId}`,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
+
+export default {getQuestions,startInterview,getInterview};
