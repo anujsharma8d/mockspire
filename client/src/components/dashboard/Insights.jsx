@@ -4,8 +4,31 @@ import {
   Brain,
   ChevronRight,
 } from "lucide-react";
+import { useState, useEffect } from "react";
+import insightApi from "../../api/insightapi";
 
 const Insights = () => {
+  const [coreStrengths, setCoreStrengths] = useState([])
+  const [focusAreas, setFocusAreas] = useState([])
+
+  useEffect(() => {
+    fetchInsights();
+
+  }, [])
+
+  const fetchInsights = async () => {
+    try {
+      const res = await insightApi.getInsight()
+      console.log("INSIGHT RESPONSE:", res.data);
+      setCoreStrengths(res.data.coreStrengths)
+      setFocusAreas(res.data.focusAreas)
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
   return (
     <div className="flex flex-col gap-6 md:col-span-4">
 
@@ -25,41 +48,30 @@ const Insights = () => {
 
         <ul className="space-y-3">
 
-          <li className="flex items-start gap-3 border-b border-[#c2c8c5] pb-3">
-            <Check
-              size={18}
-              className="mt-0.5 text-[#006c49]"
-            />
+          {coreStrengths.map((strength, index) => (
+            <li key={strength.name}
+              className={`flex items-start gap-3 ${index !== coreStrengths.length - 1
+                  ? "border-b border-[#c2c8c5] pb-3"
+                  : ""
+                }`}
+            >
+              <Check
+                size={18}
+                className="mt-0.5 text-[#006c49]"
+              />
 
-            <div>
-              <p className="font-semibold">
-                STAR Method Structure
-              </p>
+              <div>
+                <p className="font-semibold">
+                  {strength.name}
+                </p>
 
-              <p className="mt-1 text-xs text-[#424846]">
-                Consistent formatting in behavioral answers.
-              </p>
-            </div>
-          </li>
+                <p className="mt-1 text-xs text-[#424846]">
+                  {strength.description}
+                </p>
+              </div>
 
-          <li className="flex items-start gap-3">
-
-            <Check
-              size={18}
-              className="mt-0.5 text-[#006c49]"
-            />
-
-            <div>
-              <p className="font-semibold">
-                Technical Depth
-              </p>
-
-              <p className="mt-1 text-xs text-[#424846]">
-                Clear explanation of complex systems.
-              </p>
-            </div>
-
-          </li>
+            </li>
+          ))}
 
         </ul>
       </div>
@@ -82,43 +94,30 @@ const Insights = () => {
 
         <ul className="space-y-3">
 
-          <li className="flex items-start gap-3 border-b border-[#c2c8c5] pb-3">
+          {focusAreas.map((area, index) => (
+            <li
+              key={area.name}
+              className={`flex items-start gap-3 ${index !== focusAreas.length - 1
+                  ? "border-b border-[#c2c8c5] pb-3"
+                  : ""
+                }`}
+            >
+              <ChevronRight
+                size={18}
+                className="mt-0.5 text-[#424846]"
+              />
 
-            <ChevronRight
-              size={18}
-              className="mt-0.5 text-[#424846]"
-            />
+              <div>
+                <p className="font-semibold">
+                  {area.name}
+                </p>
 
-            <div>
-              <p className="font-semibold">
-                Conciseness
-              </p>
-
-              <p className="mt-1 text-xs text-[#424846]">
-                Answers average 45s over target duration.
-              </p>
-            </div>
-
-          </li>
-
-          <li className="flex items-start gap-3">
-
-            <ChevronRight
-              size={18}
-              className="mt-0.5 text-[#424846]"
-            />
-
-            <div>
-              <p className="font-semibold">
-                Conflict Resolution
-              </p>
-
-              <p className="mt-1 text-xs text-[#424846]">
-                Need more emphasis on positive outcomes.
-              </p>
-            </div>
-
-          </li>
+                <p className="mt-1 text-xs text-[#424846]">
+                  {area.description}
+                </p>
+              </div>
+            </li>
+          ))}
 
         </ul>
       </div>

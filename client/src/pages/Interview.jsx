@@ -10,6 +10,7 @@ import {
   Timer,
 } from "lucide-react";
 import Logo from '../components/Logo'
+import insightApi from '../api/insightapi'
 
 
 
@@ -106,6 +107,8 @@ const Interview = () => {
       await generateResult({
         interviewId: sessionId
       })
+
+      await insightApi.generateInsight();
 
 
 

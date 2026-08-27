@@ -100,7 +100,7 @@ const fetchRecentResults = async()=>{
                 const Icon = getIcon(item.role);
               return (
                 <tr
-                  key={item.role}
+                  key={item._id}
                   className="border-b border-[#c2c8c5] transition-colors hover:bg-[#eff4ff]"
                 >
 

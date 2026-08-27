@@ -5,6 +5,7 @@ const cors = require("cors")
 const interviewRoutes = require("./routes/interviewRoutes")
 const answerRoutes = require("./routes/answerRoutes")
 const resultRoutes = require("./routes/resultRoutes")
+const insightRoutes = require("./routes/insightRoutes")
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -16,6 +17,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/interview", interviewRoutes)
 app.use("/api/answers", answerRoutes)
 app.use("/api/results", resultRoutes)
+app.use("/api/insights", insightRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("MongoDB Connected"))
