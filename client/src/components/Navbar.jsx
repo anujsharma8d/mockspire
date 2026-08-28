@@ -1,154 +1,127 @@
-import React from 'react'
-import Logo from './Logo'
-import { Link } from 'react-scroll'
-import { NavLink } from 'react-router-dom'
-import { Menu, X } from "lucide-react"
-import { useState } from 'react'
+import { useState } from "react";
+import Logo from "./Logo";
+import { Link } from "react-scroll";
+import { NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
 
-    const [isOpen, setIsOpen] = useState(false);
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
 
-    const closeMenu = () => setIsOpen(false);
+    const navItems = [
+        { label: "FEATURES", to: "features" },
+        { label: "HOW IT WORKS", to: "howitworks" },
+        { label: "CONTACT", to: "contact" },
+    ];
 
     return (
-        <nav className='sticky top-0 z-999 flex justify-between items-center px-6 py-4 md:px-12 bg-black '>
-            <Logo />
-            <div className='hidden justify-center items-center gap-8 lg:flex text-gray-400 '>
-                <Link
-                    to="about"
-                    smooth={true}
-                    duration={500}
-                    className='cursor-pointer'
-                    spy={true}
-                    activeClass="text-white border-b-2 border-[#AB9D8F]"
-                >ABOUT</Link>
+        <header className="fixed top-0 w-full z-50 bg-[#0d1a18]/90 backdrop-blur-md border-b border-[#1e3833]">
 
-                <Link
-                    to="features"
-                    smooth={true}
-                    duration={500}
-                    className='cursor-pointer'
-                    spy={true}
-                    activeClass="text-white border-b-2 border-[#AB9D8F]"
-                >FEATURES</Link>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+ 
+                <div className="flex items-center">
+                <Logo />
+                <span className="text-white font-bold text-xl">MockSpire</span>
+                </div>
 
-                <Link
-                    to="howitworks"
-                    smooth={true}
-                    duration={500}
-                    className='cursor-pointer'
-                    spy={true}
-                    activeClass="text-white border-b-2 border-[#AB9D8F]"
-                >HOW IT WORKS</Link>
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex gap-8 text-sm font-medium text-[#e2e8f0]">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.to}
+                            to={item.to}
+                            smooth={true}
+                            duration={500}
+                            spy={true}
+                            offset={-80}
+                            activeClass="text-white"
+                            className="cursor-pointer hover:text-white transition-colors"
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                </nav>
 
-                <Link
-                    to="faq"
-                    smooth={true}
-                    duration={500}
-                    className='cursor-pointer'
-                    spy={true}
-                    activeClass="text-white border-b-2 border-[#AB9D8F]"
-                >FAQ</Link>
-
-                <Link
-                    to="contact"
-                    smooth={true}
-                    duration={500}
-                    className='cursor-pointer'
-                    spy={true}
-                    activeClass="text-white border-b-2 border-[#AB9D8F]"
-                >CONTACT</Link>
-
-            </div>
-            <div className='justify-center items-center gap-8 hidden lg:flex text-white'>
-                <NavLink to={"/login"}>LOGIN</NavLink>
-                <NavLink to={"/signup"}>GET STARTED</NavLink>
-            </div>
-
-            {/* Mobile Menu Button */}
-
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                className='lg:hidden'
-            >
-                {isOpen ? <X className='text-white'/> : <Menu className='text-white'/>}
-            </button>
-
-
-            {/* Mobile Menu */}
-            <div
-                className={`absolute left-0 top-full z-50 w-full bg-black transition-all duration-300 lg:hidden ${isOpen
-                        ? "opacity-100 visible"
-                        : "opacity-0 invisible"
-                    }`}
-            >
-                <div className="flex flex-col items-center gap-6 py-8 text-white">
-
-                    <Link
-                        to="about"
-                        smooth
-                        duration={500}
-                        onClick={closeMenu}
-                    >
-                        ABOUT
-                    </Link>
-
-                    <Link
-                        to="features"
-                        smooth
-                        duration={500}
-                        onClick={closeMenu}
-                    >
-                        FEATURES
-                    </Link>
-
-                    <Link
-                        to="howitworks"
-                        smooth
-                        duration={500}
-                        onClick={closeMenu}
-                    >
-                        HOW IT WORKS
-                    </Link>
-
-                    <Link
-                        to="faq"
-                        smooth
-                        duration={500}
-                        onClick={closeMenu}
-                    >
-                        FAQ
-                    </Link>
-
-                    <Link
-                        to="contact"
-                        smooth
-                        duration={500}
-                        onClick={closeMenu}
-                    >
-                        CONTACT
-                    </Link>
+                {/* Desktop Buttons */}
+                <div className="hidden md:flex items-center gap-8">
 
                     <NavLink
                         to="/login"
-                        onClick={closeMenu}
+                        className="text-white hover:text-gray-300 transition-colors"
                     >
                         LOGIN
                     </NavLink>
 
                     <NavLink
                         to="/signup"
-                        onClick={closeMenu}
-                        className="rounded-lg bg-white px-5 py-2 text-black font-semibold"
+                        className="bg-[#00a372] hover:bg-[#007a55] text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors shadow-lg shadow-[#00a372]/20"
                     >
-                        GET STARTED
+                        START FREE
                     </NavLink>
 
                 </div>
-            </div>
-        </nav>
-    )
-}
 
-export default Navbar
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="md:hidden text-white p-2"
+                    aria-label="Toggle menu"
+                >
+                    {menuOpen ? (
+                        <X className="w-6 h-6" />
+                    ) : (
+                        <Menu className="w-6 h-6" />
+                    )}
+                </button>
+
+            </div>
+
+            {/* Mobile Navigation */}
+            {menuOpen && (
+                <div className="md:hidden bg-[#0d1a18] border-t border-[#1e3833]">
+
+                    <nav className="px-4 py-6 flex flex-col items-center gap-6">
+
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.to}
+                                to={item.to}
+                                smooth={true}
+                                duration={500}
+                                offset={-80}
+                                onClick={closeMenu}
+                                className="cursor-pointer text-[#e2e8f0] hover:text-white transition-colors"
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+
+                        <NavLink
+                            to="/login"
+                            onClick={closeMenu}
+                            className="text-white hover:text-gray-300 transition-colors"
+                        >
+                            LOGIN
+                        </NavLink>
+
+                        <NavLink
+                            to="/signup"
+                            onClick={closeMenu}
+                            className="bg-[#00a372] hover:bg-[#007a55] text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors shadow-lg shadow-[#00a372]/20"
+                        >
+                            START FREE
+                        </NavLink>
+
+                    </nav>
+
+                </div>
+            )}
+
+        </header>
+    );
+};
+
+export default Navbar;
