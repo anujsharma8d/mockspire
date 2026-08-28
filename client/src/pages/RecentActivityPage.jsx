@@ -14,19 +14,25 @@ import {
 import { getRecentResults,getInterviewStats } from "../api/resultapi";
 import Sidebar from "../components/Sidebar";
 import TopNavbar from "../components/TopNavbar";
+import { useNavigate } from "react-router-dom";
+import api from "../api/axios"
 
 
 const RecentActivityPage = () => {
+  const navigate = useNavigate()
+
   const [recentResults, setRecentResults] = useState([]);
   const [stats,setStats] = useState({
     totalInterviews:0,
     averageScore:0
   })
+  const [user,setUser] = useState(null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchRecentResults();
     fetchStats();
+    fetchDashboard();
   }, []);
 
   const fetchRecentResults = async () => {
@@ -50,6 +56,24 @@ const RecentActivityPage = () => {
     }
 
   }
+
+  const fetchDashboard = async ()=>{
+  
+      try{
+        const token = localStorage.getItem("token")
+        
+        const res = await api.get("/api/auth/dashboard",{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        setUser(res.data.user);
+        
+      } catch(err){
+        console.log(err.response?.data?.message);
+      }
+    }
 
 
   const getIcon = (role) => {
@@ -92,7 +116,7 @@ const RecentActivityPage = () => {
       <div className="ml-64 flex min-h-screen flex-col">
 
         {/* Top Bar */}
-        <TopNavbar/>
+        <TopNavbar user={user}/>
 
         {/* Canvas */}
         <main className="mt-16 flex-1 bg-[#f8f9ff] p-8">
@@ -149,7 +173,8 @@ const RecentActivityPage = () => {
                       return (
                         <div
                           key={item._id}
-                          className={`flex items-center justify-between p-6 transition-colors hover:bg-[#f8f9ff] ${
+                          onClick={()=>navigate(`/results/${item.interviewId}`)}
+                          className={`flex items-center justify-between p-6 transition-colors hover:bg-[#f8f9ff] cursor-pointer ${
                             index !== recentResults.length - 1
                               ? "border-b border-[#c2c8c5]"
                               : ""

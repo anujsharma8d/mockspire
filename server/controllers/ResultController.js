@@ -159,6 +159,7 @@ const getRecentResults = async(req,res)=>{
             return {
                     _id: result._id,
                     role: session.role,
+                    interviewId:session._id,
                     interviewType: session.interviewType,
                     date: session.createdAt,
                     duration: session.duration,
