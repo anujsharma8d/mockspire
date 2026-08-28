@@ -2,6 +2,8 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/landing/Hero'
 import Features from '../components/landing/Features'
 import HowItWorks from '../components/landing/HowItWorks'
+import FinalCTA from '../components/landing/FinalCTA'
+import Contact from '../components/landing/Contact'
 
 const Home = () => {
   return (
@@ -14,6 +16,11 @@ const Home = () => {
         <section id='howitworks'>
             <HowItWorks/>
         </section>
+        <FinalCTA/>
+        <section id='contact'>
+            <Contact/>
+        </section>
+
     </>
   )
 }
