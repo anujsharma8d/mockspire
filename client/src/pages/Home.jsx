@@ -4,6 +4,7 @@ import Features from '../components/landing/Features'
 import HowItWorks from '../components/landing/HowItWorks'
 import FinalCTA from '../components/landing/FinalCTA'
 import Contact from '../components/landing/Contact'
+import Footer from '../components/landing/Footer'
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
         <section id='contact'>
             <Contact/>
         </section>
+        <Footer/>
 
     </>
   )
