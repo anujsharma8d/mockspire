@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MoveRight,Check } from "lucide-react";
-import heroimg from "../../assets/MockSpireDashboard.png"
+import heroimg from "../../assets/MockspireDashboard.png"
 
 const Hero = () => {
     const navigate = useNavigate()
