@@ -16,6 +16,7 @@ import Sidebar from "../components/Sidebar";
 import TopNavbar from "../components/TopNavbar";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios"
+import Loader from "../components/Loader";
 
 
 const RecentActivityPage = () => {
@@ -30,9 +31,23 @@ const RecentActivityPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchRecentResults();
-    fetchStats();
-    fetchDashboard();
+
+    const loadPage = async()=>{
+      setLoading(true)
+
+      try{
+        await Promise.all([
+          fetchRecentResults(),
+          fetchStats(),
+          fetchDashboard(),
+        ]) 
+        
+      }finally{
+        setLoading(false);
+      }
+    }
+
+    loadPage()
   }, []);
 
   const fetchRecentResults = async () => {
@@ -42,9 +57,7 @@ const RecentActivityPage = () => {
       setRecentResults(res.data.results || []);
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   const fetchStats = async()=>{
@@ -106,6 +119,12 @@ const RecentActivityPage = () => {
     });
   };
 
+  if (loading) {
+  return (
+    <Loader message="Loading Results..."/>
+  );
+}
+
   return (
     <div className="min-h-screen bg-[#f8f9ff]">
 
@@ -144,13 +163,7 @@ const RecentActivityPage = () => {
 
                 <div className="overflow-hidden rounded-xl border border-[#c2c8c5] bg-white">
 
-                  {loading ? (
-
-                    <div className="p-8 text-center text-[#424846]">
-                      Loading interviews...
-                    </div>
-
-                  ) : recentResults.length === 0 ? (
+                  {recentResults.length === 0 ? (
 
                     <div className="p-8 text-center">
 

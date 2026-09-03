@@ -9,30 +9,33 @@ import {
   Layers,
   Brain,
 } from "lucide-react";
-import { useState,useEffect } from "react";
-import {getRecentResults} from "../../api/resultapi"
+import { useState, useEffect } from "react";
+import { getRecentResults } from "../../api/resultapi"
 import { useNavigate } from "react-router-dom";
 
 const RecentActivity = () => {
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-const [recentResults, setRecentResults] = useState([])
+  const [recentResults, setRecentResults] = useState([])
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  fetchRecentResults()
-}, [])
+  useEffect(() => {
+    fetchRecentResults()
+  }, [])
 
 
-const fetchRecentResults = async()=>{
-    try{
+  const fetchRecentResults = async () => {
+    try {
 
       const res = await getRecentResults();
-      
+
       console.log(res)
-      setRecentResults(res.data.results)
-    } catch(err){
+      setRecentResults(res.data.results || [])
+    } catch (err) {
       console.log(err)
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -70,7 +73,7 @@ const fetchRecentResults = async()=>{
         </h3>
 
         <button className="flex items-center gap-1 font-semibold text-[#006c49]"
-            onClick={()=>navigate("/recentactivity")}
+          onClick={() => navigate("/recentactivity")}
         >
           View All
           <ArrowRight size={16} />
@@ -95,56 +98,80 @@ const fetchRecentResults = async()=>{
 
           <tbody>
 
-            {recentResults.map((item) => {
+            {loading ? (
+              <tr>
+                <td colSpan="4" className="px-6 py-10">
+                  <div className="flex flex-col items-center justify-center gap-3">
+                    <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] border-t-[#006c49]" />
 
-                const Icon = getIcon(item.role);
-              return (
-                <tr
-                  key={item._id}
-                  className="border-b border-[#c2c8c5] transition-colors hover:bg-[#eff4ff]"
+                    <p className="text-sm font-medium text-[#424846]">
+                      Loading recent activity...
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            ) : recentResults.length === 0 ? (
+              <tr>
+                <td
+                  colSpan="4"
+                  className="px-6 py-10 text-center text-sm text-[#424846]"
                 >
+                  No recent interviews found.
+                </td>
+              </tr>
+            ) :
+              (
+                recentResults.map((item) => {
 
-                  <td className="flex items-center gap-3 px-6 py-4 font-semibold">
+                  const Icon = getIcon(item.role);
+                  return (
+                    <tr
+                      key={item._id}
+                      className="border-b border-[#c2c8c5] transition-colors hover:bg-[#eff4ff]"
+                    >
 
-                    <div className="flex h-8 w-8 items-center justify-center rounded bg-[#dce9ff]">
-                        <Icon size={22}/>
-                    </div>
+                      <td className="flex items-center gap-3 px-6 py-4 font-semibold">
 
-                    {item.role}
+                        <div className="flex h-8 w-8 items-center justify-center rounded bg-[#dce9ff]">
+                          <Icon size={22} />
+                        </div>
 
-                  </td>
+                        {item.role}
 
-                  <td className="px-6 py-4 text-[#424846]">
-                    {new Date(item.date).toLocaleDateString("en-IN", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                    })}
-                  </td>
+                      </td>
 
-                  <td className="px-6 py-4 font-semibold">
-                    {item.score}
-                  </td>
+                      <td className="px-6 py-4 text-[#424846]">
+                        {new Date(item.date).toLocaleDateString("en-IN", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </td>
 
-                  <td className="px-6 py-4">
+                      <td className="px-6 py-4 font-semibold">
+                        {item.score}
+                      </td>
 
-                    {item.status === "Completed" ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#d0e7e1] px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#005236]">
-                        <CheckCircle size={12} />
-                        Completed
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#d3e4fe] px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#0b1c30]">
-                        <Clock size={12} />
-                        Draft
-                      </span>
-                    )}
+                      <td className="px-6 py-4">
 
-                  </td>
+                        {item.status === "Completed" ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[#d0e7e1] px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#005236]">
+                            <CheckCircle size={12} />
+                            Completed
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[#d3e4fe] px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#0b1c30]">
+                            <Clock size={12} />
+                            Draft
+                          </span>
+                        )}
 
-                </tr>
-              );
-            })}
+                      </td>
+
+                    </tr>
+                  );
+                }))
+                }
 
           </tbody>
 

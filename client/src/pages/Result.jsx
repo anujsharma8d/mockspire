@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import interviewapi from '../api/interviewapi';
+import Loader from '../components/Loader';
 
 const Result = () => {
   const navigate = useNavigate()
@@ -46,7 +47,7 @@ const Result = () => {
   }
 
   if (!result) {
-    return <h2>Loading...</h2>;
+    return <Loader message="Loading Result..."/>;
   }
 
   const score = result.overallScore || 0;

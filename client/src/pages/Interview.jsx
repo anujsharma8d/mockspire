@@ -13,6 +13,7 @@ import {
 import Logo from '../components/Logo'
 import insightApi from '../api/insightapi'
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
+import Loader from '../components/Loader'
 
 
 
@@ -27,6 +28,7 @@ const Interview = () => {
   const [answers, setAnswers] = useState({})
   const [role, setRole] = useState("")
   const [interviewType, setInterviewType] = useState("")
+  const [submitting, setSubmitting] = useState(false);
 
   const {
     isListening,
@@ -95,7 +97,12 @@ const Interview = () => {
 
 
   const handleSubmit = async ()=>{
+    if(submitting){
+      return 
+    }
+
     try{
+      setSubmitting(true)
       const formattedAnswers = Object.entries(answers).map(
         ([questionId,answer])=>({
           questionId,
@@ -134,6 +141,8 @@ const Interview = () => {
   JSON.stringify(err.response?.data, null, 2)
 );
     console.log("ERROR:", err);
+    }finally{
+      setSubmitting(false)
     }
   }
 
@@ -158,11 +167,7 @@ const Interview = () => {
 
   if (questions.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f8f9ff]">
-        <p className="text-sm text-[#424846]">
-          Loading interview...
-        </p>
-      </div>
+      <Loader message="Loading Interview..."/>
     );
   }
 
@@ -301,9 +306,20 @@ const Interview = () => {
               {isLastQuestion && (
                 <button
                   onClick={handleSubmit}
+                  disabled={submitting}
                   className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916]"
                 >
-                  Submit Answer
+                  {submitting ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      Submit Answer
+                      <Send size={16} />
+                    </>
+                  )}
 
                   <Send size={16} />
                 </button>

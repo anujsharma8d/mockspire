@@ -14,10 +14,13 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
     
     const handleSubmit = async (e)=>{
       e.preventDefault();
       try{
+        setLoading(true);
+
         const res = await api.post(`/api/auth/login`,
           {
             email,
@@ -37,6 +40,8 @@ const Login = () => {
 
       } catch(err){
         alert(err.response?.data?.message || "Something went wrong");
+      } finally{
+        setLoading(false)
       }
     }
 
@@ -164,9 +169,17 @@ const Login = () => {
                         {/* Sign In */}
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full flex justify-center py-3 px-4 rounded-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] active:scale-[0.98]"
                         >
-                            Sign In
+                            {loading ? (
+                                    <>
+                                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                                    Signing in...
+                                    </>
+                                ) : (
+                                    "Sign In"
+                                )}
                         </button>
 
                     </form>

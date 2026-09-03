@@ -10,6 +10,7 @@ import insightApi from "../../api/insightapi";
 const Insights = () => {
   const [coreStrengths, setCoreStrengths] = useState([])
   const [focusAreas, setFocusAreas] = useState([])
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchInsights();
@@ -25,6 +26,8 @@ const Insights = () => {
 
     } catch (err) {
       console.log(err)
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -46,34 +49,44 @@ const Insights = () => {
           </h3>
         </div>
 
-        <ul className="space-y-3">
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-6 gap-3">
+            <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] border-t-[#006c49]" />
+            <p className="text-sm text-[#424846]">
+              Loading insights...
+            </p>
+          </div>
+        ) :
+          (
+            <ul className="space-y-3">
 
-          {coreStrengths.map((strength, index) => (
-            <li key={strength.name}
-              className={`flex items-start gap-3 ${index !== coreStrengths.length - 1
-                  ? "border-b border-[#c2c8c5] pb-3"
-                  : ""
-                }`}
-            >
-              <Check
-                size={18}
-                className="mt-0.5 text-[#006c49]"
-              />
+              {coreStrengths.map((strength, index) => (
+                <li key={strength.name}
+                  className={`flex items-start gap-3 ${index !== coreStrengths.length - 1
+                    ? "border-b border-[#c2c8c5] pb-3"
+                    : ""
+                    }`}
+                >
+                  <Check
+                    size={18}
+                    className="mt-0.5 text-[#006c49]"
+                  />
 
-              <div>
-                <p className="font-semibold">
-                  {strength.name}
-                </p>
+                  <div>
+                    <p className="font-semibold">
+                      {strength.name}
+                    </p>
 
-                <p className="mt-1 text-xs text-[#424846]">
-                  {strength.description}
-                </p>
-              </div>
+                    <p className="mt-1 text-xs text-[#424846]">
+                      {strength.description}
+                    </p>
+                  </div>
 
-            </li>
-          ))}
+                </li>
+              ))}
 
-        </ul>
+            </ul>
+          )}
       </div>
 
       {/* Focus Areas */}
@@ -92,34 +105,44 @@ const Insights = () => {
 
         </div>
 
-        <ul className="space-y-3">
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-6 gap-3">
+            <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] border-t-[#006c49]" />
+            <p className="text-sm text-[#424846]">
+              Loading insights...
+            </p>
+          </div>
+        ) :
+          (
+            <ul className="space-y-3">
 
-          {focusAreas.map((area, index) => (
-            <li
-              key={area.name}
-              className={`flex items-start gap-3 ${index !== focusAreas.length - 1
-                  ? "border-b border-[#c2c8c5] pb-3"
-                  : ""
-                }`}
-            >
-              <ChevronRight
-                size={18}
-                className="mt-0.5 text-[#424846]"
-              />
+              {focusAreas.map((area, index) => (
+                <li
+                  key={area.name}
+                  className={`flex items-start gap-3 ${index !== focusAreas.length - 1
+                    ? "border-b border-[#c2c8c5] pb-3"
+                    : ""
+                    }`}
+                >
+                  <ChevronRight
+                    size={18}
+                    className="mt-0.5 text-[#424846]"
+                  />
 
-              <div>
-                <p className="font-semibold">
-                  {area.name}
-                </p>
+                  <div>
+                    <p className="font-semibold">
+                      {area.name}
+                    </p>
 
-                <p className="mt-1 text-xs text-[#424846]">
-                  {area.description}
-                </p>
-              </div>
-            </li>
-          ))}
+                    <p className="mt-1 text-xs text-[#424846]">
+                      {area.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
 
-        </ul>
+            </ul>
+          )}
       </div>
 
     </div>

@@ -9,6 +9,7 @@ import RecentActivity from "../components/dashboard/RecentActivity";
 import Insights from "../components/dashboard/Insights";
 import MobileBottomNav from '../components/MobileBottomNav';
 import { getInterviewStats } from '../api/resultapi';
+import Loader from '../components/Loader';
 
 
 const Dashboard = () => {
@@ -19,12 +20,24 @@ const Dashboard = () => {
     totalInterviews:0,
     averageScore:0
   });
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-
-    fetchDashboard();
-    fetchStats();
-    
+    const loadDashboard= async()=>{
+      setLoading(true)
+      
+      try{
+        await Promise.all([
+          fetchDashboard(),
+          fetchStats()
+        ])
+        
+      }finally{
+        setLoading(false)
+      }
+    }
+      
+    loadDashboard()
   }, [])
 
   const fetchDashboard = async ()=>{
@@ -54,6 +67,12 @@ const Dashboard = () => {
     }
 
   }
+
+  if (loading) {
+  return (
+    <Loader message='Loading Dashboard'/>
+  );
+}
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#f8f9ff] font-[Inter] text-[#0b1c30]">

@@ -19,10 +19,13 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading,setLoading]=useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
+
       const res = await api.post("/api/auth/signup",
         {
           name,
@@ -40,6 +43,8 @@ const Signup = () => {
 
     } catch (err) {
       alert(err.response?.data?.message || "Somthing went wrong")
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -77,8 +82,6 @@ const Signup = () => {
           </Link>
 
         </div>
-
-        {/* Main Content */}
 
         {/* Main Content */}
         <div className="relative z-10 w-full max-w-lg mx-auto my-auto">
@@ -304,9 +307,18 @@ const Signup = () => {
             {/* Submit Button */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] transition-colors uppercase active:scale-95 gap-2 mt-6"
             >
-              Create Account
+              {loading ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Creating Account...
+                </>
+              ) : (
+                "Create Account"
+              ) 
+              }
 
               <ArrowRight className="w-5 h-5" />
 

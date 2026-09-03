@@ -25,6 +25,7 @@ import Sidebar from "../components/Sidebar";
 
 const Setup = () => {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false)
 
   const [setup, setSetup] = useState({
     interviewType: "",
@@ -52,6 +53,7 @@ const Setup = () => {
     }
 
     try {
+      setLoading(true)
       console.log("Sending setup:", setup);
 
       const response = await interviewApi.startInterview(setup);
@@ -61,6 +63,8 @@ const Setup = () => {
       navigate(`/interview/${sessionId}`);
     } catch (err) {
       console.log(err);
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -464,12 +468,21 @@ const Setup = () => {
 
             <button
               onClick={startInterviewHandler}
+              disabled={loading}
               className="flex items-center justify-center gap-3 rounded-lg bg-[#051916] px-12 py-3 font-semibold text-white shadow-md transition-all hover:bg-[#0b1c30] active:scale-95 md:w-auto"
             >
-              Start Interview
-
-              <ArrowRight size={18} />
-
+              {loading? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Starting Interview...
+                </>
+              ):(
+                <>
+                Start Interview
+                <ArrowRight size={18} />
+                </>
+              )
+            }
             </button>
 
           </div>
