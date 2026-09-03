@@ -6,6 +6,16 @@ Mockspire is an AI-powered interview preparation platform that simulates realist
 
 ---
 
+# Screenshots
+
+![Mockspire Landing Page](client/src/assets/Landing.png)
+
+![Mockspire Dashboard](client/src/assets/MockspireDashboard.png)
+
+
+---
+
+
 ## Table of Contents
 
 - [Features](#features)
@@ -35,6 +45,9 @@ Generate personalized interview questions based on:
 
 ### Realistic Interview Practice
 Practice interviews in a structured environment designed to simulate a real interview experience.
+
+### Speech-to-Text
+Answer interview questions using your voice with browser-based speech recognition, with your spoken responses automatically converted into text.
 
 ### Performance Analysis
 Get detailed feedback after completing an interview, including performance scores and insights.
@@ -71,6 +84,7 @@ Mockspire is designed to work seamlessly across:
 - Tailwind CSS
 - Lucide React
 - Axios
+- Web Speech API
 
 **Backend**
 - Node.js
@@ -191,13 +205,13 @@ npm install
 
 ## Environment Variables
 
-Create a `.env` file inside the `frontend` directory:
+Create a `.env` file inside the `client` directory:
 
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-Create a `.env` file inside the `backend` directory:
+Create a `.env` file inside the `server` directory:
 
 ```env
 PORT=5000
@@ -258,7 +272,6 @@ Mockspire is designed for people preparing for:
 
 ## Future Improvements
 
-Planned improvements may include:
 - Voice-based interviews
 - Speech analysis
 - Video interview practice
@@ -273,14 +286,13 @@ Planned improvements may include:
 
 Contributions are welcome.
 
-1. Fork the repository
+1. Fork the repository on Github
+2. Create a branch:
+
    ```bash
-   git fork https://github.com/anujsharma8d/mockspire
+   git checkout -b feat/your-feature
    ```
-2. Create a branch
-   ```bash
-   git checkout -b feature/your-feature
-   ```
+   
 3. Commit your changes
    ```bash
    git add .
@@ -288,7 +300,7 @@ Contributions are welcome.
    ```
 4. Push the branch
    ```bash
-   git push origin feature/your-feature
+   git push origin feat/your-feature
    ```
 5. Open a Pull Request
 
