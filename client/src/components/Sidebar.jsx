@@ -4,7 +4,6 @@ import {
   LayoutDashboard,
   Video,
   ChartNoAxesColumn,
-  Settings,
   CircleHelp,
   LogOut,
 } from "lucide-react";
@@ -29,7 +28,7 @@ const Sidebar = () => {
           </h1>
 
           <p className="text-sm text-[#424846]">
-            AI Interview Co-pilot
+            AI Mock Interview Platform
           </p>
         </div>
       </div>
@@ -96,23 +95,6 @@ const Sidebar = () => {
             }
         </NavLink>
 
-        <NavLink
-          to="/settings"
-          className={({isActive})=>
-            `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
-                isActive? "border-2 border-[#00714d] text-[#00714d]"
-                : "text-[#424846] hover:bg-[#e5eeff] hover:text-[#051916]"
-            }`
-        }
-        >
-            {({isActive})=>
-            <>
-          <Settings size={22} fill={isActive?"currentColor":"none"} />
-          Settings
-            </>
-            }
-        </NavLink>
-
       </div>
 
       {/* Bottom Navigation */}
@@ -136,7 +118,10 @@ const Sidebar = () => {
         </NavLink>
 
         <button className="flex items-center gap-3 rounded-lg px-4 py-3 text-[#424846] hover:bg-[#eff4ff]"
-            onClick={()=>navigate("/login")}
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/login");
+            }}
         >
           <LogOut size={22} />
           <span>Logout</span>

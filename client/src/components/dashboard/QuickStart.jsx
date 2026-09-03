@@ -36,13 +36,6 @@ const QuickStart = () => {
             Start New Session
           </button>
 
-          <button
-            onClick={() => navigate("/roles")}
-            className="rounded-lg border border-[#727876] px-6 py-3 font-semibold text-[#051916] transition-all hover:bg-[#eff4ff]"
-          >
-            Browse Roles
-          </button>
-
         </div>
 
       </div>
