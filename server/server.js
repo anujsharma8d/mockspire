@@ -14,6 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/interview", interviewRoutes)
 app.use("/api/answers", answerRoutes)
