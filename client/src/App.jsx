@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import Result from './pages/Result'
 import RecentActivity from './pages/RecentActivityPage'
+import FAQ from './pages/FAQ'
 
 function App() {
 
@@ -19,6 +20,11 @@ function App() {
         <Route path='/dashboard' element={
           <ProtectedRoutes>
           <Dashboard/>
+          </ProtectedRoutes>
+          }/>
+        <Route path='/faq' element={
+          <ProtectedRoutes>
+          <FAQ/>
           </ProtectedRoutes>
           }/>
         <Route path='/setup' element={

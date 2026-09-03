@@ -119,7 +119,7 @@ const Sidebar = () => {
       <div className="mt-auto flex flex-col gap-2 border-t border-[#c2c8c5] pt-4">
 
         <NavLink
-          to="/helpcenter"
+          to="/faq"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] text-[#00714d]"
@@ -130,7 +130,7 @@ const Sidebar = () => {
             {({isActive})=>
             <>
           <CircleHelp size={22} fill={isActive?"currentColor":"none"} />
-          Help Center
+          FAQ's
             </>
             }
         </NavLink>

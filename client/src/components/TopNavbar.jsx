@@ -21,7 +21,7 @@ const TopNavbar = ({user}) => {
         </button>
 
         <button className="rounded-full p-2 text-[#424846] hover:bg-[#eff4ff]"
-            onClick={()=>navigate("/helpcenter")}
+            onClick={()=>navigate("/faq")}
         >
           <CircleHelp size={20} />
         </button>
