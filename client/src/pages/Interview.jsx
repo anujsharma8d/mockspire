@@ -6,11 +6,13 @@ import { generateResult } from '../api/resultapi'
 import {
   ArrowLeft,
   ArrowRight,
+  Mic,
   Send,
   Timer,
 } from "lucide-react";
 import Logo from '../components/Logo'
 import insightApi from '../api/insightapi'
+import useSpeechRecognition from "../hooks/useSpeechRecognition";
 
 
 
@@ -25,6 +27,13 @@ const Interview = () => {
   const [answers, setAnswers] = useState({})
   const [role, setRole] = useState("")
   const [interviewType, setInterviewType] = useState("")
+
+  const {
+    isListening,
+    transcript,
+    startListening,
+    stopListening
+} = useSpeechRecognition();
 
   useEffect(() => {
     if(sessionId){
@@ -136,6 +145,17 @@ const Interview = () => {
     }
   }
 
+  const currentQuestion = questions[currIndex];
+
+  useEffect(() => {
+    if (transcript) {
+        setAnswers((prev) => ({
+            ...prev,
+            [currentQuestion?._id]: transcript
+        }));
+    }
+}, [transcript, currIndex]);
+
   if (questions.length === 0) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#f8f9ff]">
@@ -146,7 +166,6 @@ const Interview = () => {
     );
   }
 
-  const currentQuestion = questions[currIndex];
 
   const progress =
     ((currIndex + 1) / questions.length) * 100;
@@ -263,6 +282,19 @@ const Interview = () => {
               placeholder="Type your detailed response here..."
               className="h-32 w-full resize-none rounded-lg border border-[#c2c8c5] bg-white p-4 text-base text-[#051916] outline-none transition-all placeholder:text-[#727876] focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20"
             />
+            <button
+                type="button"
+                onClick={isListening ? stopListening : startListening}
+                className={`flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold ${
+                    isListening
+                        ? "bg-[#ba1a1a] text-white"
+                        : "bg-[#006c49] text-white"
+                }`}
+            >
+                <Mic size={16} />
+
+                {isListening ? "Stop" : "Speak"}
+            </button>
 
             <div className="flex justify-end">
 
