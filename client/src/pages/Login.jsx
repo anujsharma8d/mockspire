@@ -175,7 +175,7 @@ const Login = () => {
                             {loading ? (
                                     <>
                                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                                    Signing in...
+                                        Signing in...
                                     </>
                                 ) : (
                                     "Sign In"

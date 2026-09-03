@@ -321,7 +321,6 @@ const Interview = () => {
                     </>
                   )}
 
-                  <Send size={16} />
                 </button>
               )}
 

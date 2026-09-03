@@ -316,11 +316,13 @@ const Signup = () => {
                     Creating Account...
                 </>
               ) : (
-                "Create Account"
+                <>
+                Create Account
+                <ArrowRight className="w-5 h-5" />
+                </>
               ) 
               }
 
-              <ArrowRight className="w-5 h-5" />
 
             </button>
 
