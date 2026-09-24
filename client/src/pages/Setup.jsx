@@ -22,6 +22,8 @@ import {
 } from "lucide-react";
 
 import Sidebar from "../components/Sidebar";
+import SEO from "../components/SEO";
+
 
 const Setup = () => {
   const navigate = useNavigate();
@@ -137,6 +139,12 @@ const Setup = () => {
   const questionCounts = [5, 10, 15];
 
   return (
+    <>
+    <SEO
+  title="Set Up Your Mock Interview – Mockspire"
+  description="Configure your Mockspire interview practice session and prepare for an AI-powered mock interview."
+  noindex
+/>
     <div className="flex min-h-screen bg-[#f8f9ff] text-[#0b1c30]">
 
       <Sidebar />
@@ -170,7 +178,7 @@ const Setup = () => {
               <Tags
                 size={20}
                 className="text-[#424846]"
-              />
+                />
 
               <h2 className="text-xl font-semibold">
                 Interview Type
@@ -186,32 +194,32 @@ const Setup = () => {
 
               {interviewTypes.map((item) => {
                 const Icon = item.icon;
-
+                
                 const selected =
-                  setup.interviewType === item.id;
-
+                setup.interviewType === item.id;
+                
                 return (
                   <button
-                    key={item.id}
-                    type="button"
-                    onClick={() =>
-                      selectOption("interviewType", item.id)
-                    }
-                    className={`relative rounded-xl border p-6 text-left transition-all duration-200 ${
-                      selected
-                        ? "border-[#006c49] bg-[#eff4ff] shadow-md"
-                        : "border-[#c2c8c5] bg-white hover:shadow-sm"
-                    }`}
+                  key={item.id}
+                  type="button"
+                  onClick={() =>
+                    selectOption("interviewType", item.id)
+                  }
+                  className={`relative rounded-xl border p-6 text-left transition-all duration-200 ${
+                    selected
+                    ? "border-[#006c49] bg-[#eff4ff] shadow-md"
+                    : "border-[#c2c8c5] bg-white hover:shadow-sm"
+                  }`}
                   >
 
                     {/* Icon */}
                     <div
                       className={`mb-5 flex h-12 w-12 items-center justify-center rounded-full ${
                         selected
-                          ? "border-2 border-[#006c49] text-[#006c49]"
-                          : "bg-[#eff4ff] text-[#424846]"
+                        ? "border-2 border-[#006c49] text-[#006c49]"
+                        : "bg-[#eff4ff] text-[#424846]"
                       }`}
-                    >
+                      >
                       <Icon size={24} />
                     </div>
 
@@ -227,9 +235,9 @@ const Setup = () => {
                     {/* Selected */}
                     {selected && (
                       <CheckCircle
-                        size={22}
-                        fill="#006c49"
-                        className="absolute right-5 top-5 text-white"
+                      size={22}
+                      fill="#006c49"
+                      className="absolute right-5 top-5 text-white"
                       />
                     )}
 
@@ -250,7 +258,7 @@ const Setup = () => {
     <TrendingUp
       size={20}
       className="text-[#424846]"
-    />
+      />
 
     <h2 className="text-xl font-semibold">
       Target Role
@@ -266,27 +274,27 @@ const Setup = () => {
     {roles.map((item) => {
       const Icon = item.icon;
       const selected = setup.role === item.id;
-
+      
       return (
         <button
-          key={item.id}
-          type="button"
-          onClick={() => selectOption("role", item.id)}
-          className={`relative rounded-xl border p-5 text-left transition-all duration-200 ${
-            selected
-              ? "border-[#006c49] bg-[#eff4ff] shadow-md"
-              : "border-[#c2c8c5] bg-white hover:shadow-sm"
-          }`}
+        key={item.id}
+        type="button"
+        onClick={() => selectOption("role", item.id)}
+        className={`relative rounded-xl border p-5 text-left transition-all duration-200 ${
+          selected
+          ? "border-[#006c49] bg-[#eff4ff] shadow-md"
+          : "border-[#c2c8c5] bg-white hover:shadow-sm"
+        }`}
         >
 
           {/* Icon */}
           <div
             className={`mb-4 flex h-11 w-11 items-center justify-center rounded-full ${
               selected
-                ? "border-2 border-[#006c49] text-[#006c49]"
-                : "bg-[#eff4ff] text-[#424846]"
+              ? "border-2 border-[#006c49] text-[#006c49]"
+              : "bg-[#eff4ff] text-[#424846]"
             }`}
-          >
+            >
             <Icon size={22} />
           </div>
 
@@ -303,9 +311,9 @@ const Setup = () => {
           {/* Selected */}
           {selected && (
             <CheckCircle
-              size={20}
-              fill="#006c49"
-              className="absolute right-4 top-4 text-white"
+            size={20}
+            fill="#006c49"
+            className="absolute right-4 top-4 text-white"
             />
           )}
 
@@ -332,7 +340,7 @@ const Setup = () => {
                 <TrendingUp
                   size={20}
                   className="text-[#424846]"
-                />
+                  />
 
                 <h2 className="text-xl font-semibold">
                   Difficulty
@@ -347,22 +355,22 @@ const Setup = () => {
               <div className="flex flex-wrap gap-2">
 
                 {difficulties.map((level) => {
-
+                  
                   const selected =
-                    setup.difficulty === level;
-
+                  setup.difficulty === level;
+                  
                   return (
                     <button
-                      key={level}
-                      type="button"
-                      onClick={() =>
-                        selectOption("difficulty", level)
-                      }
-                      className={`rounded-full border px-5 py-2 text-sm font-medium transition-all ${
-                        selected
-                          ? "border-[#051916] bg-[#051916] text-white"
-                          : "border-[#c2c8c5] bg-white text-[#424846] hover:bg-[#eff4ff]"
-                      }`}
+                    key={level}
+                    type="button"
+                    onClick={() =>
+                      selectOption("difficulty", level)
+                    }
+                    className={`rounded-full border px-5 py-2 text-sm font-medium transition-all ${
+                      selected
+                      ? "border-[#051916] bg-[#051916] text-white"
+                      : "border-[#c2c8c5] bg-white text-[#424846] hover:bg-[#eff4ff]"
+                    }`}
                     >
                       {level}
                     </button>
@@ -382,7 +390,7 @@ const Setup = () => {
                 <ListOrdered
                   size={20}
                   className="text-[#424846]"
-                />
+                  />
 
                 <h2 className="text-xl font-semibold">
                   Number of Questions
@@ -397,22 +405,22 @@ const Setup = () => {
               <div className="flex w-fit rounded-lg border border-[#c2c8c5] bg-[#eff4ff] p-1">
 
                 {questionCounts.map((count) => {
-
+                  
                   const selected =
-                    setup.questionCount === count;
-
+                  setup.questionCount === count;
+                  
                   return (
                     <button
-                      key={count}
-                      type="button"
-                      onClick={() =>
-                        selectOption("questionCount", count)
-                      }
-                      className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${
-                        selected
-                          ? "bg-white text-[#051916] shadow-sm"
-                          : "text-[#424846] hover:text-[#051916]"
-                      }`}
+                    key={count}
+                    type="button"
+                    onClick={() =>
+                      selectOption("questionCount", count)
+                    }
+                    className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${
+                      selected
+                      ? "bg-white text-[#051916] shadow-sm"
+                      : "text-[#424846] hover:text-[#051916]"
+                    }`}
                     >
                       {count}
                     </button>
@@ -442,7 +450,7 @@ const Setup = () => {
                 <Clock3
                   size={20}
                   className="text-[#006c49]"
-                />
+                  />
 
               </div>
 
@@ -470,7 +478,7 @@ const Setup = () => {
               onClick={startInterviewHandler}
               disabled={loading}
               className="flex items-center justify-center gap-3 rounded-lg bg-[#051916] px-12 py-3 font-semibold text-white shadow-md transition-all hover:bg-[#0b1c30] active:scale-95 md:w-auto"
-            >
+              >
               {loading? (
                 <>
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -491,6 +499,7 @@ const Setup = () => {
 
       </main>
     </div>
+            </>
   );
 };
 

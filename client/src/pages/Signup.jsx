@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Logo from '../components/Logo';
+import SEO from '../components/SEO';
 
 
 const Signup = () => {
@@ -50,11 +51,17 @@ const Signup = () => {
 
 
   return (
+    <>
+    <SEO
+  title="Create Your Mockspire Account – Start Interview Practice"
+  description="Create a Mockspire account to practice mock interviews, receive AI-powered feedback, and work toward your interview preparation goals."
+  noindex
+/>
     <div className="min-h-screen flex w-full bg-[#f8f9ff] text-[#0b1c30] font-[Inter,sans-serif]">
 
       {/* =========================================
                 LEFT SIDE - BRAND / VALUE PROPOSITION
-            ========================================= */}
+                ========================================= */}
       <div className="hidden lg:flex w-1/2 bg-[#051916] relative overflow-hidden flex-col justify-between p-12">
 
         {/* Background Pattern */}
@@ -62,7 +69,7 @@ const Signup = () => {
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+            "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
             backgroundSize: "32px 32px",
           }}
         />
@@ -73,7 +80,7 @@ const Signup = () => {
           <Link
             to="/"
             className="flex items-center"
-          >
+            >
             <Logo />
 
             <span className="text-2xl font-semibold text-white tracking-tight">
@@ -149,7 +156,7 @@ const Signup = () => {
 
       {/* =========================================
                 RIGHT SIDE - SIGNUP FORM
-            ========================================= */}
+                ========================================= */}
       <section className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-16 bg-[#f8f9ff]">
 
         <div className="w-full max-w-md">
@@ -160,7 +167,7 @@ const Signup = () => {
             <Link
               to="/"
               className="font-semibold text-2xl text-[#051916] flex items-center gap-2"
-            >
+              >
               <Logo/>
 
               Mockspire
@@ -187,7 +194,7 @@ const Signup = () => {
           <form
             onSubmit={handleSubmit}
             className="space-y-6"
-          >
+            >
 
             {/* Full Name */}
             <div className="space-y-1">
@@ -195,7 +202,7 @@ const Signup = () => {
               <label
                 htmlFor="fullName"
                 className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
-              >
+                >
                 Full Name
               </label>
 
@@ -205,7 +212,7 @@ const Signup = () => {
                   <User
                     size={20}
                     className="text-[#727876]"
-                  />
+                    />
                 </div>
 
                 <input
@@ -219,7 +226,7 @@ const Signup = () => {
                     setName(e.target.value)
                   }
                   className="w-full pl-10 pr-3 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876]"
-                />
+                  />
 
               </div>
 
@@ -232,7 +239,7 @@ const Signup = () => {
               <label
                 htmlFor="email"
                 className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
-              >
+                >
                 Email
               </label>
 
@@ -242,7 +249,7 @@ const Signup = () => {
                   <Mail
                     size={20}
                     className="text-[#727876]"
-                  />
+                    />
                 </div>
 
                 <input
@@ -256,7 +263,7 @@ const Signup = () => {
                     setEmail(e.target.value)
                   }
                   className="w-full pl-10 pr-3 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876]"
-                />
+                  />
 
               </div>
 
@@ -269,7 +276,7 @@ const Signup = () => {
               <label
                 htmlFor="password"
                 className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
-              >
+                >
                 Password
               </label>
 
@@ -279,7 +286,7 @@ const Signup = () => {
                   <Lock
                     size={20}
                     className="text-[#727876]"
-                  />
+                    />
                 </div>
 
                 <input
@@ -293,7 +300,7 @@ const Signup = () => {
                     setPassword(e.target.value)
                   }
                   className="w-full pl-10 pr-3 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876]"
-                />
+                  />
 
               </div>
 
@@ -309,7 +316,7 @@ const Signup = () => {
               type="submit"
               disabled={loading}
               className="w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] transition-colors uppercase active:scale-95 gap-2 mt-6"
-            >
+              >
               {loading ? (
                 <>
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -321,7 +328,7 @@ const Signup = () => {
                 <ArrowRight className="w-5 h-5" />
                 </>
               ) 
-              }
+            }
 
 
             </button>
@@ -352,7 +359,7 @@ const Signup = () => {
               <Link
                 to="/login"
                 className="font-semibold text-[#006c49] hover:text-[#4edea3] transition-colors  ml-1"
-              >
+                >
                 Log in
               </Link>
 
@@ -365,6 +372,7 @@ const Signup = () => {
       </section>
 
     </div>
+                </>
   )
 }
 

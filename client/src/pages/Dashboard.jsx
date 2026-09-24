@@ -10,6 +10,7 @@ import Insights from "../components/dashboard/Insights";
 import MobileBottomNav from '../components/MobileBottomNav';
 import { getInterviewStats } from '../api/resultapi';
 import Loader from '../components/Loader';
+import SEO from '../components/SEO';
 
 
 const Dashboard = () => {
@@ -68,13 +69,15 @@ const Dashboard = () => {
 
   }
 
-  if (loading) {
   return (
-    <Loader message='Loading Dashboard'/>
-  );
-}
-
-  return (
+    <>
+    <SEO
+  title="Mockspire Dashboard – Interview Preparation Hub"
+  description="Access your Mockspire dashboard to manage interview practice, review recent activity, and track your preparation progress."
+  noindex
+  />
+  {loading ?(
+    <Loader message='Loading Dashboard'/>):(
     <div className="flex h-screen overflow-hidden bg-[#f8f9ff] font-[Inter] text-[#0b1c30]">
 
       {/* Sidebar */}
@@ -109,6 +112,8 @@ const Dashboard = () => {
       </main>
 
     </div>
+    )}
+    </>
   )
 }
 

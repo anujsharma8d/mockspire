@@ -17,6 +17,7 @@ import TopNavbar from "../components/TopNavbar";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios"
 import Loader from "../components/Loader";
+import SEO from "../components/SEO";
 
 
 const RecentActivityPage = () => {
@@ -119,13 +120,17 @@ const RecentActivityPage = () => {
     });
   };
 
-  if (loading) {
   return (
-    <Loader message="Loading Results..."/>
-  );
-}
+    <>
+    <SEO
+  title="Mockspire Recent Activity – Interview Practice History"
+  description="View your recent Mockspire interview activity and revisit your interview preparation history and results."
+  noindex
+  />
+  {loading? (
 
-  return (
+<Loader message="Loading Results..."/>):(
+    
     <div className="min-h-screen bg-[#f8f9ff]">
 
       {/* Sidebar */}
@@ -318,6 +323,8 @@ const RecentActivityPage = () => {
         </main>
       </div>
     </div>
+)}
+    </>
   );
 };
 

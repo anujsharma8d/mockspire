@@ -13,6 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import interviewapi from '../api/interviewapi';
 import Loader from '../components/Loader';
+import SEO from '../components/SEO';
 
 const Result = () => {
   const navigate = useNavigate()
@@ -74,6 +75,12 @@ const Result = () => {
 
 
   return (
+    <>
+    <SEO
+  title="Mockspire Interview Results – AI Feedback & Performance Analysis"
+  description="Review your Mockspire interview results, explore feedback on your answers, and understand areas to focus on in future practice sessions."
+  noindex
+/>
     <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30]">
 
       <main className="mx-auto min-h-screen w-full max-w-[1120px] px-4 py-8 md:px-8 lg:px-16">
@@ -114,14 +121,14 @@ const Result = () => {
           <div className='flex flex-col justify-center items-center gap-2 '>
             <button className='flex items-center self-start gap-2 rounded border border-[#c2c8c5] bg-white px-4 py-2 text-xs font-semibold uppercase hover:border-[#006c49] hover:text-[#006c49]'
               onClick={() => navigate("/dashboard")}
-            >
+              >
               <LayoutDashboard />
               Dashboard
             </button>
 
             <button
               className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] transition-colors hover:bg-[#eff4ff] md:self-auto"
-            >
+              >
               <Download size={17} />
               Download PDF
             </button>
@@ -149,30 +156,30 @@ const Result = () => {
               <svg
                 className="h-full w-full -rotate-90"
                 viewBox="0 0 36 36"
-              >
+                >
                 <path
                   d="
-                    M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831
+                  M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831
                   "
                   fill="none"
                   stroke="#E2E8F0"
                   strokeWidth="3.8"
-                />
+                  />
 
                 <path
                   d="
-                    M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831
+                  M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831
                   "
                   fill="none"
                   stroke="#ba1a1a"
                   strokeWidth="3.8"
                   strokeLinecap="round"
                   strokeDasharray={`${score * 10}, 100`}
-                />
+                  />
               </svg>
 
               {/* Score */}
@@ -204,7 +211,7 @@ const Result = () => {
               <BarChart3
                 size={24}
                 className="text-[#006c49]"
-              />
+                />
 
               <h2 className="text-2xl font-semibold text-[#051916]">
                 AI Executive Summary
@@ -238,10 +245,10 @@ const Result = () => {
           <div className="space-y-6">
 
             {questions.map((item, index) => (
-
+              
               <div
-                key={item._id || index}
-                className="overflow-hidden rounded-xl border border-[#c2c8c5] bg-white shadow-sm"
+              key={item._id || index}
+              className="overflow-hidden rounded-xl border border-[#c2c8c5] bg-white shadow-sm"
               >
 
                 {/* ================= QUESTION HEADER ================= */}
@@ -325,7 +332,7 @@ const Result = () => {
 
               </div>
 
-            ))}
+))}
 
           </div>
 
@@ -334,44 +341,8 @@ const Result = () => {
       </main>
 
     </div>
+    </>
 
-
-
-
-
-
-
-    // <div>
-    //   <h1>Interview Result</h1>
-
-    //   <h2>Overall Score: {result.overallScore}</h2>
-
-    //   <p>{result.overallFeedback}</p>
-
-    //   {result.questions.map((item, index) => (
-    //     <div key={index}>
-    //       <h3>{item.question}</h3>
-
-    //       <p>
-    //         <strong>Your Answer:</strong> {item.answer}
-    //       </p>
-
-    //       <p>
-    //         <strong>Score:</strong> {item.score}/10
-    //       </p>
-
-    //       <p>
-    //         <strong>Feedback:</strong> {item.feedback}
-    //       </p>
-
-    //       <p>
-    //         <strong>Ideal Answer:</strong> {item.idealAnswer}
-    //       </p>
-
-    //       <hr />
-    //     </div>
-    //   ))}
-    // </div>
   )
 }
 

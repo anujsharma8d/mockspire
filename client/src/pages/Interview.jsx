@@ -14,6 +14,7 @@ import Logo from '../components/Logo'
 import insightApi from '../api/insightapi'
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
 import Loader from '../components/Loader'
+import SEO from '../components/SEO'
 
 
 
@@ -181,6 +182,12 @@ const Interview = () => {
 
 
   return (
+    <>
+    <SEO
+  title="Mockspire Interview Practice – AI-Powered Mock Interviews"
+  description="Practice interview questions with Mockspire and use AI-powered feedback to review your answers and identify areas for improvement."
+  noindex
+/>
     <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30]">
 
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-[#c2c8c5] bg-white px-6 py-4 shadow-sm">
@@ -191,7 +198,7 @@ const Interview = () => {
             <Logo
               size={18}
               className="text-white"
-            />
+              />
           </div>
 
           <span className="text-xl font-semibold tracking-tight text-[#051916]">
@@ -211,7 +218,7 @@ const Interview = () => {
         <button
           onClick={handleEndInterview}
           className="rounded-lg border border-[#ba1a1a] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#ba1a1a] transition-colors hover:bg-[#ffdad6]"
-        >
+          >
           End Interview
         </button>
 
@@ -246,7 +253,7 @@ const Interview = () => {
                 onClick={handlePrevious}
                 disabled={currIndex === 0}
                 className="flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-[#424846] transition-colors hover:bg-[#eff4ff] hover:text-[#051916] disabled:cursor-not-allowed disabled:opacity-40"
-              >
+                >
                 <ArrowLeft size={16} />
 
                 Previous
@@ -254,8 +261,8 @@ const Interview = () => {
 
               {!isLastQuestion && (
                 <button
-                  onClick={handleNext}
-                  className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916]"
+                onClick={handleNext}
+                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916]"
                 >
                   Next Question
 
@@ -281,21 +288,21 @@ const Interview = () => {
                 setAnswers((prev) => ({
                   ...prev,
                   [currentQuestion._id]:
-                    e.target.value,
+                  e.target.value,
                 }))
               }
               placeholder="Type your detailed response here..."
               className="h-32 w-full resize-none rounded-lg border border-[#c2c8c5] bg-white p-4 text-base text-[#051916] outline-none transition-all placeholder:text-[#727876] focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20"
-            />
+              />
             <button
                 type="button"
                 onClick={isListening ? stopListening : startListening}
                 className={`flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold ${
-                    isListening
-                        ? "bg-[#ba1a1a] text-white"
-                        : "bg-[#006c49] text-white"
+                  isListening
+                  ? "bg-[#ba1a1a] text-white"
+                  : "bg-[#006c49] text-white"
                 }`}
-            >
+                >
                 <Mic size={16} />
 
                 {isListening ? "Stop" : "Speak"}
@@ -305,9 +312,9 @@ const Interview = () => {
 
               {isLastQuestion && (
                 <button
-                  onClick={handleSubmit}
-                  disabled={submitting}
-                  className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916]"
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916]"
                 >
                   {submitting ? (
                     <>
@@ -372,7 +379,7 @@ const Interview = () => {
               <Timer
                 size={24}
                 className="text-[#006c49]"
-              />
+                />
 
               <span>
                 {formattedTime}
@@ -399,7 +406,7 @@ const Interview = () => {
                   style={{
                     width: `${progress}%`,
                   }}
-                />
+                  />
 
               </div>
               
@@ -437,7 +444,7 @@ const Interview = () => {
               <Timer
                 size={24}
                 className="text-[#006c49]"
-              />
+                />
 
               <span>
                 {formattedTime}
@@ -452,6 +459,7 @@ const Interview = () => {
       </main>
 
     </div>
+                </>
   );
 };
 

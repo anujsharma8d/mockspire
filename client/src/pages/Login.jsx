@@ -7,6 +7,7 @@ import {
     Rocket,
 } from "lucide-react";
 import Logo from '../components/Logo';
+import SEO from '../components/SEO';
 
 
 const Login = () => {
@@ -46,6 +47,11 @@ const Login = () => {
     }
 
   return (
+    <><SEO
+  title="Login to Mockspire – AI Interview Practice"
+  description="Sign in to your Mockspire account to continue practicing interviews, review feedback, and track your preparation progress."
+  noindex
+/>
     <div className="min-h-screen flex w-full bg-[#f8f9ff] text-[#0b1c30] font-[Inter,sans-serif]">
 
             {/* =========================================
@@ -60,12 +66,12 @@ const Login = () => {
                         <Link
                             to="/"
                             className="flex items-center gap-2"
-                        >
+                            >
                             <Rocket
                                 className="text-[#006c49]"
                                 size={32}
                                 fill="currentColor"
-                            />
+                                />
 
                             <span className="text-2xl font-semibold text-[#051916] tracking-tight">
                                 Mockspire
@@ -90,7 +96,7 @@ const Login = () => {
                     <form
                         onSubmit={handleSubmit}
                         className="space-y-6"
-                    >
+                        >
 
                         {/* Email */}
                         <div>
@@ -98,7 +104,7 @@ const Login = () => {
                             <label
                                 htmlFor="email"
                                 className="block text-xs leading-4 tracking-wide font-semibold text-[#424846] mb-1"
-                            >
+                                >
                                 Email Address
                             </label>
 
@@ -108,7 +114,7 @@ const Login = () => {
                                     <Mail
                                         size={20}
                                         className="text-[#727876]"
-                                    />
+                                        />
                                 </div>
 
                                 <input
@@ -121,7 +127,7 @@ const Login = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="block w-full pl-10 pr-3 py-3 border border-[#c2c8c5] rounded-sm text-[#0b1c30] placeholder-[#727876] bg-white focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
-                                />
+                                    />
 
                             </div>
 
@@ -147,7 +153,7 @@ const Login = () => {
                                     <Lock
                                         size={20}
                                         className="text-[#727876]"
-                                    />
+                                        />
                                 </div>
 
                                 <input
@@ -160,7 +166,7 @@ const Login = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     className="block w-full pl-10 pr-10 py-3 border border-[#c2c8c5] rounded-sm text-[#0b1c30] placeholder-[#727876] bg-white focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
-                                />
+                                    />
 
                             </div>
 
@@ -171,9 +177,9 @@ const Login = () => {
                             type="submit"
                             disabled={loading}
                             className="w-full flex justify-center py-3 px-4 rounded-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] active:scale-[0.98]"
-                        >
+                            >
                             {loading ? (
-                                    <>
+                                <>
                                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
                                         Signing in...
                                     </>
@@ -205,7 +211,7 @@ const Login = () => {
                         <Link
                             to="/signup"
                             className="font-semibold text-[#006c49] hover:text-[#4edea3] transition-colors underline decoration-[#006c49]/30 hover:decoration-[#006c49]"
-                        >
+                            >
                             Sign up
                         </Link>
 
@@ -217,7 +223,7 @@ const Login = () => {
 
             {/* =========================================
                 RIGHT SIDE - BRAND VISUAL
-            ========================================= */}
+                ========================================= */}
             <div className="hidden lg:flex w-1/2 bg-[#051916] relative overflow-hidden flex-col justify-between p-12">
 
                 {/* Background Pattern */}
@@ -225,10 +231,10 @@ const Login = () => {
                     className="absolute inset-0 opacity-10"
                     style={{
                         backgroundImage:
-                            "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+                        "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
                         backgroundSize: "32px 32px",
                     }}
-                />
+                    />
 
                 {/* Logo */}
                 <div className="relative z-10">
@@ -236,7 +242,7 @@ const Login = () => {
                     <Link
                         to="/"
                         className="flex items-center "
-                    >
+                        >
                         <Logo/>
 
                         <span className="text-2xl font-semibold text-white tracking-tight">
@@ -278,6 +284,7 @@ const Login = () => {
             </div>
 
         </div>
+                        </>
   )
 }
 

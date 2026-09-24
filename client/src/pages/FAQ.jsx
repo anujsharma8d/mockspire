@@ -23,6 +23,8 @@ import {
     UserRound,
 } from "lucide-react";
 
+import SEO from "../components/SEO";
+
 /* =========================================================
    FAQ DATA
    ========================================================= */
@@ -680,6 +682,13 @@ export default function FAQ() {
     ------------------------------------------------------- */
 
     return (
+        <>
+        <SEO
+  title="Mockspire FAQ – Frequently Asked Questions"
+  description="Find answers to frequently asked questions about Mockspire, AI mock interviews, interview practice, feedback, and getting started."
+  noindex
+/>
+        
         <main className="w-full pt-16 bg-[#f8f9ff] min-h-screen">
 
             {/* =================================================
@@ -947,5 +956,6 @@ export default function FAQ() {
             </section>
 
         </main>
+        </>
     );
 }
