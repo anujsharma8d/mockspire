@@ -5,6 +5,9 @@ const useSpeechRecognition = () => {
     const [transcript, setTranscript] = useState("");
 
     const recognitionRef = useRef(null);
+    const shouldListenRef = useRef(false);
+    const finalTranscriptRef = useRef("");
+
 
     const startListening = () => {
         const SpeechRecognition =
@@ -16,28 +19,40 @@ const useSpeechRecognition = () => {
             return;
         }
 
+        if(shouldListenRef.current) return;
+
         const recognition = new SpeechRecognition();
 
         recognition.continuous = true;
         recognition.interimResults = true;
         recognition.lang = "en-US";
 
+        recognitionRef.current = recognition;
+        shouldListenRef.current = true
+
+        finalTranscriptRef.current = ""
+        setTranscript("")
+
         recognition.onstart = () => {
             setIsListening(true);
         };
 
         recognition.onresult = (event) => {
-            let text = "";
+            let intrimText = "";
 
-            for (
-                let i = event.resultIndex;
-                i < event.results.length;
-                i++
-            ) {
-                text += event.results[i][0].transcript;
+            for (let i = event.resultIndex;i < event.results.length;i++){
+                const result = event.results[i];
+                const text = result[0].transcript
+
+                if(result.isFinal){
+                    finalTranscriptRef.current += text + " "
+                }
+                else{
+                    intrimText+=text;
+                }
             }
 
-            setTranscript(text);
+            setTranscript(finalTranscriptRef.current+intrimText);
         };
 
         recognition.onerror = (event) => {
@@ -45,23 +60,44 @@ const useSpeechRecognition = () => {
                 "Speech recognition error:",
                 event.error
             );
-
+            shouldListenRef.current = false
             setIsListening(false);
         };
 
         recognition.onend = () => {
-            setIsListening(false);
+            if(shouldListenRef.current){
+                try{
+                    recognition.start()
+                }catch(err){
+                    console.warn("Recognition restart failed: ",err)
+                }
+            }
+            else{
+                setIsListening(false);
+            }
         };
+        try {
+            recognition.start();
+        } catch (err) {
+            console.error("Could not start recognition:", err);
+            shouldListenRef.current = false;
+            recognitionRef.current = null;
+            setIsListening(false);
+        }
 
-        recognitionRef.current = recognition;
-
-        recognition.start();
     };
 
     const stopListening = () => {
+        shouldListenRef.current=false
         recognitionRef.current?.stop();
         recognitionRef.current = null;
         setIsListening(false);
+        return finalTranscriptRef.current.trim();
+    };
+
+    const resetTranscript = () => {
+        finalTranscriptRef.current = "";
+        setTranscript("");
     };
 
     return {
@@ -69,6 +105,7 @@ const useSpeechRecognition = () => {
         transcript,
         startListening,
         stopListening,
+        resetTranscript
     };
 };
 

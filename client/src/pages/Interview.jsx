@@ -35,7 +35,8 @@ const Interview = () => {
     isListening,
     transcript,
     startListening,
-    stopListening
+    stopListening,
+    resetTranscript
 } = useSpeechRecognition();
 
   useEffect(() => {
@@ -72,6 +73,9 @@ const Interview = () => {
 
   const handleNext = () => {
     if (currIndex < questions.length - 1) {
+      stopListening();
+      resetTranscript()
+
       setCurrIndex(currIndex => currIndex + 1)
     }
   }
