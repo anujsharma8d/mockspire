@@ -1,3 +1,4 @@
+import ThemeToggle from "../components/ThemeToggle";
 import { useState, useEffect } from 'react'
 import { getResult } from "../api/resultapi"
 import { useParams } from 'react-router-dom'
@@ -23,29 +24,27 @@ const Result = () => {
   const [role, setRole] = useState(null)
 
   useEffect(() => {
-
-    fetchResult()
-    fetchInterviewDetails()
-
-  }, [interviewId])
-
-  const fetchResult = async () => {
-    try {
-      const res = await getResult(interviewId)
-      setResult(res.data)
-    } catch (err) {
-      console.log(err)
+    const fetchResult = async () => {
+      try {
+        const res = await getResult(interviewId)
+        setResult(res.data)
+      } catch (err) {
+        console.log(err)
+      }
     }
-  }
 
-  const fetchInterviewDetails = async () => {
-    try {
-      const res = await interviewapi.getInterview(interviewId)
-      setRole(res.data.interview.role)
-    } catch (err) {
-      console.log(err)
+    const fetchInterviewDetails = async () => {
+      try {
+        const res = await interviewapi.getInterview(interviewId)
+        setRole(res.data.interview.role)
+      } catch (err) {
+        console.log(err)
+      }
     }
-  }
+
+    fetchResult();
+    fetchInterviewDetails();
+  }, [interviewId]);
 
   if (!result) {
     return <Loader message="Loading Result..."/>;
@@ -81,7 +80,7 @@ const Result = () => {
   description="Review your Mockspire interview results, explore feedback on your answers, and understand areas to focus on in future practice sessions."
   noindex
 />
-    <div className="min-h-screen bg-[#f8f9ff] text-[#0b1c30]">
+    <div className="min-h-screen bg-[#f8f9ff] dark:bg-slate-900 text-[#0b1c30] dark:text-slate-100">
 
       <main className="mx-auto min-h-screen w-full max-w-[1120px] px-4 py-8 md:px-8 lg:px-16">
 
@@ -89,15 +88,15 @@ const Result = () => {
         {/* HEADER */}
         {/* ================================================= */}
 
-        <header className="mb-12 flex flex-col gap-6 border-b border-[#c2c8c5] pb-6 md:flex-row md:items-end md:justify-between">
+        <header className="mb-12 flex flex-col gap-6 border-b border-[#c2c8c5] dark:border-slate-600 pb-6 md:flex-row md:items-end md:justify-between">
 
           <div>
 
-            <h1 className="mb-3 text-4xl font-bold tracking-tight text-[#051916]">
+            <h1 className="mb-3 text-4xl font-bold tracking-tight text-[#051916] dark:text-slate-100">
               Evaluation Report
             </h1>
 
-            <div className="flex flex-wrap gap-4 text-sm text-[#424846]">
+            <div className="flex flex-wrap gap-4 text-sm text-[#424846] dark:text-slate-300">
 
               <span className="flex items-center gap-1">
                 <BriefcaseBusiness size={16} />
@@ -119,7 +118,8 @@ const Result = () => {
           </div>
 
           <div className='flex flex-col justify-center items-center gap-2 '>
-            <button className='flex items-center self-start gap-2 rounded border border-[#c2c8c5] bg-white px-4 py-2 text-xs font-semibold uppercase hover:border-[#006c49] hover:text-[#006c49]'
+            <ThemeToggle />
+            <button className='flex items-center self-start gap-2 rounded border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-semibold uppercase hover:border-[#006c49] hover:text-[#006c49] dark:hover:text-emerald-400'
               onClick={() => navigate("/dashboard")}
               >
               <LayoutDashboard />
@@ -127,7 +127,7 @@ const Result = () => {
             </button>
 
             <button
-              className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] transition-colors hover:bg-[#eff4ff] md:self-auto"
+              className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-slate-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-slate-700 md:self-auto"
               >
               <Download size={17} />
               Download PDF
@@ -144,9 +144,9 @@ const Result = () => {
 
           {/* ================= SCORE ================= */}
 
-          <div className="relative col-span-12 flex flex-col items-center justify-center overflow-hidden rounded-xl border border-[#c2c8c5] bg-white p-6 shadow-sm lg:col-span-5">
+          <div className="relative col-span-12 flex flex-col items-center justify-center overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-5">
 
-            <h2 className="mb-6 w-full text-left text-2xl font-semibold text-[#051916]">
+            <h2 className="mb-6 w-full text-left text-2xl font-semibold text-[#051916] dark:text-slate-100">
               Overall Score
             </h2>
 
@@ -165,6 +165,7 @@ const Result = () => {
                   "
                   fill="none"
                   stroke="#E2E8F0"
+                  className="dark:stroke-slate-600"
                   strokeWidth="3.8"
                   />
 
@@ -185,14 +186,14 @@ const Result = () => {
               {/* Score */}
               <div className="absolute flex flex-col items-center">
 
-                <span className="text-[40px] font-bold leading-none text-[#ba1a1a]">
+                <span className="text-[40px] font-bold leading-none text-[#ba1a1a] dark:text-red-400">
                   {score}
-                  <span className="text-2xl text-[#424846]">
+                  <span className="text-2xl text-[#424846] dark:text-slate-300">
                     /100
                   </span>
                 </span>
 
-                <span className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#424846]">
+                <span className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
                   {scoreMessage}
                 </span>
 
@@ -204,24 +205,24 @@ const Result = () => {
 
           {/* ================= SUMMARY ================= */}
 
-          <div className="col-span-12 flex flex-col rounded-xl border border-[#c2c8c5] bg-white p-6 shadow-sm lg:col-span-7">
+          <div className="col-span-12 flex flex-col rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-7">
 
             <div className="mb-6 flex items-center gap-3">
 
               <BarChart3
                 size={24}
-                className="text-[#006c49]"
+                className="text-[#006c49] dark:text-emerald-400"
                 />
 
-              <h2 className="text-2xl font-semibold text-[#051916]">
+              <h2 className="text-2xl font-semibold text-[#051916] dark:text-slate-100">
                 AI Executive Summary
               </h2>
 
             </div>
 
-            <div className="flex-1 rounded-lg border border-[#c2c8c5]/50 bg-[#006c49]/5 p-6">
+            <div className="flex-1 rounded-lg border border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#006c49]/5 p-6">
 
-              <p className="text-base leading-6 text-[#424846]">
+              <p className="text-base leading-6 text-[#424846] dark:text-slate-300">
                 {result.overallFeedback ||
                   "No summary is available for this interview."}
               </p>
@@ -238,36 +239,36 @@ const Result = () => {
 
         <section>
 
-          <h2 className="mb-6 text-3xl font-semibold text-[#051916]">
+          <h2 className="mb-6 text-3xl font-semibold text-[#051916] dark:text-slate-100">
             Detailed Breakdown
           </h2>
 
           <div className="space-y-6">
 
             {questions.map((item, index) => (
-              
+
               <div
               key={item._id || index}
-              className="overflow-hidden rounded-xl border border-[#c2c8c5] bg-white shadow-sm"
+              className="overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 shadow-sm"
               >
 
                 {/* ================= QUESTION HEADER ================= */}
 
-                <div className="flex items-start justify-between gap-4 border-b border-[#c2c8c5] bg-[#f8f9ff] p-6">
+                <div className="flex items-start justify-between gap-4 border-b border-[#c2c8c5] dark:border-slate-600 bg-[#f8f9ff] dark:bg-slate-900 p-6">
 
                   <div>
 
-                    <span className="mb-3 inline-block rounded bg-[#d3e4fe] px-2 py-1 text-xs font-semibold text-[#424846]">
+                    <span className="mb-3 inline-block rounded bg-[#d3e4fe] dark:bg-slate-700 px-2 py-1 text-xs font-semibold text-[#424846] dark:text-slate-300">
                       Question {index + 1}
                     </span>
 
-                    <h3 className="text-xl font-semibold leading-7 text-[#051916]">
+                    <h3 className="text-xl font-semibold leading-7 text-[#051916] dark:text-slate-100">
                       {item.question}
                     </h3>
 
                   </div>
 
-                  <div className="shrink-0 rounded bg-[#ffdad6] px-4 py-2 text-xl font-bold text-[#93000a]">
+                  <div className="shrink-0 rounded bg-[#ffdad6] dark:bg-red-950 px-4 py-2 text-xl font-bold text-[#93000a] dark:text-red-300">
                     {item.score || 0}/10
                   </div>
 
@@ -281,11 +282,11 @@ const Result = () => {
 
                   <div>
 
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846]">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
                       Your Answer
                     </h4>
 
-                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 bg-[#f8f9ff] p-4 text-sm italic leading-6 text-[#0b1c30]">
+                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#f8f9ff] dark:bg-slate-900 p-4 text-sm italic leading-6 text-[#0b1c30] dark:text-slate-100">
                       {item.answer
                         ? `"${item.answer}"`
                         : "No answer provided."}
@@ -297,11 +298,11 @@ const Result = () => {
 
                   <div>
 
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846]">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
                       AI Feedback
                     </h4>
 
-                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 bg-[#f8f9ff] p-4 text-sm leading-6 text-[#0b1c30]">
+                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#f8f9ff] dark:bg-slate-900 p-4 text-sm leading-6 text-[#0b1c30] dark:text-slate-100">
                       {item.feedback ||
                         "No feedback available."}
                     </div>
@@ -312,9 +313,9 @@ const Result = () => {
 
                 {/* ================= IDEAL APPROACH ================= */}
 
-                <div className="border-t border-[#c2c8c5] bg-[#006c49]/5 p-6">
+                <div className="border-t border-[#c2c8c5] dark:border-slate-600 bg-[#006c49]/5 p-6">
 
-                  <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#006c49]">
+                  <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#006c49] dark:text-emerald-400">
 
                     <Lightbulb size={16} />
 
@@ -322,7 +323,7 @@ const Result = () => {
 
                   </h4>
 
-                  <div className="space-y-2 text-sm leading-6 text-[#424846]">
+                  <div className="space-y-2 text-sm leading-6 text-[#424846] dark:text-slate-300">
 
                     {item.idealAnswer}
 

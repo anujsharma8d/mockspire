@@ -1,3 +1,4 @@
+import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import Logo from "./Logo";
 import { Link } from "react-scroll";
@@ -27,6 +28,7 @@ const Navbar = () => {
                 <span className="text-white font-bold text-xl">Mockspire</span>
                 </div>
 
+                <ThemeToggle branded />
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex gap-8 text-sm font-medium text-[#e2e8f0]">
                     {navItems.map((item) => (

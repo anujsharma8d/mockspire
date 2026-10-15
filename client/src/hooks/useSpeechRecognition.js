@@ -1,7 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from 'react-toastify';
 
-const useSpeechRecognition = () => {
+const useSpeechRecognition = (onTranscript) => {
+    const onTranscriptRef = useRef(onTranscript);
+    useEffect(() => {
+        onTranscriptRef.current = onTranscript;
+    }, [onTranscript]);
     const [isListening, setIsListening] = useState(false);
     const [transcript, setTranscript] = useState("");
 
@@ -53,7 +57,9 @@ const useSpeechRecognition = () => {
                 }
             }
 
-            setTranscript(finalTranscriptRef.current+intrimText);
+            const nextTranscript = finalTranscriptRef.current + intrimText;
+            setTranscript(nextTranscript);
+            onTranscriptRef.current?.(nextTranscript);
         };
 
         recognition.onerror = (event) => {

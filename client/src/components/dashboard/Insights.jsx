@@ -13,46 +13,44 @@ const Insights = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchInsights();
+    const fetchInsights = async () => {
+      try {
+        const res = await insightApi.getInsight()
+        console.log("INSIGHT RESPONSE:", res.data);
+        setCoreStrengths(res.data.coreStrengths)
+        setFocusAreas(res.data.focusAreas)
 
-  }, [])
-
-  const fetchInsights = async () => {
-    try {
-      const res = await insightApi.getInsight()
-      console.log("INSIGHT RESPONSE:", res.data);
-      setCoreStrengths(res.data.coreStrengths)
-      setFocusAreas(res.data.focusAreas)
-
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setLoading(false);
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setLoading(false);
+      }
     }
-  }
 
+    fetchInsights();
+  }, []);
 
   return (
     <div className="flex flex-col gap-6 md:col-span-4">
 
       {/* Core Strengths */}
-      <div className="rounded-xl border border-[#c2c8c5] bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm">
 
         <div className="mb-4 flex items-center gap-2">
           <TrendingUp
             size={22}
-            className="text-[#006c49]"
+            className="text-[#006c49] dark:text-emerald-400"
           />
 
-          <h3 className="text-lg font-semibold text-[#051916]">
+          <h3 className="text-lg font-semibold text-[#051916] dark:text-slate-100">
             Core Strengths
           </h3>
         </div>
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-6 gap-3">
-            <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] border-t-[#006c49]" />
-            <p className="text-sm text-[#424846]">
+            <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] dark:border-slate-600 border-t-[#006c49]" />
+            <p className="text-sm text-[#424846] dark:text-slate-300">
               Loading insights...
             </p>
           </div>
@@ -63,13 +61,13 @@ const Insights = () => {
               {coreStrengths.map((strength, index) => (
                 <li key={strength.name}
                   className={`flex items-start gap-3 ${index !== coreStrengths.length - 1
-                    ? "border-b border-[#c2c8c5] pb-3"
+                    ? "border-b border-[#c2c8c5] dark:border-slate-600 pb-3"
                     : ""
                     }`}
                 >
                   <Check
                     size={18}
-                    className="mt-0.5 text-[#006c49]"
+                    className="mt-0.5 text-[#006c49] dark:text-emerald-400"
                   />
 
                   <div>
@@ -77,7 +75,7 @@ const Insights = () => {
                       {strength.name}
                     </p>
 
-                    <p className="mt-1 text-xs text-[#424846]">
+                    <p className="mt-1 text-xs text-[#424846] dark:text-slate-300">
                       {strength.description}
                     </p>
                   </div>
@@ -90,16 +88,16 @@ const Insights = () => {
       </div>
 
       {/* Focus Areas */}
-      <div className="rounded-xl border border-[#c2c8c5] bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm">
 
         <div className="mb-4 flex items-center gap-2">
 
           <Brain
             size={22}
-            className="text-[#424846]"
+            className="text-[#424846] dark:text-slate-300"
           />
 
-          <h3 className="text-lg font-semibold text-[#051916]">
+          <h3 className="text-lg font-semibold text-[#051916] dark:text-slate-100">
             Focus Areas
           </h3>
 
@@ -107,8 +105,8 @@ const Insights = () => {
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-6 gap-3">
-            <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] border-t-[#006c49]" />
-            <p className="text-sm text-[#424846]">
+            <div className="h-6 w-6 animate-spin rounded-full border-4 border-[#c2c8c5] dark:border-slate-600 border-t-[#006c49]" />
+            <p className="text-sm text-[#424846] dark:text-slate-300">
               Loading insights...
             </p>
           </div>
@@ -120,13 +118,13 @@ const Insights = () => {
                 <li
                   key={area.name}
                   className={`flex items-start gap-3 ${index !== focusAreas.length - 1
-                    ? "border-b border-[#c2c8c5] pb-3"
+                    ? "border-b border-[#c2c8c5] dark:border-slate-600 pb-3"
                     : ""
                     }`}
                 >
                   <ChevronRight
                     size={18}
-                    className="mt-0.5 text-[#424846]"
+                    className="mt-0.5 text-[#424846] dark:text-slate-300"
                   />
 
                   <div>
@@ -134,7 +132,7 @@ const Insights = () => {
                       {area.name}
                     </p>
 
-                    <p className="mt-1 text-xs text-[#424846]">
+                    <p className="mt-1 text-xs text-[#424846] dark:text-slate-300">
                       {area.description}
                     </p>
                   </div>

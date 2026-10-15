@@ -43,7 +43,7 @@ const HowItWorks = () => {
     return (
         <section
             id="howitworks"
-            className="bg-white py-24 text-gray-900"
+            className="bg-white dark:bg-slate-800 py-24 text-gray-900 dark:text-slate-100"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -75,7 +75,7 @@ const HowItWorks = () => {
                                         className={`w-7 h-7 shrink-0 rounded-lg flex items-center justify-center ${
                                             index === 2
                                                 ? "bg-emerald-600 text-white"
-                                                : "bg-emerald-50 text-emerald-600"
+                                                : "bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400"
                                         }`}
                                     >
                                         <Icon
@@ -89,15 +89,15 @@ const HowItWorks = () => {
 
                                         {/* Step Number + Title */}
                                         <div className="flex items-center gap-1.5 mb-1">
-                                            <span className="text-sm text-gray-400 font-medium">
+                                            <span className="text-sm text-gray-400 dark:text-slate-400 font-medium">
                                                 {step.number}.
                                             </span>
 
                                             <h4
                                                 className={`text-sm font-medium tracking-wide ${
                                                     index === 2
-                                                        ? "text-emerald-600"
-                                                        : "text-gray-500"
+                                                        ? "text-emerald-600 dark:text-emerald-400"
+                                                        : "text-gray-500 dark:text-slate-300"
                                                 }`}
                                             >
                                                 {step.title}
@@ -105,7 +105,7 @@ const HowItWorks = () => {
                                         </div>
 
                                         {/* Description */}
-                                        <p className="text-[16px] leading-relaxed text-gray-800">
+                                        <p className="text-[16px] leading-relaxed text-gray-800 dark:text-slate-200">
                                             {step.description}
                                         </p>
 
@@ -124,7 +124,7 @@ const HowItWorks = () => {
                 <div className="hidden md:flex flex-col md:flex-row justify-between items-start gap-8 relative">
 
                     {/* Connecting Line */}
-                    <div className="hidden md:block absolute top-8 left-12 right-12 h-[2px] bg-gray-200 border-dashed border-t-2 border-gray-300 z-0" />
+                    <div className="hidden md:block absolute top-8 left-12 right-12 h-[2px] bg-gray-200 dark:bg-slate-700 border-dashed border-t-2 border-gray-300 dark:border-slate-600 z-0" />
 
                     {steps.map((step, index) => {
                         const Icon = step.icon;
@@ -139,7 +139,7 @@ const HowItWorks = () => {
                                     className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 border-4 border-white shadow-sm ${
                                         index === 2
                                             ? "bg-emerald-600 text-white"
-                                            : "bg-emerald-50 text-emerald-600"
+                                            : "bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400"
                                     }`}
                                 >
                                     <Icon
@@ -154,7 +154,7 @@ const HowItWorks = () => {
                                 </h4>
 
                                 {/* Description */}
-                                <p className="text-xs text-gray-500 px-4 text-center">
+                                <p className="text-xs text-gray-500 dark:text-slate-300 px-4 text-center">
                                     {step.description}
                                 </p>
                             </div>
