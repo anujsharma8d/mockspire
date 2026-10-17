@@ -14,20 +14,20 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-64 flex-col gap-2 border-r border-[#c2c8c5] bg-[#f8f9ff] px-6 py-12">
+    <nav className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-64 flex-col gap-2 border-r border-[#c2c8c5] dark:border-slate-600 bg-[#f8f9ff] dark:bg-slate-900 px-6 py-12">
 
       {/* Logo */}
       <div className="mb-8 flex flex-col items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-[#006c49] bg-[#dce9ff]">
+        <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border border-[#006c49] dark:border-emerald-400 bg-[#dce9ff] dark:bg-slate-700">
           <Logo size={32} />
         </div>
 
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-[#051916]">
+          <h1 className="text-2xl font-bold text-[#051916] dark:text-slate-100">
             Mockspire
           </h1>
 
-          <p className="text-sm text-[#424846]">
+          <p className="text-sm text-[#424846] dark:text-slate-300">
             AI Mock Interview Platform
           </p>
         </div>
@@ -48,8 +48,8 @@ const Sidebar = () => {
           to="/dashboard"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
-                isActive? "border-2 border-[#00714d] text-[#00714d]"
-                : "text-[#424846] hover:bg-[#e5eeff] hover:text-[#051916]"
+                isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
+                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
             }`
         }
         >
@@ -65,8 +65,8 @@ const Sidebar = () => {
           to="/setup"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
-                isActive? "border-2 border-[#00714d] text-[#00714d]"
-                : "text-[#424846] hover:bg-[#e5eeff] hover:text-[#051916]"
+                isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
+                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
             }`
         }
         >
@@ -82,8 +82,8 @@ const Sidebar = () => {
           to="/recentactivity"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
-                isActive? "border-2 border-[#00714d] text-[#00714d]"
-                : "text-[#424846] hover:bg-[#e5eeff] hover:text-[#051916]"
+                isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
+                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
             }`
         }
         >
@@ -98,14 +98,14 @@ const Sidebar = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="mt-auto flex flex-col gap-2 border-t border-[#c2c8c5] pt-4">
+      <div className="mt-auto flex flex-col gap-2 border-t border-[#c2c8c5] dark:border-slate-600 pt-4">
 
         <NavLink
           to="/faq"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors ${
-                isActive? "border-2 border-[#00714d] text-[#00714d]"
-                : "text-[#424846] hover:bg-[#e5eeff] hover:text-[#051916]"
+                isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
+                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
             }`
         }
         >
@@ -117,7 +117,7 @@ const Sidebar = () => {
             }
         </NavLink>
 
-        <button className="flex items-center gap-3 rounded-lg px-4 py-3 text-[#424846] hover:bg-[#eff4ff]"
+        <button className="flex items-center gap-3 rounded-lg px-4 py-3 text-[#424846] dark:text-slate-300 hover:bg-[#eff4ff] dark:hover:bg-slate-700"
             onClick={() => {
               localStorage.removeItem("token");
               navigate("/login");

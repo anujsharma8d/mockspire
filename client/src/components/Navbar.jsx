@@ -1,3 +1,4 @@
+import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import Logo from "./Logo";
 import { Link } from "react-scroll";
@@ -48,6 +49,7 @@ const Navbar = () => {
                 {/* Desktop Buttons */}
                 <div className="hidden md:flex items-center gap-8">
 
+                    <ThemeToggle branded />
                     <NavLink
                         to="/login"
                         className="text-white hover:text-gray-300 transition-colors"
@@ -64,18 +66,22 @@ const Navbar = () => {
 
                 </div>
 
-                {/* Mobile Menu Button */}
-                <button
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden text-white p-2"
-                    aria-label="Toggle menu"
-                >
-                    {menuOpen ? (
-                        <X className="w-6 h-6" />
-                    ) : (
-                        <Menu className="w-6 h-6" />
-                    )}
-                </button>
+                <div className="flex items-center gap-2 md:hidden">
+                    <ThemeToggle branded />
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        className="text-white p-2"
+                        aria-label="Toggle menu"
+                    >
+                        {menuOpen ? (
+                            <X className="w-6 h-6" />
+                        ) : (
+                            <Menu className="w-6 h-6" />
+                        )}
+                    </button>
+                </div>
 
             </div>
 

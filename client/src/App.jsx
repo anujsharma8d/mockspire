@@ -1,4 +1,5 @@
 import './App.css'
+import { useTheme } from './context/ThemeContext'
 import { Route,Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
@@ -14,6 +15,7 @@ import { ToastContainer } from 'react-toastify'
 import NotFound from './pages/NotFound'
 
 function App() {
+  const { theme } = useTheme()
 
   return (
     <>
@@ -53,7 +55,9 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='*' element={<NotFound/>} />
       </Routes>
-      <ToastContainer position="top-right" autoClose={3000} progressClassName="toast-progress" />
+
+      <ToastContainer theme={theme} position="top-right" autoClose={3000} progressClassName="toast-progress"/>
+
     </>
   )
 }

@@ -78,7 +78,7 @@ const Dashboard = () => {
   />
   {loading ?(
     <Loader message='Loading Dashboard'/>):(
-    <div className="flex h-screen overflow-hidden bg-[#f8f9ff] font-[Inter] text-[#0b1c30]">
+    <div className="flex h-screen overflow-hidden bg-[#f8f9ff] dark:bg-slate-900 font-[Inter] text-[#0b1c30] dark:text-slate-100">
 
       {/* Sidebar */}
       <Sidebar />

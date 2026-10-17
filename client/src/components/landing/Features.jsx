@@ -25,14 +25,14 @@ const Features = () => {
     return (
         <section
             id="features"
-            className="bg-gray-50 py-24 text-gray-900 border-b border-gray-200"
+            className="bg-gray-50 dark:bg-slate-900 py-24 text-gray-900 dark:text-slate-100 border-b border-gray-200 dark:border-slate-600"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Section Heading */}
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                        Everything You Need to <span className="text-[#006c49]">Ace Your Interview</span>
+                        Everything You Need to <span className="text-[#006c49] dark:text-emerald-400">Ace Your Interview</span>
                     </h2>
                 </div>
 
@@ -42,10 +42,10 @@ const Features = () => {
                     {features.map((feature) => (
                         <div
                             key={feature.title}
-                            className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-start gap-4"
+                            className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-600 flex flex-col items-start gap-4"
                         >
                             {/* Icon */}
-                            <div className="w-12 h-12 rounded-full bg-emerald-50 text-[#006c49] flex items-center justify-center shrink-0">
+                            <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950 text-[#006c49] dark:text-emerald-400 flex items-center justify-center shrink-0">
                                 <feature.icon/>
                             </div>
 
@@ -55,7 +55,7 @@ const Features = () => {
                                     {feature.title}
                                 </h3>
 
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 dark:text-slate-300">
                                     {feature.description}
                                 </p>
                             </div>

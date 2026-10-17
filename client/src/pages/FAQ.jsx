@@ -1,3 +1,4 @@
+import ThemeToggle from "../components/ThemeToggle";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -48,7 +49,7 @@ const faqs = [
                     interview questions, and receive feedback on your performance.
                 </p>
 
-                <div className="flex items-center gap-2 mt-4 text-[#006c49] text-xs font-semibold">
+                <div className="flex items-center gap-2 mt-4 text-[#006c49] dark:text-emerald-400 text-xs font-semibold">
                     <CheckCircle size={16} />
                     <span>Practice, evaluate, improve, and repeat.</span>
                 </div>
@@ -71,28 +72,28 @@ const faqs = [
                 </p>
 
                 <div className="space-y-2">
-                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff]">
-                        <span className="font-bold text-[#006c49]">01</span>
+                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <span className="font-bold text-[#006c49] dark:text-emerald-400">01</span>
                         <span>Select your interview role and interview type.</span>
                     </div>
 
-                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff]">
-                        <span className="font-bold text-[#006c49]">02</span>
+                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <span className="font-bold text-[#006c49] dark:text-emerald-400">02</span>
                         <span>Start your interview session.</span>
                     </div>
 
-                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff]">
-                        <span className="font-bold text-[#006c49]">03</span>
+                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <span className="font-bold text-[#006c49] dark:text-emerald-400">03</span>
                         <span>Answer the questions presented by the interviewer.</span>
                     </div>
 
-                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff]">
-                        <span className="font-bold text-[#006c49]">04</span>
+                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <span className="font-bold text-[#006c49] dark:text-emerald-400">04</span>
                         <span>Submit the interview to generate your results.</span>
                     </div>
 
-                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff]">
-                        <span className="font-bold text-[#006c49]">05</span>
+                    <div className="flex gap-3 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <span className="font-bold text-[#006c49] dark:text-emerald-400">05</span>
                         <span>Review your performance and insights.</span>
                     </div>
                 </div>
@@ -117,64 +118,64 @@ const faqs = [
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {/* Behavioral */}
-                    <div className="p-3 rounded-lg bg-[#eff4ff] flex items-center gap-2">
+                    <div className="p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700 flex items-center gap-2">
                         <UserRound
                             size={17}
-                            className="text-[#006c49] shrink-0"
+                            className="text-[#006c49] dark:text-emerald-400 shrink-0"
                         />
                         <div>
-                            <div className="font-semibold text-[#0b1c30]">
+                            <div className="font-semibold text-[#0b1c30] dark:text-slate-100">
                                 Behavioral
                             </div>
-                            <div className="text-xs text-[#424846] mt-0.5">
+                            <div className="text-xs text-[#424846] dark:text-slate-300 mt-0.5">
                                 Leadership, teamwork, experiences, and conflict resolution.
                             </div>
                         </div>
                     </div>
 
                     {/* Technical */}
-                    <div className="p-3 rounded-lg bg-[#eff4ff] flex items-center gap-2">
+                    <div className="p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700 flex items-center gap-2">
                         <Code2
                             size={17}
-                            className="text-[#006c49] shrink-0"
+                            className="text-[#006c49] dark:text-emerald-400 shrink-0"
                         />
                         <div>
-                            <div className="font-semibold text-[#0b1c30]">
+                            <div className="font-semibold text-[#0b1c30] dark:text-slate-100">
                                 Technical
                             </div>
-                            <div className="text-xs text-[#424846] mt-0.5">
+                            <div className="text-xs text-[#424846] dark:text-slate-300 mt-0.5">
                                 Technical knowledge, problem-solving, and coding concepts.
                             </div>
                         </div>
                     </div>
 
                     {/* HR */}
-                    <div className="p-3 rounded-lg bg-[#eff4ff] flex items-center gap-2">
+                    <div className="p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700 flex items-center gap-2">
                         <MessageCircle
                             size={17}
-                            className="text-[#006c49] shrink-0"
+                            className="text-[#006c49] dark:text-emerald-400 shrink-0"
                         />
                         <div>
-                            <div className="font-semibold text-[#0b1c30]">
+                            <div className="font-semibold text-[#0b1c30] dark:text-slate-100">
                                 HR
                             </div>
-                            <div className="text-xs text-[#424846] mt-0.5">
+                            <div className="text-xs text-[#424846] dark:text-slate-300 mt-0.5">
                                 Communication, career goals, and workplace-related questions.
                             </div>
                         </div>
                     </div>
 
                     {/* System Design */}
-                    <div className="p-3 rounded-lg bg-[#eff4ff] flex items-center gap-2">
+                    <div className="p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700 flex items-center gap-2">
                         <Database
                             size={17}
-                            className="text-[#006c49] shrink-0"
+                            className="text-[#006c49] dark:text-emerald-400 shrink-0"
                         />
                         <div>
-                            <div className="font-semibold text-[#0b1c30]">
+                            <div className="font-semibold text-[#0b1c30] dark:text-slate-100">
                                 System Design
                             </div>
-                            <div className="text-xs text-[#424846] mt-0.5">
+                            <div className="text-xs text-[#424846] dark:text-slate-300 mt-0.5">
                                 Architecture, scalability, and real-world system design.
                             </div>
                         </div>
@@ -211,7 +212,7 @@ const faqs = [
                     interview type.
                 </p>
 
-                <div className="flex items-center gap-2 mt-4 text-[#006c49] text-xs font-semibold">
+                <div className="flex items-center gap-2 mt-4 text-[#006c49] dark:text-emerald-400 text-xs font-semibold">
                     <Lightbulb size={16} />
                     <span>Questions are designed around your selected interview context.</span>
                 </div>
@@ -239,8 +240,8 @@ const faqs = [
                     field.
                 </p>
 
-                <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff] text-[#0b1c30]">
-                    <Mic size={18} className="text-[#006c49]" />
+                <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700 text-[#0b1c30] dark:text-slate-100">
+                    <Mic size={18} className="text-[#006c49] dark:text-emerald-400" />
                     <span>
                         You can also edit the generated transcript before continuing.
                     </span>
@@ -269,7 +270,7 @@ const faqs = [
                     and using the speech-to-text microphone feature.
                 </p>
 
-                <div className="flex items-center gap-2 mt-4 text-[#006c49] text-xs font-semibold">
+                <div className="flex items-center gap-2 mt-4 text-[#006c49] dark:text-emerald-400 text-xs font-semibold">
                     <CheckCircle size={16} />
                     <span>Choose the answering method that works best for you.</span>
                 </div>
@@ -299,8 +300,8 @@ const faqs = [
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div className="p-3 rounded-lg bg-[#eff4ff]">
-                        <div className="font-semibold text-[#051916]">
+                    <div className="p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <div className="font-semibold text-[#051916] dark:text-slate-100">
                             Answer Quality
                         </div>
                         <div className="text-xs mt-1">
@@ -308,8 +309,8 @@ const faqs = [
                         </div>
                     </div>
 
-                    <div className="p-3 rounded-lg bg-[#eff4ff]">
-                        <div className="font-semibold text-[#051916]">
+                    <div className="p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <div className="font-semibold text-[#051916] dark:text-slate-100">
                             Performance
                         </div>
                         <div className="text-xs mt-1">
@@ -342,18 +343,18 @@ const faqs = [
                 </p>
 
                 <div className="space-y-2">
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff]">
-                        <BarChart3 size={17} className="text-[#006c49]" />
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <BarChart3 size={17} className="text-[#006c49] dark:text-emerald-400" />
                         <span>Review your interview performance.</span>
                     </div>
 
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff]">
-                        <Lightbulb size={17} className="text-[#006c49]" />
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <Lightbulb size={17} className="text-[#006c49] dark:text-emerald-400" />
                         <span>View generated insights and improvement areas.</span>
                     </div>
 
-                    <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff]">
-                        <Target size={17} className="text-[#006c49]" />
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-[#eff4ff] dark:bg-slate-700">
+                        <Target size={17} className="text-[#006c49] dark:text-emerald-400" />
                         <span>Use the feedback to prepare for your next attempt.</span>
                     </div>
                 </div>
@@ -382,7 +383,7 @@ const faqs = [
                     effectively for future interviews.
                 </p>
 
-                <div className="flex items-center gap-2 mt-4 text-[#006c49] text-xs font-semibold">
+                <div className="flex items-center gap-2 mt-4 text-[#006c49] dark:text-emerald-400 text-xs font-semibold">
                     <Lightbulb size={16} />
                     <span>Use every interview as feedback for your next attempt.</span>
                 </div>
@@ -435,7 +436,7 @@ const faqs = [
                     authentication, including your dashboard and interview sessions.
                 </p>
 
-                <div className="flex items-center gap-2 mt-4 text-[#006c49] text-xs font-semibold">
+                <div className="flex items-center gap-2 mt-4 text-[#006c49] dark:text-emerald-400 text-xs font-semibold">
                     <ShieldCheck size={16} />
                     <span>Your interview experience is tied to your account.</span>
                 </div>
@@ -464,7 +465,7 @@ const faqs = [
                     with the correct user.
                 </p>
 
-                <div className="flex items-center gap-2 mt-4 text-[#006c49] text-xs font-semibold">
+                <div className="flex items-center gap-2 mt-4 text-[#006c49] dark:text-emerald-400 text-xs font-semibold">
                     <ShieldCheck size={16} />
                     <span>Authentication helps protect access to your interview data.</span>
                 </div>
@@ -550,7 +551,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
 
     return (
         <div
-            className={`flex flex-col rounded-xl bg-white shadow-sm transition-all duration-200 overflow-hidden ${isOpen ? "bg-[#eff4ff]/40" : ""
+            className={`flex flex-col rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all duration-200 overflow-hidden ${isOpen ? "bg-[#eff4ff]/40 dark:bg-slate-700/40" : ""
                 }`}
         >
             <button
@@ -563,21 +564,21 @@ function FAQItem({ faq, isOpen, onToggle }) {
                     <Icon
                         size={22}
                         strokeWidth={1.8}
-                        className="text-[#006c49] mt-0.5 shrink-0"
+                        className="text-[#006c49] dark:text-emerald-400 mt-0.5 shrink-0"
                     />
 
                     <div>
-                        <span className="inline-block text-[11px] uppercase tracking-wider text-[#727876] mb-1">
+                        <span className="inline-block text-[11px] uppercase tracking-wider text-[#727876] dark:text-slate-400 mb-1">
                             {faq.label}
                         </span>
 
-                        <h3 className="text-[18px] text-[#051916] leading-snug font-semibold">
+                        <h3 className="text-[18px] text-[#051916] dark:text-slate-100 leading-snug font-semibold">
                             {faq.question}
                         </h3>
                     </div>
                 </div>
 
-                <div className="w-8 h-8 rounded-lg bg-[#eff4ff] flex items-center justify-center text-[#051916] shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-[#eff4ff] dark:bg-slate-700 flex items-center justify-center text-[#051916] dark:text-slate-100 shrink-0">
                     <ChevronDown
                         size={20}
                         className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""
@@ -587,7 +588,7 @@ function FAQItem({ faq, isOpen, onToggle }) {
             </button>
 
             {isOpen && (
-                <div className="px-6 pb-6 pt-0 text-[#424846] text-sm leading-relaxed">
+                <div className="px-6 pb-6 pt-0 text-[#424846] dark:text-slate-300 text-sm leading-relaxed">
                     {faq.content}
                 </div>
             )}
@@ -689,17 +690,18 @@ export default function FAQ() {
   noindex
 />
         
-        <main className="w-full pt-16 bg-[#f8f9ff] min-h-screen">
+        <main className="w-full pt-16 bg-[#f8f9ff] dark:bg-slate-900 min-h-screen">
 
             {/* =================================================
           BACK TO DASHBOARD
       ================================================= */}
 
-            <div className="max-w-[1120px] mx-auto px-6 pt-6">
+            <div className="max-w-[1120px] mx-auto px-6 pt-6 flex items-center justify-between gap-3">
+                <ThemeToggle />
                 <button
                     type="button"
                     onClick={() => navigate("/dashboard")}
-                    className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#051916] shadow-sm transition-all hover:bg-[#eff4ff] hover:shadow-md"
+                    className="inline-flex items-center gap-2 rounded-lg bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-semibold text-[#051916] dark:text-slate-100 shadow-sm transition-all hover:bg-[#eff4ff] dark:hover:bg-slate-700 hover:shadow-md"
                 >
                     <ArrowLeft size={18} />
                     <span>Back to Dashboard</span>
@@ -717,23 +719,23 @@ export default function FAQ() {
 
                         {/* Badge */}
 
-                        <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#eff4ff] shadow-sm mb-6">
+                        <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#eff4ff] dark:bg-slate-700 shadow-sm mb-6">
                             <span className="w-2 h-2 rounded-full bg-[#006c49] animate-pulse" />
 
-                            <span className="text-xs text-[#006c49] uppercase tracking-widest font-semibold">
+                            <span className="text-xs text-[#006c49] dark:text-emerald-400 uppercase tracking-widest font-semibold">
                                 Knowledge Base • Mockspire
                             </span>
                         </div>
 
                         {/* Heading */}
 
-                        <h1 className="text-[38px] md:text-[48px] leading-tight text-[#051916] tracking-tight mb-3 font-bold">
+                        <h1 className="text-[38px] md:text-[48px] leading-tight text-[#051916] dark:text-slate-100 tracking-tight mb-3 font-bold">
                             Everything you need to know about Mockspire.
                         </h1>
 
                         {/* Subtitle */}
 
-                        <p className="text-lg leading-7 text-[#424846] max-w-[680px] mb-10">
+                        <p className="text-lg leading-7 text-[#424846] dark:text-slate-300 max-w-[680px] mb-10">
                             Find answers about AI mock interviews, interview questions,
                             speech-to-text answers, performance evaluation, results, and
                             personalized insights.
@@ -742,7 +744,7 @@ export default function FAQ() {
                         {/* Search */}
 
                         <div className="w-full max-w-[640px] relative mb-3 group">
-                            <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none text-[#727876] group-focus-within:text-[#006c49] transition-colors">
+                            <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none text-[#727876] dark:text-slate-400 group-focus-within:text-[#006c49] transition-colors">
                                 <Search size={22} />
                             </div>
 
@@ -753,11 +755,11 @@ export default function FAQ() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search questions, topics, or keywords..."
-                                className="w-full bg-white text-[#0b1c30] placeholder:text-[#727876] text-base pl-12 pr-28 py-4 rounded-xl shadow-sm focus:outline-none focus:shadow-md transition-all"
+                                className="w-full bg-white dark:bg-slate-800 text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400 text-base pl-12 pr-28 py-4 rounded-xl shadow-sm focus:outline-none focus:shadow-md transition-all"
                             />
 
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <span className="px-2 py-0.5 rounded bg-[#eff4ff] text-[#424846] text-[11px] shadow-sm">
+                                <span className="px-2 py-0.5 rounded bg-[#eff4ff] dark:bg-slate-700 text-[#424846] dark:text-slate-300 text-[11px] shadow-sm">
                                     ⌘K
                                 </span>
                             </div>
@@ -765,8 +767,8 @@ export default function FAQ() {
 
                         {/* Popular Tags */}
 
-                        <div className="flex flex-wrap items-center justify-center gap-1 text-[#424846]">
-                            <span className="text-xs text-[#727876] mr-1">
+                        <div className="flex flex-wrap items-center justify-center gap-1 text-[#424846] dark:text-slate-300">
+                            <span className="text-xs text-[#727876] dark:text-slate-400 mr-1">
                                 Popular:
                             </span>
 
@@ -775,7 +777,7 @@ export default function FAQ() {
                                     key={tag.value}
                                     type="button"
                                     onClick={() => handleTagClick(tag.value)}
-                                    className="px-3 py-1 rounded-full bg-[#eff4ff] hover:bg-[#e5eeff] hover:text-[#051916] text-xs font-semibold transition-colors"
+                                    className="px-3 py-1 rounded-full bg-[#eff4ff] dark:bg-slate-700 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100 text-xs font-semibold transition-colors"
                                 >
                                     {tag.label}
                                 </button>
@@ -789,7 +791,7 @@ export default function FAQ() {
           FILTER BAR
       ================================================= */}
 
-            <section className="w-full bg-[#eff4ff]/40 py-3 sticky top-16 z-30 backdrop-blur-md">
+            <section className="w-full bg-[#eff4ff]/40 dark:bg-slate-700/40 py-3 sticky top-16 z-30 backdrop-blur-md">
                 <div className="max-w-[1120px] mx-auto px-6 flex items-center justify-start md:justify-center overflow-x-auto gap-1">
                     {categories.map((category) => {
                         const active = currentCategory === category.id;
@@ -803,7 +805,7 @@ export default function FAQ() {
                                 }
                                 className={`px-5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${active
                                         ? "bg-[#051916] text-white shadow-sm"
-                                        : "bg-white text-[#424846] hover:text-[#0b1c30] shadow-sm"
+                                        : "bg-white dark:bg-slate-800 text-[#424846] dark:text-slate-300 hover:text-[#0b1c30] dark:hover:text-slate-100 shadow-sm"
                                     }`}
                             >
                                 {category.label}
@@ -833,15 +835,15 @@ export default function FAQ() {
                 ) : (
                     <div className="flex flex-col items-center justify-center text-center py-20">
 
-                        <div className="w-12 h-12 rounded-xl bg-[#dce9ff] flex items-center justify-center text-[#727876] mb-3">
+                        <div className="w-12 h-12 rounded-xl bg-[#dce9ff] dark:bg-slate-700 flex items-center justify-center text-[#727876] dark:text-slate-400 mb-3">
                             <SearchX size={28} />
                         </div>
 
-                        <h4 className="text-2xl text-[#051916] mb-1 font-semibold">
+                        <h4 className="text-2xl text-[#051916] dark:text-slate-100 mb-1 font-semibold">
                             No matching answers found
                         </h4>
 
-                        <p className="text-base text-[#424846] max-w-[420px] mb-6">
+                        <p className="text-base text-[#424846] dark:text-slate-300 max-w-[420px] mb-6">
                             Try searching for terms like "AI interview",
                             "speech to text", "results", or "evaluation".
                         </p>
@@ -849,7 +851,7 @@ export default function FAQ() {
                         <button
                             type="button"
                             onClick={handleReset}
-                            className="bg-[#e5eeff] text-[#0b1c30] text-xs font-semibold px-6 py-2 rounded-lg hover:bg-[#dce9ff] transition-colors"
+                            className="bg-[#e5eeff] dark:bg-slate-700 text-[#0b1c30] dark:text-slate-100 text-xs font-semibold px-6 py-2 rounded-lg hover:bg-[#dce9ff] dark:hover:bg-slate-700 transition-colors"
                         >
                             Clear search filter
                         </button>
@@ -862,22 +864,22 @@ export default function FAQ() {
       ================================================= */}
 
             <section className="max-w-[1120px] mx-auto px-6 mb-12 w-full">
-                <div className="relative overflow-hidden rounded-xl bg-[#eff4ff] p-6 md:p-12">
+                <div className="relative overflow-hidden rounded-xl bg-[#eff4ff] dark:bg-slate-700 p-6 md:p-12">
 
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
 
                         <div className="md:col-span-8 space-y-2">
 
-                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#006c49]/10 text-[#006c49] text-[11px] font-bold tracking-wide">
+                            <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#006c49]/10 text-[#006c49] dark:text-emerald-400 text-[11px] font-bold tracking-wide">
                                 <Activity size={14} />
                                 RECOMMENDED PREP FLOW
                             </div>
 
-                            <h3 className="text-2xl md:text-[32px] leading-tight text-[#051916] font-semibold">
+                            <h3 className="text-2xl md:text-[32px] leading-tight text-[#051916] dark:text-slate-100 font-semibold">
                                 Ready to test your interview skills?
                             </h3>
 
-                            <p className="text-base leading-6 text-[#424846] max-w-[580px]">
+                            <p className="text-base leading-6 text-[#424846] dark:text-slate-300 max-w-[580px]">
                                 Start an AI-powered mock interview, answer realistic
                                 questions, and review your performance when you finish.
                             </p>

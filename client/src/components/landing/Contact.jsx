@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
     Mail,
     MessageSquarePlus,
@@ -34,7 +35,7 @@ const Contact = () => {
     return (
         <section
             id="contact"
-            className="bg-gray-50 py-24 border-t border-gray-200 text-gray-900"
+            className="bg-gray-50 dark:bg-slate-900 py-24 border-t border-gray-200 dark:border-slate-600 text-gray-900 dark:text-slate-100"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -43,11 +44,11 @@ const Contact = () => {
                     {/* Contact Info */}
                     <div className="flex flex-col justify-center">
 
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-slate-100">
                             Get in Touch
                         </h2>
 
-                        <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                        <p className="text-gray-600 dark:text-slate-300 text-lg mb-8 leading-relaxed">
                             Have a question, feedback, or suggestion about Mockspire? I'd love to hear from you. Send a message and I'll get back to you as soon as possible.
                         </p>
 
@@ -57,16 +58,16 @@ const Contact = () => {
                             {/* Email */}
                             <div className="flex items-center gap-4">
 
-                                <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-emerald-600 shadow-sm">
+                                <div className="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-sm">
                                     <Mail className="w-5 h-5" />
                                 </div>
 
                                 <div>
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-sm text-gray-500 dark:text-slate-300">
                                         Email us at
                                     </p>
 
-                                    <p className="text-gray-900 font-medium">
+                                    <p className="text-gray-900 dark:text-slate-100 font-medium">
                                         mockspireai@gmail.com
                                     </p>
                                 </div>
@@ -76,16 +77,16 @@ const Contact = () => {
                             {/* Location */}
                             <div className="flex items-center gap-4">
 
-                                <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-emerald-600 shadow-sm">
+                                <div className="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-sm">
                                     <MessageSquarePlus className="w-5 h-5" />
                                 </div>
 
                                 <div>
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-sm text-gray-500 dark:text-slate-300">
                                         Feedback & Suggestions
                                     </p>
 
-                                    <p className="text-gray-900 font-medium">
+                                    <p className="text-gray-900 dark:text-slate-100 font-medium">
                                         Help us make Mockspire better
                                     </p>
                                 </div>
@@ -97,7 +98,7 @@ const Contact = () => {
                         {/* Social Links */}
                         <div className="mt-12">
 
-                            <p className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
+                            <p className="text-sm font-semibold text-gray-900 dark:text-slate-100 mb-4 uppercase tracking-wider">
                                 Follow Us
                             </p>
 
@@ -106,7 +107,7 @@ const Contact = () => {
                                 {/* LinkedIn */}
                                 <a
                                     href="https://www.linkedin.com/in/anujsharma8d"
-                                    className="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-emerald-600 hover:border-emerald-200 transition-colors"
+                                    className="w-10 h-10 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 flex items-center justify-center text-gray-500 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-200 transition-colors"
                                 >
                                     <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +123,7 @@ const Contact = () => {
                                 {/* Github */}
                                 <a
                                     href="https://github.com/anujsharma8d"
-                                    className="w-10 h-10 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:text-emerald-600 hover:border-emerald-200 transition-colors"
+                                    className="w-10 h-10 rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 flex items-center justify-center text-gray-500 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-200 transition-colors"
                                 >
                                     <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +143,7 @@ const Contact = () => {
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-[#162825] p-8 rounded-2xl border border-gray-200 shadow-sm">
+                    <div className="bg-[#162825] p-8 rounded-2xl border border-gray-200 dark:border-slate-600 shadow-sm">
 
                         <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -157,7 +158,7 @@ const Contact = () => {
                                     name="name"
                                     required
                                     placeholder="John Doe"
-                                    className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
+                                    className="w-full bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg px-4 py-3 text-gray-900 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
                                 />
                             </div>
 
@@ -172,7 +173,7 @@ const Contact = () => {
                                     name="email"
                                     required
                                     placeholder="john@example.com"
-                                    className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
+                                    className="w-full bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg px-4 py-3 text-gray-900 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none"
                                 />
                             </div>
 
@@ -187,7 +188,7 @@ const Contact = () => {
                                     name="message"
                                     required
                                     placeholder="How can we help you?"
-                                    className="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none resize-none"
+                                    className="w-full bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 rounded-lg px-4 py-3 text-gray-900 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all outline-none resize-none"
                                 />
                             </div>
 
