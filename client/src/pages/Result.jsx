@@ -24,27 +24,27 @@ const Result = () => {
   const [role, setRole] = useState(null)
 
   useEffect(() => {
-    const fetchResult = async () => {
-      try {
-        const res = await getResult(interviewId)
-        setResult(res.data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
+    fetchResult()
+    fetchInterviewDetails()
+  }, [interviewId])
 
-    const fetchInterviewDetails = async () => {
-      try {
-        const res = await interviewapi.getInterview(interviewId)
-        setRole(res.data.interview.role)
-      } catch (err) {
-        console.log(err)
-      }
+  const fetchResult = async () => {
+    try {
+      const res = await getResult(interviewId)
+      setResult(res.data)
+    } catch (err) {
+      console.log(err)
     }
+  }
 
-    fetchResult();
-    fetchInterviewDetails();
-  }, [interviewId]);
+  const fetchInterviewDetails = async () => {
+    try {
+      const res = await interviewapi.getInterview(interviewId)
+      setRole(res.data.interview.role)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   if (!result) {
     return <Loader message="Loading Result..."/>;

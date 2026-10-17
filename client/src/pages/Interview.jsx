@@ -37,46 +37,37 @@ const Interview = () => {
 
   const {
     isListening,
+    transcript,
     startListening,
     stopListening,
     resetTranscript
-  } = useSpeechRecognition((transcript) => {
-    if (transcript && currentQuestion?._id) {
-      setAnswers((prev) => ({ ...prev, [currentQuestion._id]: transcript }));
+  } = useSpeechRecognition();
+
+  const fetchQuestion = async () => {
+    try {
+      const res = await interviewApi.getQuestions(sessionId);
+      setQuestions(res.data.questions)
+    } catch (err) {
+      console.log(err);
     }
-  });
+  }
+
+  const fetchInterviewDetails = async () => {
+    try {
+      const res = await interviewApi.getInterview(sessionId)
+      setRole(res.data.interview.role)
+      setInterviewType(res.data.interview.interviewType)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
-    const fetchQuestion = async () => {
-
-      try {
-        const res = await interviewApi.getQuestions(sessionId);
-
-        setQuestions(res.data.questions)
-
-      } catch (err) {
-        console.log(err);
-      }
-
-    }
-
-    const fetchInterviewDetails = async()=>{
-      try{
-        const res = await interviewApi.getInterview(sessionId)
-
-        setRole(res.data.interview.role)
-        setInterviewType(res.data.interview.interviewType)
-
-      }catch(err){
-        console.log(err)
-      }
-    }
-
-    if (sessionId) {
+    if(sessionId){
       fetchQuestion();
       fetchInterviewDetails();
     }
-  }, [sessionId]);
+  }, [sessionId])
 
   const handleNext = () => {
     if (currIndex < questions.length - 1) {
@@ -93,6 +84,8 @@ const Interview = () => {
   }
 
   useEffect(() => {
+    setSeconds(0)
+
     const interval = setInterval(() => {
       setSeconds((prev) => prev + 1)
     }, 1000);
@@ -163,6 +156,15 @@ const Interview = () => {
       navigate("/dashboard")
     }
   }
+
+ useEffect(() => {
+  if (transcript) {
+    setAnswers((prev) => ({
+      ...prev,
+      [currentQuestion?._id]: transcript
+    }));
+  }
+}, [transcript, currIndex]);
 
   if (questions.length === 0) {
     return (

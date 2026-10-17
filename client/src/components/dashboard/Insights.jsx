@@ -13,22 +13,22 @@ const Insights = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchInsights = async () => {
-      try {
-        const res = await insightApi.getInsight()
-        console.log("INSIGHT RESPONSE:", res.data);
-        setCoreStrengths(res.data.coreStrengths)
-        setFocusAreas(res.data.focusAreas)
-
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setLoading(false);
-      }
-    }
-
     fetchInsights();
-  }, []);
+  }, [])
+
+  const fetchInsights = async () => {
+    try {
+      const res = await insightApi.getInsight()
+      console.log("INSIGHT RESPONSE:", res.data);
+      setCoreStrengths(res.data.coreStrengths)
+      setFocusAreas(res.data.focusAreas)
+
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-6 md:col-span-4">

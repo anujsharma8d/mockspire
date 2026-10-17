@@ -21,22 +21,23 @@ const RecentActivity = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRecentResults = async () => {
-      try {
+    fetchRecentResults()
+  }, [])
 
-        const res = await getRecentResults();
 
-        console.log(res)
-        setRecentResults(res.data.limitedresults || [])
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setLoading(false);
-      }
+  const fetchRecentResults = async () => {
+    try {
+
+      const res = await getRecentResults();
+
+      console.log(res)
+      setRecentResults(res.data.limitedresults || [])
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false);
     }
-
-    fetchRecentResults();
-  }, []);
+  }
 
   const getIcon = (role) => {
     switch (role) {
