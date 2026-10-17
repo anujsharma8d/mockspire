@@ -12,13 +12,14 @@ import Result from './pages/Result'
 import RecentActivity from './pages/RecentActivityPage'
 import FAQ from './pages/FAQ'
 import { ToastContainer } from 'react-toastify'
+import NotFound from './pages/NotFound'
 
 function App() {
   const { theme } = useTheme()
 
   return (
     <>
-      <Routes> 
+      <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/dashboard' element={
           <ProtectedRoutes>
@@ -40,20 +41,23 @@ function App() {
             <Interview/>
           </ProtectedRoutes>
           }/>
-            <Route path='/recentactivity' element={
-              <ProtectedRoutes>
+        <Route path='/recentactivity' element={
+          <ProtectedRoutes>
                 <RecentActivity/>
-              </ProtectedRoutes>
+          </ProtectedRoutes>
               }/>
         <Route path='/results/:interviewId' element={
           <ProtectedRoutes>
             <Result/>
           </ProtectedRoutes>
-          }/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signup' element={<Signup/>}/>
+        } />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='*' element={<NotFound/>} />
       </Routes>
+
       <ToastContainer theme={theme} position="top-right" autoClose={3000} progressClassName="toast-progress"/>
+
     </>
   )
 }
