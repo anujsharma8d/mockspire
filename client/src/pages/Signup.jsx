@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import {
-  Rocket,
   User,
   Mail,
   Lock,
@@ -12,11 +11,70 @@ import {
   Sparkles,
   Eye,
   EyeOff,
+  Check,
+  AlertCircle,
 } from "lucide-react";
 import Logo from '../components/Logo';
 import SEO from '../components/SEO';
 import { toast } from 'react-toastify';
 
+const getPasswordStrength = (pass) => {
+  if (!pass) {
+    return {
+      score: 0,
+      label: "",
+      barColor: "bg-slate-300 dark:bg-slate-600",
+      textColor: "text-[#727876] dark:text-slate-400",
+      feedback: "For better security, aim for 8+ characters with mixed case, numbers, and symbols.",
+    };
+  }
+
+  const hasLength = pass.length >= 8;
+  const hasLower = /[a-z]/.test(pass);
+  const hasUpper = /[A-Z]/.test(pass);
+  const hasNumber = /\d/.test(pass);
+  const hasSpecial = /[^A-Za-z0-9]/.test(pass);
+
+  let score = 0;
+  if (hasLength) score += 1;
+  if (hasLower && hasUpper) score += 1;
+  if (hasNumber) score += 1;
+  if (hasSpecial) score += 1;
+
+  if (score <= 1) {
+    return {
+      score: 1,
+      label: "Weak",
+      barColor: "bg-red-500",
+      textColor: "text-red-600 dark:text-red-400",
+      feedback: "Tip: Add more characters and mix letters, numbers, or symbols.",
+    };
+  } else if (score === 2) {
+    return {
+      score: 2,
+      label: "Fair",
+      barColor: "bg-amber-500",
+      textColor: "text-amber-600 dark:text-amber-400",
+      feedback: "Tip: Combine uppercase letters, numbers, and symbols to improve strength.",
+    };
+  } else if (score === 3) {
+    return {
+      score: 3,
+      label: "Good",
+      barColor: "bg-blue-500",
+      textColor: "text-blue-600 dark:text-blue-400",
+      feedback: "Good password! Adding special symbols can make it even stronger.",
+    };
+  } else {
+    return {
+      score: 4,
+      label: "Strong",
+      barColor: "bg-emerald-500",
+      textColor: "text-emerald-600 dark:text-emerald-400",
+      feedback: "Strong password! Meets recommended security guidelines.",
+    };
+  }
+};
 
 const Signup = () => {
 
@@ -24,13 +82,32 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading,setLoading]=useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [confirmTouched, setConfirmTouched] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const passwordStrength = getPasswordStrength(password);
+  const passwordsMatch = Boolean(password && confirmPassword && password === confirmPassword);
+  const passwordsMismatch = Boolean((confirmTouched || confirmPassword.length > 0) && confirmPassword.length > 0 && password !== confirmPassword);
+  const isSubmitDisabled = loading || !name.trim() || !email.trim() || !password || !confirmPassword || password !== confirmPassword;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!password || !confirmPassword) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
     try {
-      setLoading(true)
+      setLoading(true);
 
       const res = await api.post("/api/auth/signup",
         {
@@ -44,12 +121,14 @@ const Signup = () => {
       setName("");
       setEmail("");
       setPassword("");
+      setConfirmPassword("");
+      setConfirmTouched(false);
 
       navigate("/login")
 
     } catch (err) {
-      toast.error(err.response?.data?.message || "Somthing went wrong")
-    }finally{
+      toast.error(err.response?.data?.message || "Something went wrong")
+    } finally {
       setLoading(false)
     }
   }
@@ -305,6 +384,7 @@ const Signup = () => {
                   onChange={(e) =>
                     setPassword(e.target.value)
                   }
+                  aria-describedby="password-strength-hint"
                   className="w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border border-[#c2c8c5] dark:border-slate-600 rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400"
                   />
 
@@ -319,9 +399,130 @@ const Signup = () => {
 
               </div>
 
-              <p className="text-xs text-[#727876] dark:text-slate-400 mt-1">
-                Must be at least 8 characters.
-              </p>
+              {/* Password Strength Hint */}
+              <div id="password-strength-hint" className="pt-1.5 space-y-1.5" aria-live="polite">
+                {password ? (
+                  <>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[#727876] dark:text-slate-400">Password strength:</span>
+                      <span className={`font-semibold ${passwordStrength.textColor}`}>
+                        {passwordStrength.label}
+                      </span>
+                    </div>
+
+                    <div
+                      className="flex items-center gap-1.5"
+                      role="meter"
+                      aria-label="Password strength"
+                      aria-valuenow={passwordStrength.score}
+                      aria-valuemin={0}
+                      aria-valuemax={4}
+                      aria-valuetext={passwordStrength.label}
+                    >
+                      {[1, 2, 3, 4].map((step) => (
+                        <div
+                          key={step}
+                          className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
+                            step <= passwordStrength.score
+                              ? passwordStrength.barColor
+                              : "bg-[#e2e8f0] dark:bg-slate-700"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    <p className="text-xs text-[#727876] dark:text-slate-400 leading-relaxed">
+                      {passwordStrength.feedback}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-xs text-[#727876] dark:text-slate-400">
+                    Hint: For best security, aim for 8+ characters with a mix of letters, numbers, and symbols.
+                  </p>
+                )}
+              </div>
+
+            </div>
+
+
+            {/* Confirm Password */}
+            <div className="space-y-1">
+
+              <label
+                htmlFor="confirmPassword"
+                className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide"
+                >
+                Confirm Password
+              </label>
+
+              <div className="relative">
+
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock
+                    size={20}
+                    className="text-[#727876] dark:text-slate-400"
+                    />
+                </div>
+
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) =>
+                    setConfirmPassword(e.target.value)
+                  }
+                  onBlur={() => setConfirmTouched(true)}
+                  aria-invalid={passwordsMismatch ? "true" : "false"}
+                  aria-describedby={
+                    passwordsMismatch
+                      ? "confirm-password-error"
+                      : passwordsMatch
+                      ? "confirm-password-success"
+                      : undefined
+                  }
+                  className={`w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border rounded focus:outline-none transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400 ${
+                    passwordsMismatch
+                      ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20"
+                      : passwordsMatch
+                      ? "border-emerald-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                      : "border-[#c2c8c5] dark:border-slate-600 focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20"
+                  }`}
+                  />
+
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+
+              </div>
+
+              {passwordsMismatch && (
+                <p
+                  id="confirm-password-error"
+                  role="alert"
+                  className="text-xs text-red-600 dark:text-red-400 mt-1 flex items-center gap-1.5"
+                >
+                  <AlertCircle size={14} aria-hidden="true" className="shrink-0" />
+                  Passwords do not match.
+                </p>
+              )}
+
+              {passwordsMatch && (
+                <p
+                  id="confirm-password-success"
+                  className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1.5"
+                >
+                  <Check size={14} aria-hidden="true" className="shrink-0" />
+                  Passwords match.
+                </p>
+              )}
 
             </div>
 
@@ -329,8 +530,8 @@ const Signup = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={loading}
-              className="w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] transition-colors uppercase active:scale-95 gap-2 mt-6"
+              disabled={isSubmitDisabled}
+              className="w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] transition-colors uppercase active:scale-95 gap-2 mt-6 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#051916] disabled:active:scale-100"
               >
               {loading ? (
                 <>

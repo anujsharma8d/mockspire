@@ -1,7 +1,7 @@
 import ThemeToggle from "../components/ThemeToggle";
 import { useState, useEffect } from 'react'
 import { getResult } from "../api/resultapi"
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
   BriefcaseBusiness,
   CalendarDays,
@@ -11,10 +11,11 @@ import {
   Lightbulb,
   LayoutDashboard
 } from "lucide-react";
-import { useNavigate } from 'react-router-dom';
 import interviewapi from '../api/interviewapi';
 import Loader from '../components/Loader';
 import SEO from '../components/SEO';
+import { toast } from 'react-toastify';
+import { generateEvaluationReportPdf } from '../utils/generatePdf';
 
 const Result = () => {
   const navigate = useNavigate()
@@ -22,29 +23,32 @@ const Result = () => {
   const [result, setResult] = useState(null)
   const { interviewId } = useParams();
   const [role, setRole] = useState(null)
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false)
 
   useEffect(() => {
-    fetchResult()
-    fetchInterviewDetails()
+    let ignore = false;
+
+    const loadData = async () => {
+      try {
+        const [resultRes, interviewRes] = await Promise.all([
+          getResult(interviewId),
+          interviewapi.getInterview(interviewId),
+        ]);
+        if (!ignore) {
+          setResult(resultRes.data);
+          setRole(interviewRes.data?.interview?.role || null);
+        }
+      } catch (err) {
+        console.error("Failed to load interview results:", err);
+      }
+    };
+
+    loadData();
+
+    return () => {
+      ignore = true;
+    };
   }, [interviewId])
-
-  const fetchResult = async () => {
-    try {
-      const res = await getResult(interviewId)
-      setResult(res.data)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const fetchInterviewDetails = async () => {
-    try {
-      const res = await interviewapi.getInterview(interviewId)
-      setRole(res.data.interview.role)
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   if (!result) {
     return <Loader message="Loading Result..."/>;
@@ -71,6 +75,23 @@ const Result = () => {
         : score >= 40
           ? "Needs Improvement"
           : "Needs Work";
+
+  const handleDownloadPdf = () => {
+    try {
+      setIsGeneratingPdf(true);
+      generateEvaluationReportPdf({
+        result,
+        role,
+        formattedDate,
+      });
+      toast.success("Evaluation report PDF downloaded successfully!");
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      toast.error("Failed to generate PDF. Please try again.");
+    } finally {
+      setIsGeneratingPdf(false);
+    }
+  };
 
 
   return (
@@ -127,10 +148,21 @@ const Result = () => {
             </button>
 
             <button
-              className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-slate-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-slate-700 md:self-auto"
+              onClick={handleDownloadPdf}
+              disabled={isGeneratingPdf}
+              className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-slate-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-slate-700 md:self-auto disabled:opacity-60 disabled:cursor-not-allowed"
               >
-              <Download size={17} />
-              Download PDF
+              {isGeneratingPdf ? (
+                <>
+                  <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Download size={17} />
+                  Download PDF
+                </>
+              )}
             </button>
           </div>
 
