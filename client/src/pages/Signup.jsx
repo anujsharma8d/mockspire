@@ -12,6 +12,8 @@ import {
   Sparkles,
   Eye,
   EyeOff,
+  Check,
+  AlertCircle,
 } from "lucide-react";
 import Logo from '../components/Logo';
 import SEO from '../components/SEO';
@@ -25,34 +27,70 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading,setLoading]=useState(false)
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const isPasswordMismatch = Boolean(confirmPassword && password !== confirmPassword);
+
+  const getPasswordStrength = (pwd) => {
+    if (!pwd) return { score: 0, label: "", checks: [] };
+
+    const checks = [
+      { id: "length", label: "8+ characters", met: pwd.length >= 8 },
+      { id: "mixed", label: "Upper & lowercase letters", met: /[a-z]/.test(pwd) && /[A-Z]/.test(pwd) },
+      { id: "number", label: "At least 1 number", met: /\d/.test(pwd) },
+      { id: "symbol", label: "At least 1 symbol", met: /[^A-Za-z0-9]/.test(pwd) },
+    ];
+
+    const metCount = checks.filter((c) => c.met).length;
+
+    let score = 1;
+    let label = "Weak";
+
+    if (pwd.length >= 8 && metCount >= 3) {
+      score = metCount === 4 ? 3 : 2;
+      label = metCount === 4 ? "Strong" : "Medium";
+    } else if (pwd.length >= 6 && metCount >= 2) {
+      score = 2;
+      label = "Medium";
+    }
+
+    return { score, label, checks };
+  };
+
+  const strength = getPasswordStrength(password);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setLoading(true)
 
-      const res = await api.post("/api/auth/signup",
-        {
-          name,
-          email,
-          password
-        }
-      );
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await api.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
 
       toast.success(res.data.message);
       setName("");
       setEmail("");
       setPassword("");
+      setConfirmPassword("");
 
-      navigate("/login")
-
+      navigate("/login");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Somthing went wrong")
-    }finally{
-      setLoading(false)
+      toast.error(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
 
   return (
@@ -305,6 +343,7 @@ const Signup = () => {
                   onChange={(e) =>
                     setPassword(e.target.value)
                   }
+                  aria-describedby={password ? "password-strength-hint" : "password-hint"}
                   className="w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border border-[#c2c8c5] dark:border-slate-600 rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400"
                   />
 
@@ -323,9 +362,154 @@ const Signup = () => {
 
               </div>
 
-              <p className="text-xs text-[#727876] dark:text-slate-400 mt-1">
-                Must be at least 8 characters.
-              </p>
+              {!password ? (
+                <p id="password-hint" className="text-xs text-[#727876] dark:text-slate-400 mt-1">
+                  Suggested: 8+ characters with a mix of letters, numbers, or symbols.
+                </p>
+              ) : (
+                <div id="password-strength-hint" className="mt-2 space-y-1.5" aria-live="polite">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-[#424846] dark:text-slate-300">
+                      Password strength: <span className="font-semibold text-[#0b1c30] dark:text-slate-100">{strength.label}</span>
+                    </span>
+                    <span className="text-[11px] text-[#727876] dark:text-slate-400">
+                      {strength.label === "Weak" && "Mix case, numbers, or symbols"}
+                      {strength.label === "Medium" && "Good password"}
+                      {strength.label === "Strong" && "Strong password"}
+                    </span>
+                  </div>
+
+                  {/* Multi-segment strength bar */}
+                  <div className="w-full bg-[#e2e8e5] dark:bg-slate-700 h-1.5 rounded-full overflow-hidden flex gap-1">
+                    <div
+                      className={`h-full flex-1 rounded-full transition-all duration-300 ${
+                        strength.score >= 1
+                          ? strength.score === 1
+                            ? "bg-amber-500"
+                            : strength.score === 2
+                            ? "bg-blue-500"
+                            : "bg-emerald-600"
+                          : "bg-transparent"
+                      }`}
+                    />
+                    <div
+                      className={`h-full flex-1 rounded-full transition-all duration-300 ${
+                        strength.score >= 2
+                          ? strength.score === 2
+                            ? "bg-blue-500"
+                            : "bg-emerald-600"
+                          : "bg-transparent"
+                      }`}
+                    />
+                    <div
+                      className={`h-full flex-1 rounded-full transition-all duration-300 ${
+                        strength.score >= 3 ? "bg-emerald-600" : "bg-transparent"
+                      }`}
+                    />
+                  </div>
+
+                  {/* Accessible checklist: text + check icon ensures not color alone */}
+                  <div className="grid grid-cols-2 gap-x-2 gap-y-1 pt-1 text-[11px]">
+                    {strength.checks.map((check) => (
+                      <div
+                        key={check.id}
+                        className={`flex items-center gap-1.5 ${
+                          check.met
+                            ? "text-emerald-700 dark:text-emerald-400 font-medium"
+                            : "text-[#727876] dark:text-slate-400"
+                        }`}
+                      >
+                        {check.met ? (
+                          <Check size={12} className="shrink-0 stroke-[2.5]" aria-hidden="true" />
+                        ) : (
+                          <span className="w-3 h-3 rounded-full border border-current inline-block shrink-0" aria-hidden="true" />
+                        )}
+                        <span>{check.label}</span>
+                        <span className="sr-only">{check.met ? "(met)" : "(not met)"}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* Confirm Password */}
+            <div className="space-y-1">
+
+              <label
+                htmlFor="confirmPassword"
+                className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide"
+                >
+                Confirm Password
+              </label>
+
+              <div className="relative">
+
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock
+                    size={20}
+                    className="text-[#727876] dark:text-slate-400"
+                    />
+                </div>
+
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  aria-describedby={
+                    isPasswordMismatch
+                      ? "confirm-password-error"
+                      : confirmPassword && !isPasswordMismatch
+                      ? "confirm-password-match"
+                      : undefined
+                  }
+                  className={`w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border ${
+                    isPasswordMismatch
+                      ? "border-red-500 dark:border-red-500 focus:border-red-500 focus:ring-red-500/20"
+                      : "border-[#c2c8c5] dark:border-slate-600 focus:border-[#006c49] focus:ring-[#006c49]/20"
+                  } rounded focus:outline-none focus:ring-2 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400`}
+                  />
+
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
+
+              </div>
+
+              {isPasswordMismatch && (
+                <p
+                  id="confirm-password-error"
+                  role="alert"
+                  className="text-xs text-red-600 dark:text-red-400 mt-1 flex items-center gap-1 font-medium"
+                >
+                  <AlertCircle size={14} className="shrink-0" aria-hidden="true" />
+                  Passwords do not match.
+                </p>
+              )}
+
+              {confirmPassword && !isPasswordMismatch && (
+                <p
+                  id="confirm-password-match"
+                  className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1 font-medium"
+                >
+                  <Check size={14} className="shrink-0" aria-hidden="true" />
+                  Passwords match.
+                </p>
+              )}
 
             </div>
 
@@ -333,8 +517,12 @@ const Signup = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={loading}
-              className="w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm font-semibold text-xs tracking-wide text-white bg-[#051916] hover:bg-[#364b46] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] transition-colors uppercase active:scale-95 gap-2 mt-6"
+              disabled={loading || isPasswordMismatch}
+              className={`w-full flex justify-center items-center py-3 px-6 rounded-lg shadow-sm font-semibold text-xs tracking-wide text-white transition-colors uppercase gap-2 mt-6 ${
+                loading || isPasswordMismatch
+                  ? "bg-[#051916]/60 dark:bg-slate-700 cursor-not-allowed"
+                  : "bg-[#051916] hover:bg-[#364b46] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#051916] active:scale-95"
+              }`}
               >
               {loading ? (
                 <>
