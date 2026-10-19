@@ -14,6 +14,14 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Mockspire API server is running successfully",
+    frontend: "http://localhost:5173",
+    healthCheck: "/health"
+  });
+});
+
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "ok",
