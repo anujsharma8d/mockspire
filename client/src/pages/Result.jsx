@@ -1,4 +1,3 @@
-import ThemeToggle from "../components/ThemeToggle";
 import { useState, useEffect } from 'react'
 import { getResult } from "../api/resultapi"
 import { useParams } from 'react-router-dom'
@@ -15,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import interviewapi from '../api/interviewapi';
 import Loader from '../components/Loader';
 import SEO from '../components/SEO';
+
 
 const Result = () => {
   const navigate = useNavigate()
@@ -80,7 +80,7 @@ const Result = () => {
   description="Review your Mockspire interview results, explore feedback on your answers, and understand areas to focus on in future practice sessions."
   noindex
 />
-    <div className="min-h-screen bg-[#f8f9ff] dark:bg-slate-900 text-[#0b1c30] dark:text-slate-100">
+    <div className="min-h-screen bg-[#f8f9ff] dark:bg-zinc-900 text-[#0b1c30] dark:text-zinc-100">
 
       <main className="mx-auto min-h-screen w-full max-w-[1120px] px-4 py-8 md:px-8 lg:px-16">
 
@@ -88,15 +88,15 @@ const Result = () => {
         {/* HEADER */}
         {/* ================================================= */}
 
-        <header className="mb-12 flex flex-col gap-6 border-b border-[#c2c8c5] dark:border-slate-600 pb-6 md:flex-row md:items-end md:justify-between">
+        <header className="mb-12 flex flex-col gap-6 border-b border-[#c2c8c5] dark:border-zinc-600 pb-6 md:flex-row md:items-end md:justify-between">
 
           <div>
 
-            <h1 className="mb-3 text-4xl font-bold tracking-tight text-[#051916] dark:text-slate-100">
+            <h1 className="mb-3 text-4xl font-bold tracking-tight text-[#051916] dark:text-zinc-100">
               Evaluation Report
             </h1>
 
-            <div className="flex flex-wrap gap-4 text-sm text-[#424846] dark:text-slate-300">
+            <div className="flex flex-wrap gap-4 text-sm text-[#424846] dark:text-zinc-300">
 
               <span className="flex items-center gap-1">
                 <BriefcaseBusiness size={16} />
@@ -118,17 +118,17 @@ const Result = () => {
           </div>
 
           <div className='flex flex-col justify-center items-center gap-2 '>
-            <ThemeToggle />
-            <button className='flex items-center self-start gap-2 rounded border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-semibold uppercase hover:border-[#006c49] hover:text-[#006c49] dark:hover:text-emerald-400'
+
+            <button className='flex items-center self-start gap-2 rounded border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-xs font-semibold uppercase hover:border-[#006c49] hover:text-[#006c49] dark:hover:text-emerald-400'
               onClick={() => navigate("/dashboard")}
-              >
+            >
               <LayoutDashboard />
               Dashboard
             </button>
 
             <button
-              className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-slate-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-slate-700 md:self-auto"
-              >
+              className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-zinc-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-zinc-700 md:self-auto"
+            >
               <Download size={17} />
               Download PDF
             </button>
@@ -144,9 +144,9 @@ const Result = () => {
 
           {/* ================= SCORE ================= */}
 
-          <div className="relative col-span-12 flex flex-col items-center justify-center overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-5">
+          <div className="relative col-span-12 flex flex-col items-center justify-center overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-6 shadow-sm lg:col-span-5">
 
-            <h2 className="mb-6 w-full text-left text-2xl font-semibold text-[#051916] dark:text-slate-100">
+            <h2 className="mb-6 w-full text-left text-2xl font-semibold text-[#051916] dark:text-zinc-100">
               Overall Score
             </h2>
 
@@ -156,7 +156,7 @@ const Result = () => {
               <svg
                 className="h-full w-full -rotate-90"
                 viewBox="0 0 36 36"
-                >
+              >
                 <path
                   d="
                   M18 2.0845
@@ -165,9 +165,9 @@ const Result = () => {
                   "
                   fill="none"
                   stroke="#E2E8F0"
-                  className="dark:stroke-slate-600"
+                  className="dark:stroke-zinc-600"
                   strokeWidth="3.8"
-                  />
+                />
 
                 <path
                   d="
@@ -180,7 +180,7 @@ const Result = () => {
                   strokeWidth="3.8"
                   strokeLinecap="round"
                   strokeDasharray={`${score * 10}, 100`}
-                  />
+                />
               </svg>
 
               {/* Score */}
@@ -188,12 +188,12 @@ const Result = () => {
 
                 <span className="text-[40px] font-bold leading-none text-[#ba1a1a] dark:text-red-400">
                   {score}
-                  <span className="text-2xl text-[#424846] dark:text-slate-300">
+                  <span className="text-2xl text-[#424846] dark:text-zinc-300">
                     /100
                   </span>
                 </span>
 
-                <span className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+                <span className="mt-1 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
                   {scoreMessage}
                 </span>
 
@@ -205,24 +205,24 @@ const Result = () => {
 
           {/* ================= SUMMARY ================= */}
 
-          <div className="col-span-12 flex flex-col rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm lg:col-span-7">
+          <div className="col-span-12 flex flex-col rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-6 shadow-sm lg:col-span-7">
 
             <div className="mb-6 flex items-center gap-3">
 
               <BarChart3
                 size={24}
                 className="text-[#006c49] dark:text-emerald-400"
-                />
+              />
 
-              <h2 className="text-2xl font-semibold text-[#051916] dark:text-slate-100">
+              <h2 className="text-2xl font-semibold text-[#051916] dark:text-zinc-100">
                 AI Executive Summary
               </h2>
 
             </div>
 
-            <div className="flex-1 rounded-lg border border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#006c49]/5 p-6">
+            <div className="flex-1 rounded-lg border border-[#c2c8c5]/50 dark:border-zinc-600/50 bg-[#006c49]/5 p-6">
 
-              <p className="text-base leading-6 text-[#424846] dark:text-slate-300">
+              <p className="text-base leading-6 text-[#424846] dark:text-zinc-300">
                 {result.overallFeedback ||
                   "No summary is available for this interview."}
               </p>
@@ -239,7 +239,7 @@ const Result = () => {
 
         <section>
 
-          <h2 className="mb-6 text-3xl font-semibold text-[#051916] dark:text-slate-100">
+          <h2 className="mb-6 text-3xl font-semibold text-[#051916] dark:text-zinc-100">
             Detailed Breakdown
           </h2>
 
@@ -248,21 +248,21 @@ const Result = () => {
             {questions.map((item, index) => (
 
               <div
-              key={item._id || index}
-              className="overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 shadow-sm"
+                key={item._id || index}
+                className="overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 shadow-sm"
               >
 
                 {/* ================= QUESTION HEADER ================= */}
 
-                <div className="flex items-start justify-between gap-4 border-b border-[#c2c8c5] dark:border-slate-600 bg-[#f8f9ff] dark:bg-slate-900 p-6">
+                <div className="flex items-start justify-between gap-4 border-b border-[#c2c8c5] dark:border-zinc-600 bg-[#f8f9ff] dark:bg-zinc-900 p-6">
 
                   <div>
 
-                    <span className="mb-3 inline-block rounded bg-[#d3e4fe] dark:bg-slate-700 px-2 py-1 text-xs font-semibold text-[#424846] dark:text-slate-300">
+                    <span className="mb-3 inline-block rounded bg-[#d3e4fe] dark:bg-zinc-700 px-2 py-1 text-xs font-semibold text-[#424846] dark:text-zinc-300">
                       Question {index + 1}
                     </span>
 
-                    <h3 className="text-xl font-semibold leading-7 text-[#051916] dark:text-slate-100">
+                    <h3 className="text-xl font-semibold leading-7 text-[#051916] dark:text-zinc-100">
                       {item.question}
                     </h3>
 
@@ -282,11 +282,11 @@ const Result = () => {
 
                   <div>
 
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
                       Your Answer
                     </h4>
 
-                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#f8f9ff] dark:bg-slate-900 p-4 text-sm italic leading-6 text-[#0b1c30] dark:text-slate-100">
+                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 dark:border-zinc-600/50 bg-[#f8f9ff] dark:bg-zinc-900 p-4 text-sm italic leading-6 text-[#0b1c30] dark:text-zinc-100">
                       {item.answer
                         ? `"${item.answer}"`
                         : "No answer provided."}
@@ -298,11 +298,11 @@ const Result = () => {
 
                   <div>
 
-                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+                    <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
                       AI Feedback
                     </h4>
 
-                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#f8f9ff] dark:bg-slate-900 p-4 text-sm leading-6 text-[#0b1c30] dark:text-slate-100">
+                    <div className="min-h-[100px] rounded border border-[#c2c8c5]/50 dark:border-zinc-600/50 bg-[#f8f9ff] dark:bg-zinc-900 p-4 text-sm leading-6 text-[#0b1c30] dark:text-zinc-100">
                       {item.feedback ||
                         "No feedback available."}
                     </div>
@@ -313,7 +313,7 @@ const Result = () => {
 
                 {/* ================= IDEAL APPROACH ================= */}
 
-                <div className="border-t border-[#c2c8c5] dark:border-slate-600 bg-[#006c49]/5 p-6">
+                <div className="border-t border-[#c2c8c5] dark:border-zinc-600 bg-[#006c49]/5 p-6">
 
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#006c49] dark:text-emerald-400">
 
@@ -323,7 +323,7 @@ const Result = () => {
 
                   </h4>
 
-                  <div className="space-y-2 text-sm leading-6 text-[#424846] dark:text-slate-300">
+                  <div className="space-y-2 text-sm leading-6 text-[#424846] dark:text-zinc-300">
 
                     {item.idealAnswer}
 
@@ -333,7 +333,7 @@ const Result = () => {
 
               </div>
 
-))}
+            ))}
 
           </div>
 

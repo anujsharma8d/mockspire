@@ -1,4 +1,3 @@
-import ThemeToggle from "./ThemeToggle";
 import { useState } from "react";
 import Logo from "./Logo";
 import { Link } from "react-scroll";
@@ -49,7 +48,6 @@ const Navbar = () => {
                 {/* Desktop Buttons */}
                 <div className="hidden md:flex items-center gap-8">
 
-                    <ThemeToggle branded />
                     <NavLink
                         to="/login"
                         className="text-white hover:text-gray-300 transition-colors"
@@ -67,7 +65,6 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-2 md:hidden">
-                    <ThemeToggle branded />
 
                     {/* Mobile Menu Button */}
                     <button

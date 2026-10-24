@@ -1,4 +1,3 @@
-import ThemeToggle from "../components/ThemeToggle";
 import { useState } from "react";
 import interviewApi from "../api/interviewapi";
 import { useNavigate } from "react-router-dom";
@@ -147,7 +146,7 @@ const Setup = () => {
   description="Configure your Mockspire interview practice session and prepare for an AI-powered mock interview."
   noindex
 />
-    <div className="flex min-h-screen bg-[#f8f9ff] dark:bg-slate-900 text-[#0b1c30] dark:text-slate-100">
+    <div className="flex min-h-screen bg-[#f8f9ff] dark:bg-zinc-900 text-[#0b1c30] dark:text-zinc-100">
 
       <Sidebar />
       <MobileBottomNav/>
@@ -156,14 +155,13 @@ const Setup = () => {
       <main className="flex min-h-screen flex-1 flex-col md:ml-64">
 
         {/* Header */}
-        <div className="sticky top-0 z-10 border-b border-[#c2c8c5]/50 dark:border-slate-600/50 bg-[#f8f9ff]/90 dark:bg-slate-900/90 px-4 py-6 backdrop-blur-md md:px-16">
+        <div className="sticky top-0 z-10 border-b border-[#c2c8c5]/50 dark:border-zinc-600/50 bg-[#f8f9ff]/90 dark:bg-zinc-900/90 px-4 py-6 backdrop-blur-md md:px-16">
 
-          <div className="float-right ml-3"><ThemeToggle /></div>
           <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#006c49] dark:text-emerald-400">
             New Session Setup
           </p>
 
-          <h1 className="text-2xl font-semibold text-[#0b1c30] dark:text-slate-100 md:text-3xl">
+          <h1 className="text-2xl font-semibold text-[#0b1c30] dark:text-zinc-100 md:text-3xl">
             Configure Interview
           </h1>
 
@@ -180,7 +178,7 @@ const Setup = () => {
 
               <Tags
                 size={20}
-                className="text-[#424846] dark:text-slate-300"
+                className="text-[#424846] dark:text-zinc-300"
                 />
 
               <h2 className="text-xl font-semibold">
@@ -189,7 +187,7 @@ const Setup = () => {
 
             </div>
 
-            <p className="mb-5 text-sm text-[#424846] dark:text-slate-300">
+            <p className="mb-5 text-sm text-[#424846] dark:text-zinc-300">
               Select the primary focus of your practice session.
             </p>
 
@@ -210,8 +208,8 @@ const Setup = () => {
                   }
                   className={`relative rounded-xl border p-6 text-left transition-all duration-200 ${
                     selected
-                    ? "border-[#006c49] dark:border-emerald-400 bg-[#eff4ff] dark:bg-slate-700 shadow-md"
-                    : "border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 hover:shadow-sm"
+                    ? "border-[#006c49] dark:border-emerald-400 bg-[#eff4ff] dark:bg-zinc-700 shadow-md"
+                    : "border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 hover:shadow-sm"
                   }`}
                   >
 
@@ -220,18 +218,18 @@ const Setup = () => {
                       className={`mb-5 flex h-12 w-12 items-center justify-center rounded-full ${
                         selected
                         ? "border-2 border-[#006c49] dark:border-emerald-400 text-[#006c49] dark:text-emerald-400"
-                        : "bg-[#eff4ff] dark:bg-slate-700 text-[#424846] dark:text-slate-300"
+                        : "bg-[#eff4ff] dark:bg-zinc-700 text-[#424846] dark:text-zinc-300"
                       }`}
                       >
                       <Icon size={24} />
                     </div>
 
                     {/* Content */}
-                    <h3 className="mb-2 text-lg font-semibold text-[#0b1c30] dark:text-slate-100">
+                    <h3 className="mb-2 text-lg font-semibold text-[#0b1c30] dark:text-zinc-100">
                       {item.title}
                     </h3>
 
-                    <p className="text-sm leading-5 text-[#424846] dark:text-slate-300">
+                    <p className="text-sm leading-5 text-[#424846] dark:text-zinc-300">
                       {item.description}
                     </p>
 
@@ -251,7 +249,7 @@ const Setup = () => {
             </div>
           </section>
 
-          <div className="my-8 h-px bg-[#c2c8c5]/40 dark:bg-slate-600/40" />
+          <div className="my-8 h-px bg-[#c2c8c5]/40 dark:bg-zinc-600/40" />
 
           {/* ================= ROLE ================= */}
 
@@ -260,7 +258,7 @@ const Setup = () => {
   <div className="mb-2 flex items-center gap-2">
     <TrendingUp
       size={20}
-      className="text-[#424846] dark:text-slate-300"
+      className="text-[#424846] dark:text-zinc-300"
       />
 
     <h2 className="text-xl font-semibold">
@@ -268,7 +266,7 @@ const Setup = () => {
     </h2>
   </div>
 
-  <p className="mb-5 text-sm text-[#424846] dark:text-slate-300">
+  <p className="mb-5 text-sm text-[#424846] dark:text-zinc-300">
     Select the position you are preparing for.
   </p>
 
@@ -285,8 +283,8 @@ const Setup = () => {
         onClick={() => selectOption("role", item.id)}
         className={`relative rounded-xl border p-5 text-left transition-all duration-200 ${
           selected
-          ? "border-[#006c49] dark:border-emerald-400 bg-[#eff4ff] dark:bg-slate-700 shadow-md"
-          : "border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 hover:shadow-sm"
+          ? "border-[#006c49] dark:border-emerald-400 bg-[#eff4ff] dark:bg-zinc-700 shadow-md"
+          : "border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 hover:shadow-sm"
         }`}
         >
 
@@ -295,19 +293,19 @@ const Setup = () => {
             className={`mb-4 flex h-11 w-11 items-center justify-center rounded-full ${
               selected
               ? "border-2 border-[#006c49] dark:border-emerald-400 text-[#006c49] dark:text-emerald-400"
-              : "bg-[#eff4ff] dark:bg-slate-700 text-[#424846] dark:text-slate-300"
+              : "bg-[#eff4ff] dark:bg-zinc-700 text-[#424846] dark:text-zinc-300"
             }`}
             >
             <Icon size={22} />
           </div>
 
           {/* Title */}
-          <h3 className="mb-1 text-base font-semibold text-[#0b1c30] dark:text-slate-100">
+          <h3 className="mb-1 text-base font-semibold text-[#0b1c30] dark:text-zinc-100">
             {item.title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm leading-5 text-[#424846] dark:text-slate-300">
+          <p className="text-sm leading-5 text-[#424846] dark:text-zinc-300">
             {item.description}
           </p>
 
@@ -328,7 +326,7 @@ const Setup = () => {
 
 </section>
 
-          <div className="my-8 h-px bg-[#c2c8c5]/40 dark:bg-slate-600/40" />
+          <div className="my-8 h-px bg-[#c2c8c5]/40 dark:bg-zinc-600/40" />
 
           {/* ================= DIFFICULTY + QUESTIONS ================= */}
 
@@ -342,7 +340,7 @@ const Setup = () => {
 
                 <TrendingUp
                   size={20}
-                  className="text-[#424846] dark:text-slate-300"
+                  className="text-[#424846] dark:text-zinc-300"
                   />
 
                 <h2 className="text-xl font-semibold">
@@ -351,7 +349,7 @@ const Setup = () => {
 
               </div>
 
-              <p className="mb-4 text-sm text-[#424846] dark:text-slate-300">
+              <p className="mb-4 text-sm text-[#424846] dark:text-zinc-300">
                 Set the difficulty level.
               </p>
 
@@ -372,7 +370,7 @@ const Setup = () => {
                     className={`rounded-full border px-5 py-2 text-sm font-medium transition-all ${
                       selected
                       ? "border-[#051916] bg-[#051916] text-white dark:border-emerald-400 dark:bg-emerald-800"
-                      : "border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 text-[#424846] dark:text-slate-300 hover:bg-[#eff4ff] dark:hover:bg-slate-700"
+                      : "border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 text-[#424846] dark:text-zinc-300 hover:bg-[#eff4ff] dark:hover:bg-zinc-700"
                     }`}
                     >
                       {level}
@@ -392,7 +390,7 @@ const Setup = () => {
 
                 <ListOrdered
                   size={20}
-                  className="text-[#424846] dark:text-slate-300"
+                  className="text-[#424846] dark:text-zinc-300"
                   />
 
                 <h2 className="text-xl font-semibold">
@@ -401,11 +399,11 @@ const Setup = () => {
 
               </div>
 
-              <p className="mb-4 text-sm text-[#424846] dark:text-slate-300">
+              <p className="mb-4 text-sm text-[#424846] dark:text-zinc-300">
                 Choose how many questions you want.
               </p>
 
-              <div className="flex w-fit rounded-lg border border-[#c2c8c5] dark:border-slate-600 bg-[#eff4ff] dark:bg-slate-700 p-1">
+              <div className="flex w-fit rounded-lg border border-[#c2c8c5] dark:border-zinc-600 bg-[#eff4ff] dark:bg-zinc-700 p-1">
 
                 {questionCounts.map((count) => {
                   
@@ -421,8 +419,8 @@ const Setup = () => {
                     }
                     className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${
                       selected
-                      ? "bg-white dark:bg-slate-800 text-[#051916] dark:text-slate-100 shadow-sm"
-                      : "text-[#424846] dark:text-slate-300 hover:text-[#051916] dark:hover:text-slate-100"
+                      ? "bg-white dark:bg-zinc-800 text-[#051916] dark:text-zinc-100 shadow-sm"
+                      : "text-[#424846] dark:text-zinc-300 hover:text-[#051916] dark:hover:text-zinc-100"
                     }`}
                     >
                       {count}
@@ -440,7 +438,7 @@ const Setup = () => {
 
         {/* ================= FOOTER ================= */}
 
-        <div className="fixed bottom-20 md:bottom-0 left-0 right-0 z-20 border-t border-[#c2c8c5] dark:border-slate-600 bg-[#f8f9ff]/95 dark:bg-slate-900/95 px-4 py-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] backdrop-blur-md md:left-64 md:px-16">
+        <div className="fixed bottom-20 md:bottom-0 left-0 right-0 z-20 border-t border-[#c2c8c5] dark:border-zinc-600 bg-[#f8f9ff]/95 dark:bg-zinc-900/95 px-4 py-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] backdrop-blur-md md:left-64 md:px-16">
 
           <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-4 ">
 
@@ -459,7 +457,7 @@ const Setup = () => {
 
               <div>
 
-                <p className="text-sm text-[#424846] dark:text-slate-300">
+                <p className="text-sm text-[#424846] dark:text-zinc-300">
                   Estimated Duration
                 </p>
 
@@ -480,7 +478,7 @@ const Setup = () => {
             <button
               onClick={startInterviewHandler}
               disabled={loading}
-              className="flex items-center justify-center gap-3 rounded-lg bg-[#051916] px-12 py-3 font-semibold text-white shadow-md transition-all hover:bg-[#0b1c30] active:scale-95 md:w-auto"
+              className="flex items-center justify-center gap-3 rounded-lg bg-[#051916] dark:bg-emerald-800 px-12 py-3 font-semibold text-white shadow-md transition-all hover:bg-[#0b1c30] active:scale-95 md:w-auto"
               >
               {loading? (
                 <>

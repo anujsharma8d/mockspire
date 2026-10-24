@@ -14,7 +14,7 @@ const MobileBottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="md:hidden flex fixed left-0 bottom-0 z-50 w-screen flex-col gap-2 border-r border-[#c2c8c5] dark:border-slate-600 bg-[#f8f9ff] dark:bg-slate-900 px-2 py-2">
+    <nav className="md:hidden flex fixed left-0 bottom-0 z-50 w-screen flex-col gap-2 border-r border-[#c2c8c5] dark:border-zinc-600 bg-[#f8f9ff] dark:bg-zinc-900 px-2 py-2">
 
       {/* Navigation */}
       <div className="flex gap-2 justify-between items-center">
@@ -24,7 +24,7 @@ const MobileBottomNav = () => {
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-2 py-2 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
-                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
+                : "text-[#424846] dark:text-zinc-300 hover:bg-[#e5eeff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100"
             }`
         }
         >
@@ -41,7 +41,7 @@ const MobileBottomNav = () => {
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-2 py-2 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
-                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
+                : "text-[#424846] dark:text-zinc-300 hover:bg-[#e5eeff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100"
             }`
         }
         >
@@ -58,7 +58,7 @@ const MobileBottomNav = () => {
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-2 py-2 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
-                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
+                : "text-[#424846] dark:text-zinc-300 hover:bg-[#e5eeff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100"
             }`
         }
         >
@@ -75,7 +75,7 @@ const MobileBottomNav = () => {
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-2 py-2 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
-                : "text-[#424846] dark:text-slate-300 hover:bg-[#e5eeff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100"
+                : "text-[#424846] dark:text-zinc-300 hover:bg-[#e5eeff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100"
             }`
         }
         >

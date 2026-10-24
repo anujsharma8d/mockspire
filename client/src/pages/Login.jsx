@@ -1,4 +1,3 @@
-import ThemeToggle from "../components/ThemeToggle";
 import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import api from '../api/axios'
@@ -57,15 +56,14 @@ const Login = () => {
   description="Sign in to your Mockspire account to continue practicing interviews, review feedback, and track your preparation progress."
   noindex
 />
-    <div className="min-h-screen flex w-full bg-[#f8f9ff] dark:bg-slate-900 text-[#0b1c30] dark:text-slate-100 font-[Inter,sans-serif]">
+    <div className="min-h-screen flex w-full bg-[#f8f9ff] text-[#0b1c30] font-[Inter,sans-serif]">
 
             {/* =========================================
                 LEFT SIDE - LOGIN FORM
             ========================================= */}
-            <div className="w-full lg:w-1/2 flex items-center justify-center p-4 md:p-16 bg-[#f8f9ff] dark:bg-slate-900">
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-4 md:p-16 bg-[#f8f9ff]">
 
                 <div className="w-full max-w-md">
-          <div className="mb-4 flex justify-end"><ThemeToggle /></div>
 
                     {/* Mobile Logo */}
                     <div className="lg:hidden mb-12 flex justify-center">
@@ -74,12 +72,12 @@ const Login = () => {
                             className="flex items-center gap-2"
                             >
                             <Rocket
-                                className="text-[#006c49] dark:text-emerald-400"
+                                className="text-[#006c49] "
                                 size={32}
                                 fill="currentColor"
                                 />
 
-                            <span className="text-2xl font-semibold text-[#051916] dark:text-slate-100 tracking-tight">
+                            <span className="text-2xl font-semibold text-[#051916] tracking-tight">
                                 Mockspire
                             </span>
                         </Link>
@@ -88,11 +86,11 @@ const Login = () => {
                     {/* Heading */}
                     <div className="mb-12 text-center lg:text-left">
 
-                        <h1 className="text-3xl md:text-[32px] leading-10 font-semibold text-[#0b1c30] dark:text-slate-100 mb-1">
+                        <h1 className="text-3xl md:text-[32px] leading-10 font-semibold text-[#0b1c30] mb-1">
                             Welcome back
                         </h1>
 
-                        <p className="text-base leading-6 text-[#424846] dark:text-slate-300">
+                        <p className="text-base leading-6 text-[#424846] ">
                             Sign in to your account to continue your preparation.
                         </p>
 
@@ -109,7 +107,7 @@ const Login = () => {
 
                             <label
                                 htmlFor="email"
-                                className="block text-xs leading-4 tracking-wide font-semibold text-[#424846] dark:text-slate-300 mb-1"
+                                className="block text-xs leading-4 tracking-wide font-semibold text-[#424846] mb-1"
                                 >
                                 Email Address
                             </label>
@@ -119,7 +117,7 @@ const Login = () => {
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <Mail
                                         size={20}
-                                        className="text-[#727876] dark:text-slate-400"
+                                        className="text-[#727876] "
                                         />
                                 </div>
 
@@ -132,7 +130,7 @@ const Login = () => {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="block w-full pl-10 pr-3 py-3 border border-[#c2c8c5] dark:border-slate-600 rounded-sm text-[#0b1c30] dark:text-slate-100 placeholder-[#727876] dark:placeholder:text-slate-400 bg-white dark:bg-slate-800 focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
+                                    className="block w-full pl-10 pr-3 py-3 border border-[#c2c8c5]  rounded-sm text-[#0b1c30] placeholder-[#727876]  bg-white focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
                                     />
 
                             </div>
@@ -146,7 +144,7 @@ const Login = () => {
 
                                 <label
                                     htmlFor="password"
-                                    className="block text-xs leading-4 tracking-wide font-semibold text-[#424846] dark:text-slate-300"
+                                    className="block text-xs leading-4 tracking-wide font-semibold text-[#424846]"
                                 >
                                     Password
                                 </label>
@@ -158,7 +156,7 @@ const Login = () => {
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <Lock
                                         size={20}
-                                        className="text-[#727876] dark:text-slate-400"
+                                        className="text-[#727876] "
                                         />
                                 </div>
 
@@ -171,7 +169,7 @@ const Login = () => {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="block w-full pl-10 pr-10 py-3 border border-[#c2c8c5] dark:border-slate-600 rounded-sm text-[#0b1c30] dark:text-slate-100 placeholder-[#727876] dark:placeholder:text-slate-400 bg-white dark:bg-slate-800 focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
+                                    className="block w-full pl-10 pr-10 py-3 border border-[#c2c8c5]rounded-sm text-[#0b1c30]  placeholder-[#727876]  bg-white focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
                                     />
 
                                 <button
@@ -214,7 +212,7 @@ const Login = () => {
                         <div className="relative">
 
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-[#c2c8c5] dark:border-slate-600" />
+                                <div className="w-full border-t border-[#c2c8c5]" />
                             </div>
 
                         </div>
@@ -222,13 +220,13 @@ const Login = () => {
                     </div>
 
                     {/* Signup */}
-                    <p className="mt-12 text-center text-sm text-[#424846] dark:text-slate-300">
+                    <p className="mt-12 text-center text-sm text-[#424846] ">
 
                         Don't have an account?{" "}
 
                         <Link
                             to="/signup"
-                            className="font-semibold text-[#006c49] dark:text-emerald-400 hover:text-[#4edea3] transition-colors underline decoration-[#006c49]/30 hover:decoration-[#006c49]"
+                            className="font-semibold text-[#006c49] hover:text-[#4edea3] transition-colors underline decoration-[#006c49]/30 hover:decoration-[#006c49]"
                             >
                             Sign up
                         </Link>
