@@ -11,11 +11,16 @@ export default function ThemeToggle({ branded = false }) {
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 ${branded
-        ? 'border-slate-500 text-slate-100 hover:bg-white/10'
-        : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700'}`}
+      className={`flex items-center  gap-3 px-4 py-3 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400 ${branded
+        ? 'text-zinc-100 '
+        : 'text-zinc-700 dark:text-zinc-100'}`}
     >
-      <Icon size={20} aria-hidden="true" />
+      <div>
+        <Icon size={20} aria-hidden="true" />
+      </div>
+      <div>
+        {theme==='dark' ? "Dark Mode":"Light Mode"}
+      </div>
     </button>
   );
 }

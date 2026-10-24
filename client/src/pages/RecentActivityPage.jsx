@@ -131,7 +131,7 @@ const RecentActivityPage = () => {
 
 <Loader message="Loading Results..."/>):(
     
-    <div className="min-h-screen bg-[#f8f9ff] dark:bg-slate-900">
+    <div className="min-h-screen bg-[#f8f9ff] dark:bg-zinc-900">
 
       {/* Sidebar */}
       <Sidebar />
@@ -143,18 +143,18 @@ const RecentActivityPage = () => {
         <TopNavbar user={user}/>
 
         {/* Canvas */}
-        <main className="mt-16 flex-1 bg-[#f8f9ff] dark:bg-slate-900 p-8">
+        <main className="mt-16 flex-1 bg-[#f8f9ff] dark:bg-zinc-900 p-8">
 
           <div className="mx-auto max-w-[1120px]">
 
             {/* Page Header */}
             <header className="mb-12">
 
-              <h1 className="mb-2 text-3xl font-semibold text-[#0b1c30] dark:text-slate-100">
+              <h1 className="mb-2 text-3xl font-semibold text-[#0b1c30] dark:text-zinc-100">
                 Recent Activity
               </h1>
 
-              <p className="text-lg text-[#424846] dark:text-slate-300">
+              <p className="text-lg text-[#424846] dark:text-zinc-300">
                 Review your past interview sessions and track progress.
               </p>
 
@@ -166,17 +166,17 @@ const RecentActivityPage = () => {
               {/* Activity List */}
               <div className="col-span-8">
 
-                <div className="overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800">
+                <div className="overflow-hidden rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800">
 
                   {recentResults.length === 0 ? (
 
                     <div className="p-8 text-center">
 
-                      <p className="text-lg font-semibold text-[#051916] dark:text-slate-100">
+                      <p className="text-lg font-semibold text-[#051916] dark:text-zinc-100">
                         No completed interviews
                       </p>
 
-                      <p className="mt-1 text-sm text-[#424846] dark:text-slate-300">
+                      <p className="mt-1 text-sm text-[#424846] dark:text-zinc-300">
                         Complete an interview to see your results here.
                       </p>
 
@@ -192,9 +192,9 @@ const RecentActivityPage = () => {
                         <div
                           key={item._id}
                           onClick={()=>navigate(`/results/${item.interviewId}`)}
-                          className={`flex items-center justify-between p-6 transition-colors hover:bg-[#f8f9ff] dark:hover:bg-slate-700 cursor-pointer ${
+                          className={`flex items-center justify-between p-6 transition-colors hover:bg-[#f8f9ff] dark:hover:bg-zinc-700 cursor-pointer ${
                             index !== recentResults.length - 1
-                              ? "border-b border-[#c2c8c5] dark:border-slate-600"
+                              ? "border-b border-[#c2c8c5] dark:border-zinc-600"
                               : ""
                           }`}
                         >
@@ -202,7 +202,7 @@ const RecentActivityPage = () => {
                           {/* Left */}
                           <div className="flex items-start gap-4">
 
-                            <div className="mt-1 flex h-12 w-12 items-center justify-center rounded-lg bg-[#d3e4fe] dark:bg-slate-700 text-[#051916] dark:text-slate-100">
+                            <div className="mt-1 flex h-12 w-12 items-center justify-center rounded-lg bg-[#d3e4fe] dark:bg-zinc-700 text-[#051916] dark:text-zinc-100">
 
                               <Icon size={22} />
 
@@ -210,11 +210,11 @@ const RecentActivityPage = () => {
 
                             <div>
 
-                              <h3 className="text-lg font-semibold text-[#0b1c30] dark:text-slate-100">
+                              <h3 className="text-lg font-semibold text-[#0b1c30] dark:text-zinc-100">
                                 {item.role}
                               </h3>
 
-                              <div className="mt-1 flex items-center gap-3 text-sm text-[#424846] dark:text-slate-300">
+                              <div className="mt-1 flex items-center gap-3 text-sm text-[#424846] dark:text-zinc-300">
 
                                 <span className="flex items-center gap-1">
                                   <CalendarDays size={16} />
@@ -222,7 +222,7 @@ const RecentActivityPage = () => {
                                   {formatDate(item.date)}
                                 </span>
 
-                                <span className="h-1 w-1 rounded-full bg-[#c2c8c5] dark:bg-slate-600" />
+                                <span className="h-1 w-1 rounded-full bg-[#c2c8c5] dark:bg-zinc-600" />
 
                                 <span className="flex items-center gap-1">
                                   <Clock3 size={16} />
@@ -232,7 +232,7 @@ const RecentActivityPage = () => {
 
                               </div>
 
-                              <p className="mt-1 text-sm text-[#424846] dark:text-slate-300">
+                              <p className="mt-1 text-sm text-[#424846] dark:text-zinc-300">
                                 {item.interviewType}
                               </p>
 
@@ -253,7 +253,7 @@ const RecentActivityPage = () => {
 
                             <div className="flex items-center gap-2">
 
-                              <span className="text-sm text-[#424846] dark:text-slate-300">
+                              <span className="text-sm text-[#424846] dark:text-zinc-300">
                                 Score:
                               </span>
 
@@ -278,9 +278,9 @@ const RecentActivityPage = () => {
               {/* Right Column */}
               <div className="col-span-4">
 
-                <div className="rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6">
+                <div className="rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-6">
 
-                  <h3 className="mb-5 text-xs font-semibold uppercase tracking-wider text-[#727876] dark:text-slate-400">
+                  <h3 className="mb-5 text-xs font-semibold uppercase tracking-wider text-[#727876] dark:text-zinc-400">
                     Overall Stats
                   </h3>
 
@@ -288,11 +288,11 @@ const RecentActivityPage = () => {
 
                     <div className="flex justify-between">
 
-                      <span className="text-sm text-[#424846] dark:text-slate-300">
+                      <span className="text-sm text-[#424846] dark:text-zinc-300">
                         Total Interviews
                       </span>
 
-                      <span className="font-bold text-[#0b1c30] dark:text-slate-100">
+                      <span className="font-bold text-[#0b1c30] dark:text-zinc-100">
                         {stats.totalInterviews}
                       </span>
 
@@ -300,11 +300,11 @@ const RecentActivityPage = () => {
 
                     <div className="flex justify-between">
 
-                      <span className="text-sm text-[#424846] dark:text-slate-300">
+                      <span className="text-sm text-[#424846] dark:text-zinc-300">
                         Average Score
                       </span>
 
-                      <span className="font-bold text-[#0b1c30] dark:text-slate-100">
+                      <span className="font-bold text-[#0b1c30] dark:text-zinc-100">
                         {stats.averageScore}/100
                       </span>
 

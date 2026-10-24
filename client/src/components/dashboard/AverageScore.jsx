@@ -17,14 +17,14 @@ const AverageScore = ({ averageScore }) => {
     circumference - (score / 100) * circumference;
 
   return (
-    <div className="flex min-h-[300px] flex-col justify-between rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 md:col-span-4">
+    <div className="flex min-h-[300px] flex-col justify-between rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-6 md:col-span-4">
 
       <div className="mb-4 flex items-start justify-between">
-        <h3 className="text-2xl font-semibold text-[#051916] dark:text-slate-100">
+        <h3 className="text-2xl font-semibold text-[#051916] dark:text-zinc-100">
           Average Score
         </h3>
 
-        <button className="text-[#424846] dark:text-slate-300">
+        <button className="text-[#424846] dark:text-zinc-300">
           <MoreHorizontal size={20} />
         </button>
       </div>
@@ -45,7 +45,7 @@ const AverageScore = ({ averageScore }) => {
               r={radius}
               fill="none"
               stroke="#e5eeff"
-                  className="dark:stroke-slate-600"
+                  className="dark:stroke-zinc-600"
               strokeWidth="8"
             />
 
@@ -66,7 +66,7 @@ const AverageScore = ({ averageScore }) => {
 
           <div className="absolute inset-0 flex flex-col items-center justify-center">
 
-            <span className="text-3xl leading-none text-[#051916] dark:text-slate-100">
+            <span className="text-3xl leading-none text-[#051916] dark:text-zinc-100">
               {score}
             </span>
 
@@ -78,7 +78,7 @@ const AverageScore = ({ averageScore }) => {
 
         </div>
 
-        <p className="text-center text-sm text-[#424846] dark:text-slate-300">
+        <p className="text-center text-sm text-[#424846] dark:text-zinc-300">
           Your average score across completed interviews.
         </p>
 

@@ -1,4 +1,3 @@
-import ThemeToggle from "../components/ThemeToggle";
 import { useState, useEffect } from 'react'
 import interviewApi from '../api/interviewapi'
 import saveAnswer from "../api/answerapi"
@@ -130,8 +129,6 @@ const Interview = () => {
       await insightApi.generateInsight();
 
 
-
-
       toast.success(res.data.message)
       console.log(res.data.newAnswers)
 
@@ -139,11 +136,11 @@ const Interview = () => {
 
     } catch(err){
       console.log("ERROR STATUS:", err.response?.status);
-    console.log(
-  "ERROR DATA:",
-  JSON.stringify(err.response?.data, null, 2)
-);
-    console.log("ERROR:", err);
+      console.log(
+        "ERROR DATA:",
+        JSON.stringify(err.response?.data, null, 2)
+      );
+      console.log("ERROR:", err);
     }finally{
       setSubmitting(false)
     }
@@ -157,14 +154,14 @@ const Interview = () => {
     }
   }
 
- useEffect(() => {
-  if (transcript) {
-    setAnswers((prev) => ({
-      ...prev,
-      [currentQuestion?._id]: transcript
-    }));
-  }
-}, [transcript, currIndex]);
+  useEffect(() => {
+    if (transcript) {
+      setAnswers((prev) => ({
+        ...prev,
+        [currentQuestion?._id]: transcript
+      }));
+    }
+  }, [transcript, currIndex]);
 
   if (questions.length === 0) {
     return (
@@ -184,13 +181,13 @@ const Interview = () => {
   return (
     <>
     <SEO
-  title="Mockspire Interview Practice – AI-Powered Mock Interviews"
-  description="Practice interview questions with Mockspire and use AI-powered feedback to review your answers and identify areas for improvement."
-  noindex
-/>
-    <div className="min-h-screen bg-[#f8f9ff] dark:bg-slate-900 text-[#0b1c30] dark:text-slate-100">
+      title="Mockspire Interview Practice – AI-Powered Mock Interviews"
+      description="Practice interview questions with Mockspire and use AI-powered feedback to review your answers and identify areas for improvement."
+      noindex
+    />
+    <div className="min-h-screen bg-[#f8f9ff] dark:bg-zinc-900 text-[#0b1c30] dark:text-zinc-100">
 
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-2 border-b border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-3 sm:px-6 py-4 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-2 border-b border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 px-3 sm:px-6 py-4 shadow-sm">
 
         <div className="flex items-center gap-2">
 
@@ -198,43 +195,45 @@ const Interview = () => {
             <Logo
               size={18}
               className="text-white"
-              />
+            />
           </div>
 
-          <span className="text-base sm:text-xl font-semibold tracking-tight text-[#051916] dark:text-slate-100">
+          <span className="text-base sm:text-xl font-semibold tracking-tight text-[#051916] dark:text-zinc-100">
             Mockspire
           </span>
 
         </div>
 
-        <ThemeToggle />
         <div className="hidden md:block">
 
-          <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-[#424846] dark:text-slate-300">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-[#424846] dark:text-zinc-300">
             Live AI Interview • {role} • {interviewType}
           </h2>
 
         </div>
 
-        <button
-          onClick={handleEndInterview}
-          className="rounded-lg border border-[#ba1a1a] dark:border-red-400 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#ba1a1a] dark:text-red-400 transition-colors hover:bg-[#ffdad6] dark:hover:bg-red-950"
-          >
-          End Interview
-        </button>
+        <div className="flex justify-center items-center gap-3">
+
+          <button
+            onClick={handleEndInterview}
+            className="rounded-lg border border-[#ba1a1a] dark:border-red-400 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#ba1a1a] dark:text-red-400 transition-colors hover:bg-[#ffdad6] dark:hover:bg-red-950"
+            >
+            End Interview
+          </button>
+          </div>
 
       </nav>
 
-      <main className="mx-auto flex w-full max-w-[1440px] gap-8 p-6 pt-30 lg:pt-20">
+      <main className="mx-auto flex w-full max-w-[1440px] gap-8 p-6 pt-35 lg:pt-25">
 
 
         <section className="flex min-w-0 flex-1 flex-col gap-8">
 
-          <div className="flex min-h-[300px] flex-col gap-6 rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-8 shadow-sm">
+          <div className="flex min-h-[300px] flex-col gap-6 rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-8 shadow-sm">
 
             <div className="flex items-start justify-between">
 
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
                 Current Question
               </h2>
 
@@ -242,19 +241,19 @@ const Interview = () => {
 
             <div className="flex flex-1 items-center">
 
-              <p className="text-lg font-medium leading-7 text-[#051916] dark:text-slate-100">
+              <p className="text-lg font-medium leading-7 text-[#051916] dark:text-zinc-100">
                 {currentQuestion.question}
               </p>
 
             </div>
 
-            <div className="mt-4 flex items-center justify-between border-t border-[#c2c8c5] dark:border-slate-600 pt-6">
+            <div className="mt-4 flex items-center justify-between border-t border-[#c2c8c5] dark:border-zinc-600 pt-6">
 
               <button
                 onClick={handlePrevious}
                 disabled={currIndex === 0}
-                className="flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-[#424846] dark:text-slate-300 transition-colors hover:bg-[#eff4ff] dark:hover:bg-slate-700 hover:text-[#051916] dark:hover:text-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-                >
+                className="flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-[#424846] dark:text-zinc-300 transition-colors hover:bg-[#eff4ff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
+              >
                 <ArrowLeft size={16} />
 
                 Previous
@@ -263,7 +262,7 @@ const Interview = () => {
               {!isLastQuestion && (
                 <button
                 onClick={handleNext}
-                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-slate-900"
+                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900"
                 >
                   Next Question
 
@@ -275,9 +274,9 @@ const Interview = () => {
 
           </div>
 
-          <div className="flex flex-col gap-4 rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-8 shadow-sm">
+          <div className="flex flex-col gap-4 rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-8 shadow-sm">
 
-            <label className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
               Your Answer
             </label>
 
@@ -293,8 +292,8 @@ const Interview = () => {
                 }))
               }
               placeholder="Type your detailed response here..."
-              className="h-32 w-full resize-none rounded-lg border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-4 text-base text-[#051916] dark:text-slate-100 outline-none transition-all placeholder:text-[#727876] dark:placeholder:text-slate-400 focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20"
-              />
+              className="h-32 w-full resize-none rounded-lg border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-4 text-base text-[#051916] dark:text-zinc-100 outline-none transition-all placeholder:text-[#727876] dark:placeholder:text-zinc-400 focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20"
+            />
             <button
                 type="button"
                 onClick={isListening ? stopListening : startListening}
@@ -315,7 +314,7 @@ const Interview = () => {
                 <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-slate-900"
+                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900"
                 >
                   {submitting ? (
                     <>
@@ -335,7 +334,7 @@ const Interview = () => {
               {!isLastQuestion && (
                 <button
                   onClick={handleNext}
-                  className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-slate-900"
+                  className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900"
                 >
                   Save & Continue
 
@@ -349,14 +348,14 @@ const Interview = () => {
 
         </section>
 
-        <div className='lg:hidden flex fixed z-20 top-15 left-0 right-0 justify-between items-center border-b border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 px-5 py-3'>
+        <div className='lg:hidden flex fixed z-20 top-20 left-0 right-0 justify-between items-center border-b border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 px-5 py-3'>
           <div className='flex flex-col justify-center items-center'>
 
           <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#006c49] dark:text-emerald-400">
                 Question {currIndex + 1} of{" "}
                 {questions.length}
           </span>
-           <div className="h-1 w-full overflow-hidden rounded-full bg-[#eff4ff] dark:bg-slate-700">
+           <div className="h-1 w-full overflow-hidden rounded-full bg-[#eff4ff] dark:bg-zinc-700">
 
                 <div
                   className="h-full rounded-full bg-[#006c49] transition-all duration-300"
@@ -375,12 +374,12 @@ const Interview = () => {
 
             </div>
 
-            <div className="flex items-center gap-2 text-xs lg:text-2xl font-medium text-[#051916] dark:text-slate-100">
+            <div className="flex items-center gap-2 text-xs lg:text-2xl font-medium text-[#051916] dark:text-zinc-100">
 
               <Timer
                 size={24}
                 className="text-[#006c49] dark:text-emerald-400"
-                />
+              />
 
               <span>
                 {formattedTime}
@@ -391,7 +390,7 @@ const Interview = () => {
 
         <aside className="hidden w-72 shrink-0 flex-col gap-6 lg:flex">
 
-          <div className="flex flex-col gap-4 rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm">
+          <div className="flex flex-col gap-4 rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-6 shadow-sm">
 
             <div className="flex flex-col gap-2">
 
@@ -400,7 +399,7 @@ const Interview = () => {
                 {questions.length}
               </span>
 
-              <div className="h-1 w-full overflow-hidden rounded-full bg-[#eff4ff] dark:bg-slate-700">
+              <div className="h-1 w-full overflow-hidden rounded-full bg-[#eff4ff] dark:bg-zinc-700">
 
                 <div
                   className="h-full rounded-full bg-[#006c49] transition-all duration-300"
@@ -416,7 +415,7 @@ const Interview = () => {
 
             <div className="mt-2 flex items-center justify-between">
 
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
                 Difficulty
               </span>
 
@@ -434,18 +433,18 @@ const Interview = () => {
 
           {/* ================= TIMER ================= */}
 
-          <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#c2c8c5] dark:border-slate-600 bg-white dark:bg-slate-800 p-6 shadow-sm">
+          <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-6 shadow-sm">
 
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#424846] dark:text-zinc-300">
               Time Elapsed
             </span>
 
-            <div className="flex items-center gap-2 text-2xl font-medium text-[#051916] dark:text-slate-100">
+            <div className="flex items-center gap-2 text-2xl font-medium text-[#051916] dark:text-zinc-100">
 
               <Timer
                 size={24}
                 className="text-[#006c49] dark:text-emerald-400"
-                />
+              />
 
               <span>
                 {formattedTime}
@@ -460,7 +459,7 @@ const Interview = () => {
       </main>
 
     </div>
-                </>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-import ThemeToggle from "../components/ThemeToggle";
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
@@ -100,7 +99,7 @@ const Signup = () => {
   description="Create a Mockspire account to practice mock interviews, receive AI-powered feedback, and work toward your interview preparation goals."
   noindex
 />
-    <div className="min-h-screen flex w-full bg-[#f8f9ff] dark:bg-slate-900 text-[#0b1c30] dark:text-slate-100 font-[Inter,sans-serif]">
+    <div className="min-h-screen flex w-full bg-[#f8f9ff] text-[#0b1c30] font-[Inter,sans-serif]">
 
       {/* =========================================
                 LEFT SIDE - BRAND / VALUE PROPOSITION
@@ -136,13 +135,13 @@ const Signup = () => {
         {/* Main Content */}
         <div className="relative z-10 w-full max-w-lg mx-auto my-auto">
 
-          <div className="bg-[#f8f9ff]/80 dark:bg-slate-800/80 backdrop-blur-md p-10 lg:p-12 rounded-xl border border-[#c2c8c5] dark:border-slate-600 shadow-xl">
+          <div className="bg-[#f8f9ff]/80  backdrop-blur-md p-10 lg:p-12 rounded-xl border border-[#c2c8c5] shadow-xl">
 
-            <h2 className="text-[32px] leading-10 font-semibold text-[#051916] dark:text-slate-100 mb-6">
+            <h2 className="text-[32px] leading-10 font-semibold text-[#051916] mb-6">
               Master Your Next Interview.
             </h2>
 
-            <p className="text-lg leading-7 text-[#424846] dark:text-slate-300 mb-10">
+            <p className="text-lg leading-7 text-[#424846] mb-10">
               Join Mockspire to practice with AI-powered interviews
               tailored to your target role, get detailed feedback,
               and improve your interview performance.
@@ -153,16 +152,16 @@ const Signup = () => {
               {/* Personalized AI Interviews */}
               <li className="flex items-start gap-4">
 
-                <div className="text-[#006c49] dark:text-emerald-400 bg-[#6cf8bb] dark:bg-emerald-950 p-2 rounded-full shrink-0">
+                <div className="text-[#006c49]  bg-[#6cf8bb]  p-2 rounded-full shrink-0">
                   <Sparkles className="w-5 h-5" />
                 </div>
 
                 <div>
-                  <strong className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide block mb-1">
+                  <strong className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide block mb-1">
                     Personalized AI Interviews
                   </strong>
 
-                  <span className="text-sm text-[#424846] dark:text-slate-300 block leading-6">
+                  <span className="text-sm text-[#424846] block leading-6">
                     Practice with AI-generated questions tailored
                     to your selected role, interview type, and difficulty.
                   </span>
@@ -173,16 +172,16 @@ const Signup = () => {
               {/* AI-Powered Performance Insights */}
               <li className="flex items-start gap-4">
 
-                <div className="text-[#006c49] dark:text-emerald-400 bg-[#6cf8bb] dark:bg-emerald-950 p-2 rounded-full shrink-0">
+                <div className="text-[#006c49] bg-[#6cf8bb] p-2 rounded-full shrink-0">
                   <ChartNoAxesCombined className="w-5 h-5" />
                 </div>
 
                 <div>
-                  <strong className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide block mb-1">
+                  <strong className="text-xs font-semibold text-[#0b1c30]  uppercase tracking-wide block mb-1">
                     AI-Powered Performance Insights
                   </strong>
 
-                  <span className="text-sm text-[#424846] dark:text-slate-300 block leading-6">
+                  <span className="text-sm text-[#424846]  block leading-6">
                     Get detailed feedback on your interview performance,
                     including scores, core strengths, and focus areas.
                   </span>
@@ -200,17 +199,16 @@ const Signup = () => {
       {/* =========================================
                 RIGHT SIDE - SIGNUP FORM
                 ========================================= */}
-      <section className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-16 bg-[#f8f9ff] dark:bg-slate-900">
+      <section className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-16 bg-[#f8f9ff] ">
 
         <div className="w-full max-w-md">
-          <div className="mb-4 flex justify-end"><ThemeToggle /></div>
 
           {/* Mobile Logo */}
           <div className="mb-12 lg:hidden">
 
             <Link
               to="/"
-              className="font-semibold text-2xl text-[#051916] dark:text-slate-100 flex items-center gap-2"
+              className="font-semibold text-2xl text-[#051916] flex items-center gap-2"
               >
               <Logo/>
 
@@ -223,11 +221,11 @@ const Signup = () => {
           {/* Heading */}
           <div className="mb-12">
 
-            <h1 className="text-3xl md:text-[32px] leading-10 font-semibold text-[#051916] dark:text-slate-100 mb-1">
+            <h1 className="text-3xl md:text-[32px] leading-10 font-semibold text-[#051916] mb-1">
               Create your account
             </h1>
 
-            <p className="text-base leading-6 text-[#424846] dark:text-slate-300">
+            <p className="text-base leading-6 text-[#424846] ">
               Start your professional preparation journey today.
             </p>
 
@@ -245,7 +243,7 @@ const Signup = () => {
 
               <label
                 htmlFor="fullName"
-                className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide"
+                className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
                 >
                 Full Name
               </label>
@@ -255,7 +253,7 @@ const Signup = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User
                     size={20}
-                    className="text-[#727876] dark:text-slate-400"
+                    className="text-[#727876]"
                     />
                 </div>
 
@@ -269,7 +267,7 @@ const Signup = () => {
                   onChange={(e) =>
                     setName(e.target.value)
                   }
-                  className="w-full pl-10 pr-3 py-3 bg-white dark:bg-slate-800 border border-[#c2c8c5] dark:border-slate-600 rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400"
+                  className="w-full pl-10 pr-3 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876] "
                   />
 
               </div>
@@ -282,7 +280,7 @@ const Signup = () => {
 
               <label
                 htmlFor="email"
-                className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide"
+                className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
                 >
                 Email
               </label>
@@ -292,7 +290,7 @@ const Signup = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail
                     size={20}
-                    className="text-[#727876] dark:text-slate-400"
+                    className="text-[#727876] "
                     />
                 </div>
 
@@ -306,7 +304,7 @@ const Signup = () => {
                   onChange={(e) =>
                     setEmail(e.target.value)
                   }
-                  className="w-full pl-10 pr-3 py-3 bg-white dark:bg-slate-800 border border-[#c2c8c5] dark:border-slate-600 rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400"
+                  className="w-full pl-10 pr-3 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876] "
                   />
 
               </div>
@@ -319,7 +317,7 @@ const Signup = () => {
 
               <label
                 htmlFor="password"
-                className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide"
+                className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
                 >
                 Password
               </label>
@@ -329,7 +327,7 @@ const Signup = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock
                     size={20}
-                    className="text-[#727876] dark:text-slate-400"
+                    className="text-[#727876] "
                     />
                 </div>
 
@@ -478,7 +476,7 @@ const Signup = () => {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] focus:outline-none transition-colors"
                   aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
                 >
                   {showConfirmPassword ? (
@@ -549,7 +547,7 @@ const Signup = () => {
             <div className="relative">
 
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#c2c8c5] dark:border-slate-600" />
+                <div className="w-full border-t border-[#c2c8c5] " />
               </div>
 
             </div>
@@ -559,13 +557,13 @@ const Signup = () => {
           {/* Login Link */}
           <div className="mt-12 text-center">
 
-            <p className="text-base text-[#424846] dark:text-slate-300">
+            <p className="text-base text-[#424846] ">
 
               Already have an account?{" "}
 
               <Link
                 to="/login"
-                className="font-semibold text-[#006c49] dark:text-emerald-400 hover:text-[#4edea3] transition-colors  ml-1"
+                className="font-semibold text-[#006c49]  hover:text-[#4edea3] transition-colors  ml-1"
                 >
                 Log in
               </Link>
