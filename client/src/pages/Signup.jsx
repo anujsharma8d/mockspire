@@ -266,7 +266,7 @@ const Signup = () => {
                   onChange={(e) =>
                     setEmail(e.target.value)
                   }
-                  className="w-full pl-10 pr-3 py-3 bg-white  border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876] "
+                  className="w-full pl-10 pr-3 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876] "
                   />
 
               </div>
@@ -303,13 +303,13 @@ const Signup = () => {
                   onChange={(e) =>
                     setPassword(e.target.value)
                   }
-                  className="w-full pl-10 pr-3 py-3 bg-white  border border-[#c2c8c5]  rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30]  placeholder:text-[#727876] "
+                  className="w-full pl-10 pr-3 py-3 bg-white  border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30]  placeholder:text-[#727876] "
                   />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] focus:outline-none transition-colors"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
