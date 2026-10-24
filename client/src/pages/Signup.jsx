@@ -342,13 +342,13 @@ const Signup = () => {
                     setPassword(e.target.value)
                   }
                   aria-describedby={password ? "password-strength-hint" : "password-hint"}
-                  className="w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border border-[#c2c8c5] dark:border-slate-600 rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400"
+                  className="w-full pl-10 pr-10 py-3 bg-white border border-[#c2c8c5] rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30] placeholder:text-[#727876]"
                   />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword((prev) => !prev)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] focus:outline-none transition-colors"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -361,16 +361,16 @@ const Signup = () => {
               </div>
 
               {!password ? (
-                <p id="password-hint" className="text-xs text-[#727876] dark:text-slate-400 mt-1">
+                <p id="password-hint" className="text-xs text-[#727876] mt-1">
                   Suggested: 8+ characters with a mix of letters, numbers, or symbols.
                 </p>
               ) : (
                 <div id="password-strength-hint" className="mt-2 space-y-1.5" aria-live="polite">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#424846] dark:text-slate-300">
-                      Password strength: <span className="font-semibold text-[#0b1c30] dark:text-slate-100">{strength.label}</span>
+                    <span className="text-[#424846]">
+                      Password strength: <span className="font-semibold text-[#0b1c30]">{strength.label}</span>
                     </span>
-                    <span className="text-[11px] text-[#727876] dark:text-slate-400">
+                    <span className="text-[11px] text-[#727876]">
                       {strength.label === "Weak" && "Mix case, numbers, or symbols"}
                       {strength.label === "Medium" && "Good password"}
                       {strength.label === "Strong" && "Strong password"}
@@ -378,7 +378,7 @@ const Signup = () => {
                   </div>
 
                   {/* Multi-segment strength bar */}
-                  <div className="w-full bg-[#e2e8e5] dark:bg-slate-700 h-1.5 rounded-full overflow-hidden flex gap-1">
+                  <div className="w-full bg-[#e2e8e5] h-1.5 rounded-full overflow-hidden flex gap-1">
                     <div
                       className={`h-full flex-1 rounded-full transition-all duration-300 ${
                         strength.score >= 1
@@ -413,8 +413,8 @@ const Signup = () => {
                         key={check.id}
                         className={`flex items-center gap-1.5 ${
                           check.met
-                            ? "text-emerald-700 dark:text-emerald-400 font-medium"
-                            : "text-[#727876] dark:text-slate-400"
+                            ? "text-emerald-700 font-medium"
+                            : "text-[#727876]"
                         }`}
                       >
                         {check.met ? (
@@ -437,7 +437,7 @@ const Signup = () => {
 
               <label
                 htmlFor="confirmPassword"
-                className="text-xs font-semibold text-[#0b1c30] dark:text-slate-100 uppercase tracking-wide"
+                className="text-xs font-semibold text-[#0b1c30] uppercase tracking-wide"
                 >
                 Confirm Password
               </label>
@@ -447,7 +447,7 @@ const Signup = () => {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock
                     size={20}
-                    className="text-[#727876] dark:text-slate-400"
+                    className="text-[#727876]"
                     />
                 </div>
 
@@ -466,11 +466,11 @@ const Signup = () => {
                       ? "confirm-password-match"
                       : undefined
                   }
-                  className={`w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800 border ${
+                  className={`w-full pl-10 pr-10 py-3 bg-white border ${
                     isPasswordMismatch
-                      ? "border-red-500 dark:border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                      : "border-[#c2c8c5] dark:border-slate-600 focus:border-[#006c49] focus:ring-[#006c49]/20"
-                  } rounded focus:outline-none focus:ring-2 transition-all text-[#0b1c30] dark:text-slate-100 placeholder:text-[#727876] dark:placeholder:text-slate-400`}
+                      ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+                      : "border-[#c2c8c5] focus:border-[#006c49] focus:ring-[#006c49]/20"
+                  } rounded focus:outline-none focus:ring-2 transition-all text-[#0b1c30] placeholder:text-[#727876]`}
                   />
 
                 <button
@@ -492,7 +492,7 @@ const Signup = () => {
                 <p
                   id="confirm-password-error"
                   role="alert"
-                  className="text-xs text-red-600 dark:text-red-400 mt-1 flex items-center gap-1 font-medium"
+                  className="text-xs text-red-600 mt-1 flex items-center gap-1 font-medium"
                 >
                   <AlertCircle size={14} className="shrink-0" aria-hidden="true" />
                   Passwords do not match.
