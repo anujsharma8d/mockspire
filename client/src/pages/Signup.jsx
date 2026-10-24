@@ -9,6 +9,8 @@ import {
   ArrowRight,
   ChartNoAxesCombined,
   Sparkles,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import Logo from '../components/Logo';
 import SEO from '../components/SEO';
@@ -21,6 +23,7 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading,setLoading]=useState(false)
 
   const handleSubmit = async (e) => {
@@ -293,7 +296,7 @@ const Signup = () => {
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   required
                   value={password}
@@ -302,6 +305,19 @@ const Signup = () => {
                   }
                   className="w-full pl-10 pr-3 py-3 bg-white  border border-[#c2c8c5]  rounded focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all text-[#0b1c30]  placeholder:text-[#727876] "
                   />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
 
               </div>
 
