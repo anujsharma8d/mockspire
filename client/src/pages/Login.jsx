@@ -169,13 +169,13 @@ const Login = () => {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="block w-full pl-10 pr-10 py-3 border border-[#c2c8c5]rounded-sm text-[#0b1c30]  placeholder-[#727876]  bg-white focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
+                                    className="block w-full pl-10 pr-10 py-3 border border-[#c2c8c5] rounded-sm text-[#0b1c30]  placeholder-[#727876]  bg-white focus:outline-none focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20 transition-all"
                                     />
 
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword((prev) => !prev)}
-                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] dark:text-slate-400 hover:text-[#0b1c30] dark:hover:text-slate-100 focus:outline-none transition-colors"
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#727876] focus:outline-none transition-colors"
                                     aria-label={showPassword ? "Hide password" : "Show password"}
                                 >
                                     {showPassword ? (
