@@ -1,17 +1,12 @@
 import { NavLink } from "react-router-dom";
 import {
-  Bot,
   LayoutDashboard,
   Video,
   ChartNoAxesColumn,
   Settings,
-  CircleHelp,
-  LogOut,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const MobileBottomNav = () => {
-  const navigate = useNavigate();
 
   return (
     <nav className="md:hidden flex fixed left-0 bottom-0 z-50 w-screen flex-col gap-2 border-r border-[#c2c8c5] dark:border-zinc-600 bg-[#f8f9ff] dark:bg-zinc-900 px-2 py-2">
@@ -54,7 +49,7 @@ const MobileBottomNav = () => {
         </NavLink>
 
         <NavLink
-          to="/analytics"
+          to="/recentactivity"
           className={({isActive})=>
             `flex items-center gap-3 rounded-lg px-2 py-2 font-semibold transition-colors ${
                 isActive? "border-2 border-[#00714d] dark:border-emerald-400 text-[#00714d] dark:text-emerald-400"
@@ -65,7 +60,7 @@ const MobileBottomNav = () => {
             {({isActive})=>
             <div className="flex flex-col justify-center items-center">
           <ChartNoAxesColumn size={22} fill={isActive?"currentColor":"none"} />
-          Analytics
+          Results
             </div>
             }
         </NavLink>
