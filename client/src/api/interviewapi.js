@@ -10,6 +10,16 @@ const getQuestions = (sessionId) => {
     });
 };
 
+const getFirstQuestion = (sessionId) => {
+    const token = localStorage.getItem("token");
+
+    return api.get(`/api/interview/${sessionId}/first-question`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};
+
 const startInterview = (setup)=>{
     const token = localStorage.getItem("token");
 
@@ -29,4 +39,4 @@ const getInterview = (sessionId)=>{
     })
 }
 
-export default {getQuestions,startInterview,getInterview};
+export default {getQuestions,startInterview,getInterview,getFirstQuestion};

@@ -159,6 +159,51 @@ const getSessionQuestions = async(req,res)=>{
     }
 }
 
+const getFirstQuestion = async(req,res)=>{
+    try{
+        const {sessionId} = req.params;
+        
+        const session = await InterviewSession.findOne({
+            _id:sessionId,
+            user:req.user.id
+        }).populate("questions")
+        
+        if(!session){
+            return res.status(400).json({
+                message:"Interview session not found"
+            })
+        }
+
+        if(!session.questions || session.questions.length === 0){
+            return res.status(400).json({
+                message:"No questions found for this interview"
+            })
+        }
+        
+        const firstQuestion = session.questions[0]
+
+        res.status(200).json({
+            question: {
+                _id: firstQuestion._id,
+                question: firstQuestion.question,
+                difficulty: firstQuestion.difficulty,
+                category: firstQuestion.category
+            },
+            totalQuestions: session.questions.length,
+            interviewDetails: {
+                role: session.role,
+                interviewType: session.interviewType
+            }
+        })
+
+    } catch(err){
+        console.log(err)
+        res.status(500).json({
+            message:err.message
+        })
+    }
+}
+
 const getInterview = async(req,res)=>{
     try{
         const interview = await InterviewSession.findById(req.params.sessionId)
@@ -181,4 +226,4 @@ const getInterview = async(req,res)=>{
 }
 
 
-module.exports = { getQuestions,startInterview,getSessionQuestions,getInterview };
+module.exports = { getQuestions,startInterview,getSessionQuestions,getInterview,getFirstQuestion };

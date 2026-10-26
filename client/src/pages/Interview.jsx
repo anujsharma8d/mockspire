@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import interviewApi from '../api/interviewapi'
-import saveAnswer from "../api/answerapi"
+import {saveAnswer, submitAnswer} from "../api/answerapi"
 import { useNavigate,useParams } from 'react-router-dom'
 import { generateResult } from '../api/resultapi'
 import {
@@ -24,15 +24,16 @@ const Interview = () => {
   const navigate = useNavigate();
   const { sessionId } = useParams();
 
-  const [questions, setQuestions] = useState([]);
-  const [currIndex, setCurrIndex] = useState(0)
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [questionHistory, setQuestionHistory] = useState([]);
+  const [currentAnswer, setCurrentAnswer] = useState("")
   const [seconds, setSeconds] = useState(0)
-  const [answers, setAnswers] = useState({})
+  const [allAnswers, setAllAnswers] = useState({})
   const [role, setRole] = useState("")
   const [interviewType, setInterviewType] = useState("")
   const [submitting, setSubmitting] = useState(false);
-
-  const currentQuestion = questions[currIndex];
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
 
   const {
     isListening,
@@ -42,43 +43,90 @@ const Interview = () => {
     resetTranscript
   } = useSpeechRecognition();
 
-  const fetchQuestion = async () => {
+  const fetchFirstQuestion = async () => {
     try {
-      const res = await interviewApi.getQuestions(sessionId);
-      setQuestions(res.data.questions)
+      const res = await interviewApi.getFirstQuestion(sessionId);
+      setCurrentQuestion(res.data.question)
+      setTotalQuestions(res.data.totalQuestions)
+      setQuestionHistory([res.data.question])
+      setRole(res.data.interviewDetails.role)
+      setInterviewType(res.data.interviewDetails.interviewType)
+      // Initialize answer for first question
+      setCurrentAnswer(allAnswers[res.data.question._id] || "")
     } catch (err) {
       console.log(err);
-    }
-  }
-
-  const fetchInterviewDetails = async () => {
-    try {
-      const res = await interviewApi.getInterview(sessionId)
-      setRole(res.data.interview.role)
-      setInterviewType(res.data.interview.interviewType)
-    } catch (err) {
-      console.log(err)
+      toast.error("Failed to load interview question")
     }
   }
 
   useEffect(() => {
     if(sessionId){
-      fetchQuestion();
-      fetchInterviewDetails();
+      fetchFirstQuestion();
     }
   }, [sessionId])
 
-  const handleNext = () => {
-    if (currIndex < questions.length - 1) {
+  const handleNext = async () => {
+    if(submitting){
+      return 
+    }
+
+    try{
+      setSubmitting(true)
       stopListening();
       resetTranscript()
 
-      setCurrIndex(currIndex => currIndex + 1)
+      // Submit current answer and get next question
+      const res = await submitAnswer({
+        interviewId: sessionId,
+        questionId: currentQuestion._id,
+        answer: currentAnswer
+      });
+
+      // Save answer to local state
+      setAllAnswers(prev => ({
+        ...prev,
+        [currentQuestion._id]: currentAnswer
+      }))
+
+      if(res.data.isLastQuestion){
+        // This was the last question, stay on it
+        toast.info("This is the last question. Click 'Submit Interview' to finish.")
+        setSubmitting(false)
+        return
+      }
+
+      // Move to next question
+      const nextQuestion = res.data.nextQuestion
+      setCurrentQuestion(nextQuestion)
+      setQuestionHistory(prev => [...prev, nextQuestion])
+      setCurrentQuestionNumber(prev => prev + 1)
+      setCurrentAnswer(allAnswers[nextQuestion._id] || "")
+
+    } catch(err){
+      console.error("Error submitting answer:", err);
+      toast.error("Failed to save answer")
+    } finally{
+      setSubmitting(false)
     }
   }
+
   const handlePrevious = () => {
-    if (currIndex > 0) {
-      setCurrIndex(currIndex => currIndex - 1)
+    if (currentQuestionNumber > 1) {
+      stopListening();
+      resetTranscript()
+      
+      // Save current answer before going back
+      setAllAnswers(prev => ({
+        ...prev,
+        [currentQuestion._id]: currentAnswer
+      }))
+
+      const previousIndex = currentQuestionNumber - 2
+      const previousQuestion = questionHistory[previousIndex]
+      
+      setCurrentQuestion(previousQuestion)
+      setCurrentQuestionNumber(prev => prev - 1)
+      setCurrentAnswer(allAnswers[previousQuestion._id] || "")
     }
   }
 
@@ -105,7 +153,14 @@ const Interview = () => {
 
     try{
       setSubmitting(true)
-      const formattedAnswers = Object.entries(answers).map(
+      
+      // Save current answer to local state
+      const finalAnswers = {
+        ...allAnswers,
+        [currentQuestion._id]: currentAnswer
+      }
+
+      const formattedAnswers = Object.entries(finalAnswers).map(
         ([questionId,answer])=>({
           questionId,
           answer
@@ -141,6 +196,7 @@ const Interview = () => {
         JSON.stringify(err.response?.data, null, 2)
       );
       console.log("ERROR:", err);
+      toast.error("Failed to submit interview")
     }finally{
       setSubmitting(false)
     }
@@ -156,14 +212,11 @@ const Interview = () => {
 
   useEffect(() => {
     if (transcript) {
-      setAnswers((prev) => ({
-        ...prev,
-        [currentQuestion?._id]: transcript
-      }));
+      setCurrentAnswer(transcript);
     }
-  }, [transcript, currIndex]);
+  }, [transcript]);
 
-  if (questions.length === 0) {
+  if (!currentQuestion) {
     return (
       <Loader message="Loading Interview..."/>
     );
@@ -171,10 +224,10 @@ const Interview = () => {
 
 
   const progress =
-    ((currIndex + 1) / questions.length) * 100;
+    (currentQuestionNumber / totalQuestions) * 100;
 
   const isLastQuestion =
-    currIndex === questions.length - 1;
+    currentQuestionNumber === totalQuestions;
 
 
 
@@ -251,7 +304,7 @@ const Interview = () => {
 
               <button
                 onClick={handlePrevious}
-                disabled={currIndex === 0}
+                disabled={currentQuestionNumber === 1}
                 className="flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-[#424846] dark:text-zinc-300 transition-colors hover:bg-[#eff4ff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <ArrowLeft size={16} />
@@ -262,9 +315,10 @@ const Interview = () => {
               {!isLastQuestion && (
                 <button
                 onClick={handleNext}
-                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900"
+                disabled={submitting}
+                className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Next Question
+                  {submitting ? "Saving..." : "Next Question"}
 
                   <ArrowRight size={16} />
                 </button>
@@ -281,16 +335,8 @@ const Interview = () => {
             </label>
 
             <textarea
-              value={
-                answers[currentQuestion._id] || ""
-              }
-              onChange={(e) =>
-                setAnswers((prev) => ({
-                  ...prev,
-                  [currentQuestion._id]:
-                  e.target.value,
-                }))
-              }
+              value={currentAnswer}
+              onChange={(e) => setCurrentAnswer(e.target.value)}
               placeholder="Type your detailed response here..."
               className="h-32 w-full resize-none rounded-lg border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-4 text-base text-[#051916] dark:text-zinc-100 outline-none transition-all placeholder:text-[#727876] dark:placeholder:text-zinc-400 focus:border-[#006c49] focus:ring-2 focus:ring-[#006c49]/20"
             />
@@ -334,9 +380,10 @@ const Interview = () => {
               {!isLastQuestion && (
                 <button
                   onClick={handleNext}
-                  className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900"
+                  disabled={submitting}
+                  className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Save & Continue
+                  {submitting ? "Saving..." : "Save & Continue"}
 
                   <ArrowRight size={16} />
                 </button>
@@ -352,8 +399,8 @@ const Interview = () => {
           <div className='flex flex-col justify-center items-center'>
 
           <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#006c49] dark:text-emerald-400">
-                Question {currIndex + 1} of{" "}
-                {questions.length}
+                Question {currentQuestionNumber} of{" "}
+                {totalQuestions}
           </span>
            <div className="h-1 w-full overflow-hidden rounded-full bg-[#eff4ff] dark:bg-zinc-700">
 
@@ -395,8 +442,8 @@ const Interview = () => {
             <div className="flex flex-col gap-2">
 
               <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#006c49] dark:text-emerald-400">
-                Question {currIndex + 1} of{" "}
-                {questions.length}
+                Question {currentQuestionNumber} of{" "}
+                {totalQuestions}
               </span>
 
               <div className="h-1 w-full overflow-hidden rounded-full bg-[#eff4ff] dark:bg-zinc-700">
