@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import interviewApi from '../api/interviewapi'
-import {saveAnswer, submitAnswer} from "../api/answerapi"
+import {submitAnswer} from "../api/answerapi"
 import { useNavigate,useParams } from 'react-router-dom'
 import { generateResult } from '../api/resultapi'
 import {
@@ -154,38 +154,30 @@ const Interview = () => {
     try{
       setSubmitting(true)
       
-      // Save current answer to local state
-      const finalAnswers = {
-        ...allAnswers,
-        [currentQuestion._id]: currentAnswer
-      }
-
-      const formattedAnswers = Object.entries(finalAnswers).map(
-        ([questionId,answer])=>({
-          questionId,
-          answer
-        })
-      )
-
-      console.log("Sending duration:", formattedTime);
-
-      const res = await saveAnswer({
+      // CRITICAL: Save the final answer BEFORE generating results
+      console.log("Saving final answer...");
+      
+      const finalAnswerResponse = await submitAnswer({
         interviewId: sessionId,
-        answers:formattedAnswers,
-        duration:formattedTime
+        questionId: currentQuestion._id,
+        answer: currentAnswer
       });
 
-      console.log("SAVE ANSWER SUCCESS:", res.data);
+      console.log("Final answer saved:", finalAnswerResponse.data.answerId);
+      
+      // Update interview duration
+      await interviewApi.updateDuration(sessionId, formattedTime);
 
+      console.log("Generating results...");
+
+      // Generate results based on all saved answers (including final)
       await generateResult({
         interviewId: sessionId
       })
 
       await insightApi.generateInsight();
 
-
-      toast.success(res.data.message)
-      console.log(res.data.newAnswers)
+      toast.success("Interview completed successfully!")
 
       navigate(`/results/${sessionId}`)
 

@@ -39,7 +39,7 @@ const startInterview = async(req,res)=>{
          const prompt = `
             You are an expert interviewer.
 
-            Generate exactly ${questionCount} interview questions.
+            Generate exactly 1 interview question.
 
             Interview Type: ${interviewType}
             Role: ${role}
@@ -47,13 +47,12 @@ const startInterview = async(req,res)=>{
 
             Requirements:
 
-            1. Questions must match the interview type.
-            2. Questions must be relevant to the selected role.
-            3. Questions must match the selected difficulty.
-            4. Do not repeat questions.
-            5. Make the questions realistic interview questions.
-            6. Do not provide answers.
-            7. Return ONLY valid JSON.
+            1. Question must match the interview type.
+            2. Question must be relevant to the selected role.
+            3. Question must match the selected difficulty.
+            4. Make the question a realistic interview question.
+            5. Do not provide answers.
+            6. Return ONLY valid JSON.
 
             Return exactly this format:
 
@@ -66,10 +65,10 @@ const startInterview = async(req,res)=>{
             }
 `;
 
-        console.log("Calling Gemini")
+        console.log("Calling Gemini for initial question")
         const generated = await generateInterviewQuestions(prompt)
 
-        console.log("Questions Generated :")
+        console.log("Initial question generated:")
         console.log(generated)
 
         if(!generated || !generated.questions || !Array.isArray(generated.questions)){
@@ -78,7 +77,7 @@ const startInterview = async(req,res)=>{
             })
         }
 
-        if(generated.questions.length !== Number(questionCount)){
+        if(generated.questions.length !== 1){
             return res.status(500).json({
                 message:"Gemini generated incorrect number of questions"
             })
@@ -90,7 +89,8 @@ const startInterview = async(req,res)=>{
             interviewType,
             role,
             difficulty,
-            questionCount
+            questionCount,
+            questionsAsked:0
         })
         console.log("Session created:", session._id);
 
@@ -100,11 +100,12 @@ const startInterview = async(req,res)=>{
                 category:interviewType,
                 role,
                 difficulty,
-                question:item.question
+                question:item.question,
+                source:"initial"
             }))
         )
         console.log(
-            "Questions saved:",
+            "Initial question saved:",
             questionDocs.length
         );
 
@@ -113,7 +114,7 @@ const startInterview = async(req,res)=>{
         )
         await session.save()
         console.log(
-            "Questions attached to session"
+            "Initial question attached to session"
         );
 
         res.status(201).json({
@@ -182,6 +183,12 @@ const getFirstQuestion = async(req,res)=>{
         
         const firstQuestion = session.questions[0]
 
+        // Increment questionsAsked when first question is displayed
+        session.questionsAsked = 1;
+        await session.save();
+
+        console.log(`Question 1 of ${session.questionCount} displayed (max: ${session.questionCount})`);
+
         res.status(200).json({
             question: {
                 _id: firstQuestion._id,
@@ -189,7 +196,7 @@ const getFirstQuestion = async(req,res)=>{
                 difficulty: firstQuestion.difficulty,
                 category: firstQuestion.category
             },
-            totalQuestions: session.questions.length,
+            totalQuestions: session.questionCount,
             interviewDetails: {
                 role: session.role,
                 interviewType: session.interviewType
@@ -225,5 +232,36 @@ const getInterview = async(req,res)=>{
     }
 }
 
+const updateInterviewDuration = async(req,res)=>{
+    try{
+        const { sessionId } = req.params;
+        const { duration } = req.body;
 
-module.exports = { getQuestions,startInterview,getSessionQuestions,getInterview,getFirstQuestion };
+        const session = await InterviewSession.findOne({
+            _id: sessionId,
+            user: req.user.id
+        });
+
+        if(!session){
+            return res.status(404).json({
+                message:"Interview session not found"
+            })
+        }
+
+        session.duration = duration;
+        await session.save();
+
+        res.status(200).json({
+            message: "Duration updated successfully"
+        })
+
+    } catch(err){
+        console.error(err);
+        res.status(500).json({
+            message: "Failed to update duration",
+        });
+    }
+}
+
+
+module.exports = { getQuestions,startInterview,getSessionQuestions,getInterview,getFirstQuestion,updateInterviewDuration };

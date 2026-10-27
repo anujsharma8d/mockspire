@@ -22,6 +22,10 @@ const InterviewSessionSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    questionsAsked:{
+        type:Number,
+        default:0
+    },
     duration:{
         type: String,
         default: "00:00",

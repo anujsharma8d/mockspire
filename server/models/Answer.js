@@ -19,6 +19,24 @@ const AnswerSchema = new mongoose.Schema({
     answer:{
         type: String,
         required: true
+    },
+    evaluation:{
+        correctness: {
+            type: Number,
+            min: 0,
+            max: 10
+        },
+        depth: {
+            type: Number,
+            min: 0,
+            max: 10
+        },
+        clarity: {
+            type: Number,
+            min: 0,
+            max: 10
+        },
+        gaps: [String]
     }
 },
 {

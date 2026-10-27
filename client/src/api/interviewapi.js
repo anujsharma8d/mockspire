@@ -39,4 +39,13 @@ const getInterview = (sessionId)=>{
     })
 }
 
-export default {getQuestions,startInterview,getInterview,getFirstQuestion};
+const updateDuration = (sessionId, duration)=>{
+    const token = localStorage.getItem("token");
+    return api.patch(`/api/interview/${sessionId}/duration`, { duration }, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
+
+export default {getQuestions,startInterview,getInterview,getFirstQuestion,updateDuration};

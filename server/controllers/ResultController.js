@@ -9,17 +9,47 @@ const generateResult = async (req, res) => {
         const { interviewId } = req.body
 
         const answers = await Answer.find({
-            interviewId
+            interviewId,
+            user: req.user.id
         }).populate("questionId")
 
-        console.log(answers.length);
+        console.log("=== GENERATE RESULT DEBUG ===");
+        console.log("Total answers found:", answers.length);
+        console.log("Answer question IDs:", answers.map(a => a.questionId?._id?.toString()));
+        
+        // Check for duplicates
+        const questionIds = answers.map(a => a.questionId?._id?.toString());
+        const uniqueQuestionIds = [...new Set(questionIds)];
+        console.log("Unique question IDs:", uniqueQuestionIds.length);
+        
+        if(questionIds.length !== uniqueQuestionIds.length){
+            console.warn("WARNING: Duplicate answers detected!");
+            console.warn("Duplicates:", questionIds.filter((id, index) => questionIds.indexOf(id) !== index));
+        }
 
         if (answers.length === 0) {
             return res.status(404).json({
                 message: "No answers found"
             })
         }
-        console.log("Answers fetched");
+
+        // Use only unique answers (latest for each question)
+        const uniqueAnswers = [];
+        const seenQuestions = new Set();
+        
+        // Iterate in reverse to get the latest answer for each question
+        for(let i = answers.length - 1; i >= 0; i--){
+            const answer = answers[i];
+            const qId = answer.questionId?._id?.toString();
+            
+            if(qId && !seenQuestions.has(qId)){
+                uniqueAnswers.unshift(answer); // Add to beginning to maintain order
+                seenQuestions.add(qId);
+            }
+        }
+
+        console.log("Using unique answers:", uniqueAnswers.length);
+        console.log("=== END DEBUG ===");
 
         let prompt = `
             You are an experienced software interviewer.
@@ -58,7 +88,7 @@ const generateResult = async (req, res) => {
             }
         `;
 
-        answers.forEach((item, index) => {
+        uniqueAnswers.forEach((item, index) => {
             prompt += `
             Question ${index + 1}: ${item.questionId.question}
 
@@ -69,7 +99,7 @@ const generateResult = async (req, res) => {
         console.log("Calling Gemini...");
         const feedback = await generateInterviewFeedback(prompt);
         console.log("Gemini finished");
-        console.log(feedback);
+        console.log("Gemini returned questions:", feedback.questions?.length);
 
         const result = await Result.findOneAndUpdate(
             { interviewId },
@@ -93,6 +123,7 @@ const generateResult = async (req, res) => {
         res.status(201).json(result);
 
     } catch (err) {
+        console.error("Generate Result Error:", err);
         res.status(500).json({
             message: err.message
         })

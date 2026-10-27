@@ -22,6 +22,11 @@ const InterviewQuestionSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    source:{
+        type: String,
+        enum: ["initial", "followup"],
+        default: "initial"
+    },
     followUps:[String]
 })
 
