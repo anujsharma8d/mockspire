@@ -13,6 +13,7 @@ import {
 import Logo from '../components/Logo'
 import insightApi from '../api/insightapi'
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
+import useQuestionStream from "../hooks/useQuestionStream";
 import Loader from '../components/Loader'
 import SEO from '../components/SEO'
 import { toast } from 'react-toastify';
@@ -34,6 +35,11 @@ const Interview = () => {
   const [submitting, setSubmitting] = useState(false);
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(1);
+
+  const { displayedText: displayedQuestion, isStreaming, skipStreaming } = useQuestionStream(
+    currentQuestion?.question,
+    currentQuestion?._id
+  );
 
   const {
     isListening,
@@ -286,12 +292,25 @@ const Interview = () => {
                 Current Question
               </h2>
 
+              {isStreaming && (
+                <span className="text-[11px] font-medium text-[#006c49] dark:text-emerald-400 animate-pulse">
+                  Streaming question...
+                </span>
+              )}
+
             </div>
 
-            <div className="flex flex-1 items-center">
+            <div 
+              className="flex flex-1 items-center cursor-pointer select-text"
+              onClick={skipStreaming}
+              title={isStreaming ? "Click to reveal full question" : ""}
+            >
 
               <p className="text-lg font-medium leading-7 text-[#051916] dark:text-zinc-100">
-                {currentQuestion.question}
+                {displayedQuestion}
+                {isStreaming && (
+                  <span className="inline-block w-1.5 h-5 ml-1 bg-[#006c49] dark:bg-emerald-400 animate-pulse align-middle" />
+                )}
               </p>
 
             </div>

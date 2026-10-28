@@ -115,6 +115,61 @@ Return ONLY valid JSON in this exact structure:
 };
 
 /**
+ * Streams the follow-up question text token-by-token from Gemini.
+ * @param {Object} context - Interview context
+ * @param {Function} [onChunk] - Callback for each streamed chunk of text
+ * @returns {Promise<string>} Full generated question
+ */
+const streamFollowUpQuestion = async (context, onChunk) => {
+    const {
+        currentQuestion,
+        candidateAnswer,
+        role,
+        interviewType,
+        difficulty,
+        previousAnswers = [],
+        recentQuestions = []
+    } = context;
+
+    const prompt = `You are an expert interviewer conducting a ${interviewType} interview for a ${role} position at ${difficulty} difficulty.
+
+Previous Question: "${currentQuestion}"
+Candidate Answer: "${candidateAnswer}"
+
+${previousAnswers.length > 0 ? `Recent Q&As:\n${previousAnswers.slice(-3).map((qa, i) => `Q: ${qa.question}\nA: ${qa.answer}`).join('\n\n')}\n` : ''}
+${recentQuestions.length > 0 ? `Already Asked:\n${recentQuestions.slice(-5).map(q => `- ${q}`).join('\n')}\n` : ''}
+
+Generate ONLY the single next follow-up interview question as plain text. Do not wrap in JSON or quotes. Do not include introductory phrases. Return only the question.`;
+
+    const executeStream = async () => {
+        console.log("Starting Gemini question streaming...");
+        const responseStream = await ai.models.generateContentStream({
+            model: DEFAULT_MODEL,
+            contents: prompt
+        });
+
+        let fullText = "";
+        for await (const chunk of responseStream) {
+            const chunkText = chunk.text || "";
+            if (chunkText) {
+                fullText += chunkText;
+                if (typeof onChunk === "function") {
+                    onChunk(chunkText);
+                }
+            }
+        }
+
+        return fullText.trim();
+    };
+
+    return await callGeminiWithRetry(executeStream, {
+        maxRetries: 2,
+        baseDelayMs: 800,
+        label: "Gemini Question Streaming"
+    });
+};
+
+/**
  * Evaluates the candidate's answer (legacy standalone method, kept for compatibility)
  */
 const evaluateAnswerAndDetermineNext = async (context) => {
@@ -220,6 +275,7 @@ Return ONLY valid JSON:
 
 module.exports = {
     evaluateAndGenerateFollowUp,
+    streamFollowUpQuestion,
     evaluateAnswerAndDetermineNext,
     generateCustomFollowUpQuestion
 };
