@@ -1,26 +1,26 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const AnswerSchema = new mongoose.Schema({
-    user:{
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    interviewId:{
+    interviewId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"InterviewSession",
-        required:true
+        ref: "InterviewSession",
+        required: true
     },
-    questionId:{
+    questionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "InterviewQuestion",
         required: true
     },
-    answer:{
+    answer: {
         type: String,
         required: true
     },
-    evaluation:{
+    evaluation: {
         correctness: {
             type: Number,
             min: 0,
@@ -38,11 +38,11 @@ const AnswerSchema = new mongoose.Schema({
         },
         gaps: [String]
     }
-},
-{
-    timestamps:true
-}
+}, {
+    timestamps: true
+});
 
-)
+AnswerSchema.index({ interviewId: 1, questionId: 1, user: 1 });
+AnswerSchema.index({ interviewId: 1, user: 1 });
 
-module.exports = mongoose.model("Answer",AnswerSchema)
+module.exports = mongoose.model("Answer", AnswerSchema);

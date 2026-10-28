@@ -1,52 +1,51 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const InterviewSessionSchema = new mongoose.Schema({
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
-    interviewType:{
-        type:String,
-        required:true
+    interviewType: {
+        type: String,
+        required: true
     },
-    role:{
-        type:String,
-        required:true
+    role: {
+        type: String,
+        required: true
     },
-    difficulty:{
-        type:String,
-        required:true
+    difficulty: {
+        type: String,
+        required: true
     },
-    questionCount:{
-        type:Number,
-        required:true
+    questionCount: {
+        type: Number,
+        required: true
     },
-    questionsAsked:{
-        type:Number,
-        default:0
+    questionsAsked: {
+        type: Number,
+        default: 0
     },
-    duration:{
+    duration: {
         type: String,
         default: "00:00",
-        required:true
+        required: true
     },
-    questions:[
+    questions: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "InterviewQuestion"
         }
     ],
-    status:{
-        type:String,
-        enum:["ongoing","completed"],
-        default:"ongoing"
+    status: {
+        type: String,
+        enum: ["ongoing", "completed"],
+        default: "ongoing"
     }
-},
-{
-    timestamps:true
-}
+}, {
+    timestamps: true
+});
 
-)
+InterviewSessionSchema.index({ user: 1, createdAt: -1 });
 
-module.exports = mongoose.model("InterviewSession",InterviewSessionSchema)
+module.exports = mongoose.model("InterviewSession", InterviewSessionSchema);

@@ -104,7 +104,7 @@ const Interview = () => {
 
     } catch(err){
       console.error("Error submitting answer:", err);
-      toast.error("Failed to save answer")
+      const errorMsg = err.response?.data?.message || "Failed to save answer. Please try again."; toast.error(errorMsg);
     } finally{
       setSubmitting(false)
     }
@@ -175,7 +175,11 @@ const Interview = () => {
         interviewId: sessionId
       })
 
-      await insightApi.generateInsight();
+      try {
+        await insightApi.generateInsight();
+      } catch (insightErr) {
+        console.warn("Background insight generation warning:", insightErr);
+      }
 
       toast.success("Interview completed successfully!")
 
@@ -310,7 +314,7 @@ const Interview = () => {
                 disabled={submitting}
                 className="flex items-center gap-2 rounded-lg bg-[#006c49] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Saving..." : "Next Question"}
+                  {submitting ? "Loading Question..." : "Next Question"}
 
                   <ArrowRight size={16} />
                 </button>
@@ -375,7 +379,7 @@ const Interview = () => {
                   disabled={submitting}
                   className="flex items-center gap-2 rounded-lg bg-[#006c49] px-8 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#4edea3] hover:text-[#051916] dark:hover:text-zinc-900 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Saving..." : "Save & Continue"}
+                  {submitting ? "Loading Question..." : "Save & Continue"}
 
                   <ArrowRight size={16} />
                 </button>

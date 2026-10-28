@@ -1,53 +1,69 @@
-const { GoogleGenAI } = require("@google/genai")
+const { GoogleGenAI } = require("@google/genai");
+const { callGeminiWithRetry } = require("./geminiRetry");
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
-})
+});
 
+const DEFAULT_MODEL = "gemini-3.1-flash-lite";
 
+/**
+ * Generates comprehensive interview feedback and grading
+ * @param {string} prompt
+ * @returns {Promise<Object>}
+ */
 const generateInterviewFeedback = async (prompt) => {
-    try {
-        console.log("Sending request to Gemini...");
+    const executeCall = async () => {
+        console.log("Sending feedback request to Gemini...");
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
+            model: DEFAULT_MODEL,
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
             }
         });
 
-        console.log("Gemini response received");
-        console.log(response);
-
+        console.log("Gemini feedback response received");
         return JSON.parse(response.text);
+    };
 
-    } catch (err) {
-        console.error("Gemini Error:", err);
-        throw err;
-    }
+    return await callGeminiWithRetry(executeCall, {
+        maxRetries: 3,
+        baseDelayMs: 1200,
+        label: "Gemini Feedback Generation"
+    });
 };
 
-const generateInterviewQuestions = async(prompt)=>{
-    try{
-        console.log("Calling gemini for interview questions...")
+/**
+ * Generates initial interview questions
+ * @param {string} prompt
+ * @returns {Promise<Object>}
+ */
+const generateInterviewQuestions = async (prompt) => {
+    const executeCall = async () => {
+        console.log("Calling Gemini for interview questions...");
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.1-flash-lite",
+            model: DEFAULT_MODEL,
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
             }
+        });
 
-        })
         console.log("Gemini questions response received");
-        console.log(response);
         return JSON.parse(response.text);
-    } catch(err){
-        console.error("Gemini Question Error: ",err)
-        throw err
-    }
-} 
+    };
 
+    return await callGeminiWithRetry(executeCall, {
+        maxRetries: 3,
+        baseDelayMs: 1000,
+        label: "Gemini Questions Generation"
+    });
+};
 
-module.exports = {generateInterviewFeedback,generateInterviewQuestions}
+module.exports = {
+    generateInterviewFeedback,
+    generateInterviewQuestions
+};

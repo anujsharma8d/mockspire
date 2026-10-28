@@ -1,33 +1,36 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const InterviewQuestionSchema = new mongoose.Schema({
     interviewId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "InterviewSession",
-            required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "InterviewSession",
+        required: true,
     },
-    category:{
+    category: {
         type: String,
         required: true,
     },
-    role:{
+    role: {
         type: String,
         required: true
     },
-    difficulty:{
+    difficulty: {
         type: String,
         required: true
     },
-    question:{
-        type:String,
-        required:true,
+    question: {
+        type: String,
+        required: true,
     },
-    source:{
+    source: {
         type: String,
         enum: ["initial", "followup"],
         default: "initial"
     },
-    followUps:[String]
-})
+    followUps: [String]
+});
 
-module.exports = mongoose.model("InterviewQuestion",InterviewQuestionSchema);
+InterviewQuestionSchema.index({ interviewId: 1 });
+InterviewQuestionSchema.index({ role: 1, category: 1, difficulty: 1 });
+
+module.exports = mongoose.model("InterviewQuestion", InterviewQuestionSchema);
