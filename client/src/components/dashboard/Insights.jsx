@@ -6,11 +6,16 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import insightApi from "../../api/insightapi";
+import { useNavigate } from "react-router-dom";
+import EmptyState from "../EmptyState";
 
 const Insights = () => {
   const [coreStrengths, setCoreStrengths] = useState([])
   const [focusAreas, setFocusAreas] = useState([])
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [basedOnInterviews, setBasedOnInterviews] = useState(0);
 
   useEffect(() => {
     fetchInsights();
@@ -22,8 +27,10 @@ const Insights = () => {
       console.log("INSIGHT RESPONSE:", res.data);
       setCoreStrengths(res.data.coreStrengths)
       setFocusAreas(res.data.focusAreas)
+      setBasedOnInterviews(res.data.basedOnInterviews);
 
     } catch (err) {
+      setError(true);
       console.log(err)
     } finally {
       setLoading(false);
@@ -54,6 +61,20 @@ const Insights = () => {
               Loading insights...
             </p>
           </div>
+        ) : error ? (
+          <p className="py-6 text-center text-sm text-[#424846] dark:text-zinc-300">
+            Unable to load insights. Please try again later.
+          </p>
+        ) : coreStrengths.length === 0 ? (
+          <EmptyState
+            title="No strengths to show yet"
+            description={
+              basedOnInterviews === 0
+                ? "Complete your first interview to discover your strengths."
+                : "Your strengths will appear here as we learn more about your interview performance."
+            }
+            onAction={() => navigate("/setup")}
+          />
         ) :
           (
             <ul className="space-y-3">
@@ -110,6 +131,20 @@ const Insights = () => {
               Loading insights...
             </p>
           </div>
+        ) : error ? (
+          <p className="py-6 text-center text-sm text-[#424846] dark:text-zinc-300">
+            Unable to load insights. Please try again later.
+          </p>
+        ) : focusAreas.length === 0 ? (
+          <EmptyState
+            title="No focus areas yet"
+            description={
+              basedOnInterviews === 0
+                ? "Complete your first interview to discover areas where you can improve."
+                : "Your focus areas will appear here as we learn more about your interview performance."
+            }
+            onAction={() => navigate("/setup")}
+          />
         ) :
           (
             <ul className="space-y-3">
