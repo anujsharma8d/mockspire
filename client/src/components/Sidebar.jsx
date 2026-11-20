@@ -1,4 +1,4 @@
-import ThemeToggle from "./ThemeToggle";
+import Settings from "./Settings";
 import { NavLink } from "react-router-dom";
 import {
   Bot,
@@ -7,12 +7,15 @@ import {
   ChartNoAxesColumn,
   CircleHelp,
   LogOut,
+  SettingsIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo"
+import { useState } from "react";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [showPopUp, setShowPopUp] = useState(false)
 
   return (
     <nav className="hidden md:flex fixed left-0 top-0 z-50 h-screen w-64 flex-col gap-2 border-r border-[#c2c8c5] dark:border-zinc-600 bg-[#f8f9ff] dark:bg-zinc-900 px-6 py-12">
@@ -101,7 +104,27 @@ const Sidebar = () => {
 
       <div className="mt-auto flex flex-col gap-1 border-t border-[#c2c8c5] dark:border-zinc-600 pt-4">
           
-        <ThemeToggle />
+        <button onClick={()=>setShowPopUp(true)} className="flex items-center gap-3 rounded-lg px-4 py-3 font-semibold transition-colors text-[#424846] dark:text-zinc-300 hover:bg-[#e5eeff] dark:hover:bg-zinc-700 hover:text-[#051916] dark:hover:text-zinc-100">
+            <SettingsIcon size={22}/>
+            Settings
+          </button>
+
+        {
+          showPopUp
+          && 
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 ">
+            <div className="max-w-[90vw] relative rounded-xl border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 p-8 shadow-sm">
+            
+            <Settings />
+             <button
+              onClick={() => setShowPopUp(false)}
+              className="absolute -top-3 -right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black shadow"
+            >
+              ✕
+            </button>
+            </div>
+          </div>
+        }
 
         <NavLink
           to="/faq"
