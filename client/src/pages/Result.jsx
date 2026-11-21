@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import interviewapi from '../api/interviewapi';
 import Loader from '../components/Loader';
 import SEO from '../components/SEO';
+import buildReportData from '../utils/buildReportData';
 
 
 const Result = () => {
@@ -22,11 +23,16 @@ const Result = () => {
   const [result, setResult] = useState(null)
   const { interviewId } = useParams();
   const [role, setRole] = useState(null)
+  const [reportData, setReportData] = useState(null);
 
   useEffect(() => {
     fetchResult()
     fetchInterviewDetails()
   }, [interviewId])
+
+  useEffect(() => {
+    prepareReportData();
+  }, [result, role]);
 
   const fetchResult = async () => {
     try {
@@ -45,6 +51,15 @@ const Result = () => {
       console.log(err)
     }
   }
+
+  const prepareReportData = () => {
+    if (!result) return;
+    const report = buildReportData(result, role);
+    setReportData(report);
+
+    //Check information
+    console.log("Report Data:", reportData);
+  };
 
   if (!result) {
     return <Loader message="Loading Result..."/>;
