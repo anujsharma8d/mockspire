@@ -15,6 +15,7 @@ import interviewapi from '../api/interviewapi';
 import Loader from '../components/Loader';
 import SEO from '../components/SEO';
 import buildReportData from '../utils/buildReportData';
+import generatePdf from '../utils/generatePdf'
 
 
 const Result = () => {
@@ -143,6 +144,7 @@ const Result = () => {
 
             <button
               className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-zinc-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-zinc-700 md:self-auto"
+              onClick={() => generatePdf(reportData)}
             >
               <Download size={17} />
               Download PDF
