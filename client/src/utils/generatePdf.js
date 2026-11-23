@@ -149,7 +149,7 @@ const generatePdf = (data) => {
         yPosition += QUESTION_DISTANCE;
     })
 
-    pdf.save('evaluation_report.pdf');
+    pdf.save(`Mockspire_Evaluation_Report_${formattedDate}.pdf`);
 }
 
 export default generatePdf;
