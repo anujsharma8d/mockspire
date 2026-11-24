@@ -94,13 +94,8 @@ const generatePdf = (data) => {
 
         /* Question content */
         pdf.setFontSize(12);
-<<<<<<< HEAD
         pdf.setFont("helvetica", "bold");
         const questionSplitText = pdf.splitTextToSize(`${quest.question || ""}`, questionMaxWidth);
-=======
-        pdf.setFont('helvetica', 'bold');
-        const questionSplitText = pdf.splitTextToSize(`${quest.question}`, questionMaxWidth);
->>>>>>> origin/feat/pdf-file-template-generation
         questionSplitText.forEach((line) => {
             yPosition = createNewPage(pdf, yPosition);
             pdf.text(line, 20, yPosition);
