@@ -94,7 +94,7 @@ const generatePdf = (data) => {
 
         /* Question content */
         pdf.setFontSize(12);
-        pdf.setFont("roboto", "normal");
+        pdf.setFont("helvetica", "bold");
         const questionSplitText = pdf.splitTextToSize(`${quest.question || ""}`, questionMaxWidth);
         questionSplitText.forEach((line) => {
             yPosition = createNewPage(pdf, yPosition);
