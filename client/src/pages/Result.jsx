@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import interviewapi from '../api/interviewapi';
 import Loader from '../components/Loader';
 import SEO from '../components/SEO';
+import buildReportData from '../utils/buildReportData';
+import generatePdf from '../utils/generatePdf'
 
 
 const Result = () => {
@@ -22,11 +24,17 @@ const Result = () => {
   const [result, setResult] = useState(null)
   const { interviewId } = useParams();
   const [role, setRole] = useState(null)
+  const [isRoleLoaded, setIsRoleLoaded] = useState(false);
+  const [reportData, setReportData] = useState(null);
 
   useEffect(() => {
     fetchResult()
     fetchInterviewDetails()
   }, [interviewId])
+
+  useEffect(() => {
+    prepareReportData();
+  }, [result, role]);
 
   const fetchResult = async () => {
     try {
@@ -38,13 +46,30 @@ const Result = () => {
   }
 
   const fetchInterviewDetails = async () => {
-    try {
-      const res = await interviewapi.getInterview(interviewId)
-      setRole(res.data.interview.role)
-    } catch (err) {
-      console.log(err)
+  try {
+    const res = await interviewapi.getInterview(interviewId);
+    setRole(res.data.interview.role);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setIsRoleLoaded(true);
     }
-  }
+  };
+
+  const handleDownloadPdf = () => {
+  if (!result || !isRoleLoaded) return;
+  const report = buildReportData(result, role);
+  generatePdf(report);
+  };
+
+  const prepareReportData = () => {
+    if (!result) return;
+    const report = buildReportData(result, role);
+    setReportData(report);
+
+    //Check information
+    console.log("Report Data:", reportData);
+  };
 
   if (!result) {
     return <Loader message="Loading Result..."/>;
@@ -127,7 +152,9 @@ const Result = () => {
             </button>
 
             <button
+              disabled={!result || !isRoleLoaded || !reportData}
               className="flex items-center gap-2 self-start rounded border border-[#c2c8c5] dark:border-zinc-600 bg-white dark:bg-zinc-800 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#051916] dark:text-zinc-100 transition-colors hover:bg-[#eff4ff] dark:hover:bg-zinc-700 md:self-auto"
+              onClick={handleDownloadPdf}
             >
               <Download size={17} />
               Download PDF
